@@ -32,9 +32,16 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	
 	@Override
 	@RequestMapping(value = "/trade/tradeList.do", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView listTradeBoards(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listTradeBoards(@RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		List tradeList = tradeSevrvice.listTradeBoards();
+		int pageSize = 10;
+		int startRow = (page - 1) * pageSize + 1;
+		int endRow = startRow + pageSize - 1;
+		
+		List tradeList = tradeSevrvice.listTradeBoards(startRow, endRow);
+		
+		int totalPosts = tradeSevrvice.getTotalPosts(); // 전체 게시물 수
+        int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
 		
 		//응답할 뷰 이름 얻기 
 		String viewName = getViewName(request);

@@ -11,7 +11,7 @@ import com.spring.community.trade.vo.TradeVO;
 
 public interface TradeBoardController {
 	//거래 게시판 게시글 전부 조회해서 가져오는 메소드
-	public ModelAndView listTradeBoards(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	ModelAndView listTradeBoards(int page, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//거래 게시판에서 카테고리를 클릭했을 때 카테고리별로 조회해서 가져오는 메소드
 //	public ModelAndView listTradeCategory(String category, HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -21,7 +21,7 @@ public interface TradeBoardController {
 	
 	//거래 게시판에서 등록 또는 수정 폼을 요청하는 메소드
 	public ModelAndView Form(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	
+
 	//거래 게시판에서 글작성을 클릭했을 때 글을 등록하는메소드
 //	public ModelAndView regTradeBoard(TradeVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	

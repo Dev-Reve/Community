@@ -14,11 +14,15 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	TradeBoardDAO dao;
 	
 	@Override
-	public List listTradeBoards() throws Exception {
-		List list = dao.selectAllTrades(); 
+	public List listTradeBoards(int startRow, int endRow) throws Exception {
+		List list = dao.selectAllTrades(startRow, endRow); 
 		
 		return list;
 	}
 	
+	@Override
+	public int getTotalPosts() {
+		return dao.getTradeCount();
+	}
 	
 }

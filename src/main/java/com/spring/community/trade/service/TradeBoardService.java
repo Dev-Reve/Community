@@ -13,8 +13,11 @@ import com.spring.community.trade.vo.TradeVO;
 
 public interface TradeBoardService {
 	//거래 게시판 게시글 전부 조회해서 가져오는 메소드
-	public List listTradeBoards() throws Exception;
+	public List listTradeBoards(int startRow, int endRow) throws Exception;
 	
+	//거래 게시판에 존재하는 레코드의 개수 반환하는 메소드
+	public int getTotalPosts();
+
 	//거래 게시판에서 카테고리를 클릭했을 때 카테고리별로 조회해서 가져오는 메소드
 //	public List listTradeCategory(String category) throws Exception;
 	
