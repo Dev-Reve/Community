@@ -22,14 +22,13 @@ public class LikeBoardControllerImpl extends HttpServlet implements LikeBoardCon
 	@Autowired
 	private LikeBoardVO likeboardVO;
 	
-	
 	@Override
 	@RequestMapping(value = "/likeboard/likeboard.do", method = RequestMethod.GET)
-	public ModelAndView selcetAllLikeBoard(HttpServletRequest request, 
+	public ModelAndView selcetLikeBoard(HttpServletRequest request, 
 											HttpServletResponse response)
 												throws Exception {
 		
-		System.out.println("요청 주소 : " + request.getRequestURI());
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("likeboard/likeboard");
@@ -40,5 +39,10 @@ public class LikeBoardControllerImpl extends HttpServlet implements LikeBoardCon
 		
 		return mav;
 	}
-
+	
+	
+	
+	
+	
+	
 }
