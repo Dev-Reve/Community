@@ -31,18 +31,20 @@
 	
 	<!-- 3. myBatis프레임워크에서 제공하는 SqlSessionFactoryBean클래스를 이용하여 빈을 생성하고 위 PooledDataSource 커넥션풀 주입 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	
 		<!-- 2번에서 생성한 빈을 참조(ref)하여 sqlSessionFactory빈에 dataSource 변수에 주입 -->
 		<property name="dataSource" ref="dataSource" /> 
+		
 		<!-- SqlSessionFactory빈에 주입하기 위해 mybatis에서 제공하는 modelConfig.xml파일의 클래스 경로를 작성 -->
 		<property name="configLocation" value="classpath:mybatis/model/modelConfig.xml" />
+		
 		<!-- SqlSessionFactory빈에 주입하기 위해 mybatis에서 제공하는 매퍼패키지 내부에 존재하는 모든 xml파일들을 불러오는 경로 작성 -->
 		<property name="mapperLocations" value="classpath:mybatis/mappers/*.xml" />
+		
 	</bean>
 	
 	<!-- 4. mybatis-spring 프레임워크에서 제공하는 SqlSessionTemplate클래스를 이용하여 빈 생성 설정 및 SqlSessionFactoryBean을 템플릿의 변수에 주입 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
-	
-
 </beans>

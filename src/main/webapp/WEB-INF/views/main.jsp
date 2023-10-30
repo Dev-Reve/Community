@@ -8,5 +8,4 @@
 	
 <jsp:include page="${center}" />
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp" /> 
-	
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
