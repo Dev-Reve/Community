@@ -7,7 +7,7 @@
  	<!-- MemberVO클래스에 대한 빈 생성을 하고 별칭 설정 -->
 	<!-- 태그를 이용하여 매퍼파일 member.xml에서 긴 이름의 클래스를 별칭으로 사용할수 있게 설정 -->
  	<typeAliases>
- 		<typeAlias type="com.spring.member.vo.MemberVO" alias="memberVO"/>
+ 		<typeAlias type="com.spring.community.member.VO.MemberVO" alias="memberVO"/>
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
  	</typeAliases>
 </configuration>
