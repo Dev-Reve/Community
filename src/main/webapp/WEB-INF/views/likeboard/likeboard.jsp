@@ -5,8 +5,6 @@
 <head>
     
     <meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
     <title>LikeBoard</title>
     <style>
         /* Add CSS styles for center-aligning the div */
