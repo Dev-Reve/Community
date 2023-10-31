@@ -234,7 +234,7 @@
 		<!-- Home -->
 		<h1 style="text-align: center; padding-top: 1em;">거래 게시판</h1>
 		<hr>
-		<form action="${path}/trade/" method="post" enctype="multipart/form-data">
+		<form action="${path}/trade/regTrade.do" method="post" enctype="multipart/form-data">
 			<table class="table">
 				<tr style="width: 100%">
 					<th class="title">글 제목</th>

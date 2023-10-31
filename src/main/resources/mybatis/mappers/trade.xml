@@ -34,13 +34,6 @@
 				)
 			WHERE rn > #{startRow}
 		]]>		
-<!-- 			select * 
-			from (select t.*, @rownum:=@rownum+1 am rn
-					from(select *
-							from trade
-							order by writeDate desc) as t,
-							(select @rownum:=0) as tmp) as b
-			where rn > #{startRow} and rn <= #{endRow} -->
 		
 	</select>
 	
@@ -50,8 +43,11 @@
 		]]>
 	</select>
 	
-	<insert id="insertTrade" parameterType="tradeVO">
-		
+	<insert id="insertTrade" parameterType="java.util.HashMap">
+		<![CDATA[
+			INSERT INTO trade(title, content, fileName)
+			values(#{title}, #{content}, #{filename})
+		]]>
 	</insert>
 	
 	

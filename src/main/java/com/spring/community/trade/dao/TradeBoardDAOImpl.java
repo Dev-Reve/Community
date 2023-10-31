@@ -23,8 +23,6 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		System.out.println("dao startRow: " + startRow);
-		System.out.println("dao endRow: " + endRow);
 		
 		List<TradeVO> list = sqlSession.selectList("mapper.trade.selectAllTrades", map);
 		
@@ -34,13 +32,12 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	@Override
 	public int getTradeCount() {
 		int count = sqlSession.selectOne("mapper.trade.getTradeCount");
-		System.out.println("DAO: " + count);
 		
 		return count;
 	}
 	
 	@Override
-	public void regTradeBoard(TradeVO vo) throws DataAccessException {
-		sqlSession.insert("mapper.trade.insertTrade", vo);
+	public void regTradeBoard(Map map) throws DataAccessException {
+		sqlSession.insert("mapper.trade.insertTrade", map);
 	}
 }

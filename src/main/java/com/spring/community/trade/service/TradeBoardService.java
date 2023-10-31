@@ -25,7 +25,7 @@ public interface TradeBoardService {
 //	public TradeVO viewTradeDetail(int no) throws Exception;
 	
 	//거래 게시판에서 글작성을 클릭했을 때 글을 등록하는메소드
-	public void regTradeBoard(TradeVO vo) throws Exception;
+	public void regTradeBoard(Map map) throws Exception;
 	
 	//거래 게시판에서 글 수정을 클릭했을 때 글을 수정하는 메소드
 //	public void modTradeBoard(int no) throws Exception;
