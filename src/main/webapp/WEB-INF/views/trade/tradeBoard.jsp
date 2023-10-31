@@ -16,72 +16,97 @@
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <style>
-      .layout {
-        display: inline-grid;
-        grid:
-          "sidebar . body" 1fr
-          / auto 1fr;
-      }
-
-      .sidebar { 
-				grid-area: sidebar;
-				position: sticky;
-				top: 15%;
-				height: 30%;
-				width: 100%;
-				margin: 0 20px;
-				padding: 0 10px;
-				color: black;
-				border-right: 1px solid gray;
-			}
-		.sidebar a {
-			width: 100%;
-			margin-left: 14px;
-			text-decoration: none;
-			color: black;
-			list-style: none;
-			border-bottom: 1px solid lightgray;
-			line-height: 2em;
-		}
-		
-		a:hover {
-			color: darkgray;
-		}
-		.body {
-			margin: 0 auto;
-			justify-content: center;
-		}
-		
 		table img {
-		width: 70%;
+/* 		width: 70%; */
+			height: 150px;
 		}
 		
 		table td {
 			text-align: center;
 		}
+		
+		.cssbuttons-io-button {
+		  float: right;
+		  margin-bottom: 10px;
+		  margin-right: 20px;
+		  background: #a370f0;
+		  color: white;
+		  font-family: inherit;
+		  padding: 0.35em;
+		  padding-left: 1.2em;
+		  font-size: 17px;
+		  font-weight: 500;
+		  border-radius: 0.9em;
+		  border: none;
+		  letter-spacing: 0.05em;
+		  display: flex;
+		  align-items: center;
+		  box-shadow: inset 0 0 1.6em -0.6em #714da6;
+		  overflow: hidden;
+		  position: relative;
+		  height: 2.8em;
+		  padding-right: 3.3em;
+		  cursor: pointer;
+		}
+		
+		.cssbuttons-io-button .icon {
+		  background: white;
+		  margin-left: 1em;
+		  position: absolute;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  height: 2.2em;
+		  width: 2.2em;
+		  border-radius: 0.7em;
+		  box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
+		  right: 0.3em;
+		  transition: all 0.3s;
+		}
+		
+		.cssbuttons-io-button:hover .icon {
+		  width: calc(100% - 0.6em);
+		}
+		
+		.cssbuttons-io-button .icon svg {
+		  width: 1.1em;
+		  transition: transform 0.3s;
+		  color: #7b52b9;
+		}
+		
+		.cssbuttons-io-button:hover .icon svg {
+		  transform: translateX(0.1em);
+		}
+		
+		.cssbuttons-io-button:active .icon {
+		  transform: scale(0.95);
+		}
 
+		
     </style>
 	</head>
 	<body class="is-preload">
 		<!-- Home -->
-		<article id="top" class="wrapper style1">
-			<h1 style="text-align: center;">거래 게시판</h1>
+			<h1 style="text-align: center; padding-top:1em;">거래 게시판</h1>
 			<hr>
-			<section class="layout">
-				<div class="sidebar">
-					<h5 style="margin-bottom: -10px;">카테고리</h5>
-					<br>
-					<a href="#">전체보기</a> <br>
-					<a href="#">생활용품</a> <br>
-					<a href="#">패션/뷰티</a> <br>
-					<a href="#">가전/디지털</a> <br>
-					<a href="#">사무용품</a> <br>
-					<a href="#">기타</a> <br>
-				</div>
-				<div class="body" style="margin-left: 5%; margin-right: 5%;">
+					<button class="cssbuttons-io-button" onclick="location.href='${path}/trade/regTradeForm.do'">
+					  글작성
+					  <div class="icon">
+					    <svg
+					      height="24"
+					      width="24"
+					      viewBox="0 0 24 24"
+					      xmlns="http://www.w3.org/2000/svg"
+					    >
+					      <path d="M0 0h24v24H0z" fill="none" />
+					      <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor" />
+					    	</svg>
+						</div>
+					</button>
+
 					<table class="table table-striped">
 						<thead>
-							<tr style="text-align: center; background-color: darkgray;">
+							<tr style="text-align: center; background-color: darkgray; ">
 								<th style="width: 7%;">글번호</th>
 								<th style="width: 10%;">이미지</th>
 								<th style="width: 43%;">제목</th>
@@ -172,9 +197,6 @@
 						
 						</ul>
 					</nav>
-				</div>
-        	</section>
-		</article>
 
 	</body>
 </html>

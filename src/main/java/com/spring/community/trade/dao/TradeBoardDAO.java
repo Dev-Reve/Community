@@ -16,5 +16,8 @@ public interface TradeBoardDAO {
 	public List selectAllTrades(int startRow, int endRow) throws DataAccessException;
 	
 	//거래 게시판의 모든 레코드 행의 갯수를 반환하는 메소드
-	public int getTradeCount();
+	public int getTradeCount() throws DataAccessException;
+
+	//거래 게시판에 글 작성을 하는 메소드
+	public void regTradeBoard(TradeVO vo) throws DataAccessException;
 }

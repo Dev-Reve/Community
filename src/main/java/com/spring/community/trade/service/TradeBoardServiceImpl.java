@@ -58,4 +58,9 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		return dao.getTradeCount();
 	}
 	
+	@Override
+	public void regTradeBoard(TradeVO vo) throws Exception {
+		dao.regTradeBoard(vo);
+	}
+	
 }

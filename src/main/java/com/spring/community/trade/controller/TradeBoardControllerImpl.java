@@ -48,7 +48,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 		mav.addObject("tradeList", tradeMap);
 		mav.addObject("center", "/WEB-INF/views/trade/tradeBoard.jsp");
 		//뷰명 저장
-		mav.setViewName("main");
+		mav.setViewName("trade/tradeMain");
 		
 		return mav;
 	}
@@ -63,10 +63,24 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 		
 		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("main");
+		mav.addObject("center", "/WEB-INF/views" + viewName + ".jsp");
+		mav.setViewName("trade/tradeMain");
 		
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value = "/trade/regTrade.do", method = {RequestMethod.GET, RequestMethod.POST}) 
+	public ModelAndView regTradeBoard(@ModelAttribute("vo") TradeVO vo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	 
+	 request.setCharacterEncoding("UTF-8");
+	 
+	 tradeSevrvice.regTradeBoard(vo); 
+	 ModelAndView mav = new ModelAndView("redirect:/trade/tradeList.do");
+	 
+	 
+	 return mav; 
+	 }
 
 	/*
 	 * @Override
@@ -104,21 +118,6 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	 * 
 	 * @Override
 	 * 
-	 * @RequestMapping(value = "/trade/regTrade.do", method = {RequestMethod.GET,
-	 * RequestMethod.POST}) public ModelAndView regTradeBoard(@ModelAttribute("vo")
-	 * TradeVO vo, HttpServletRequest request, HttpServletResponse response) throws
-	 * Exception {
-	 * 
-	 * request.setCharacterEncoding("UTF-8");
-	 * 
-	 * tradeSevrvice.regTradeBoard(vo); ModelAndView mav = new
-	 * ModelAndView("redirect:/trade/tradeList.do");
-	 * 
-	 * 
-	 * return mav; }
-	 * 
-	 * @Override
-	 * 
 	 * @RequestMapping(value = "/trade/modTrade.do", method = {RequestMethod.GET,
 	 * RequestMethod.POST}) public ModelAndView modTradeBoard(@RequestParam("no")
 	 * int no, HttpServletRequest request, HttpServletResponse response) throws
@@ -143,6 +142,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	 * 
 	 * return new ModelAndView("redirect:/trade/tradeList.do"); }
 	 */
+
 	//request 객체에서 URL 요청명을 가져와 .do를 제외한 요청명을 구하는 메소드 
 	private String getViewName(HttpServletRequest request) throws Exception {
 

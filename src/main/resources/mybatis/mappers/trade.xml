@@ -50,6 +50,10 @@
 		]]>
 	</select>
 	
+	<insert id="insertTrade" parameterType="tradeVO">
+		
+	</insert>
+	
 	
 	
 </mapper>

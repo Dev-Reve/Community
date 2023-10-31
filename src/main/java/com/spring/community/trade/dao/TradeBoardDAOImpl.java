@@ -38,4 +38,9 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 		
 		return count;
 	}
+	
+	@Override
+	public void regTradeBoard(TradeVO vo) throws DataAccessException {
+		sqlSession.insert("mapper.trade.insertTrade", vo);
+	}
 }
