@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/* 중앙 정렬 스타일 */
+body {
+    text-align: center;
+    margin-top: 20px; /* 필요에 따라 margin-top 값을 조정할 수 있습니다 */
+}
+
+/* 스타일을 적용할 테이블 클래스 */
+.board-container {
+    display: inline-block;
+    width: 45%; /* 각 테이블을 더 가깝게 배치하려면 width 값을 조정할 수 있습니다 */
+   margin: 10px; /* 테이블 사이의 간격을 조정할 수 있습니다 */
+   vertical-align: top; /* 테이블을 상단 정렬로 배치합니다 */
+}
+
+/* 테이블 내의 모든 텍스트 가운데 정렬 스타일 */
+table tr th {
+    text-align: center;
+    font-weight: bold; /* 텍스트를 진하게 표시합니다 */
+}
+
+/* 테이블 내의 모든 텍스트 가운데 정렬 스타일 */
+table td {
+    text-align: center;
+    font-size: 14px;
+}

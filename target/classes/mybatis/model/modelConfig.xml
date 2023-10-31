@@ -9,5 +9,6 @@
  	<typeAliases>
  		<typeAlias type="com.spring.community.member.VO.MemberVO" alias="memberVO"/>
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
+ 		<typeAlias type="com.spring.community.board.BoardVO.BoardVO" alias="boardVO"/>
  	</typeAliases>
 </configuration>

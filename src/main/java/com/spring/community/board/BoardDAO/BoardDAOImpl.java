@@ -1,4 +1,4 @@
-package com.spring.community.likeboard.lickBoardDAO;
+package com.spring.community.board.BoardDAO;
 
 import java.util.List;
 
@@ -10,20 +10,20 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.servlet.ModelAndView;
 
-@Repository("likeboardDAO")
-public class LikeBoardDAOImpl extends HttpServlet implements LikeBoardDAO {
+import com.spring.community.board.BoardVO.BoardVO;
+
+@Repository("boardDAO")
+public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
 	
 	@Override
-	public List selcetLikeBoard() {
-		
-		
-		
-		return null;
-	}
+	public List selcetAllBoard() {
 
+		List<BoardVO> boardlist = sqlSession.selectList("mapper.board.selectAllboardlist");
+	
+		return boardlist;
+	}
 }
