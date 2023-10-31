@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="<%=request.getContextPath()%>" />
 
@@ -21,12 +20,5 @@
 		</ul>
 	</nav>
 	
-	<!-- Scripts -->
-	<script src="${path}/resources/assets/js/jquery.min.js"></script>
-	<script src="${path}/resources/assets/js/jquery.scrolly.min.js"></script>
-	<script src="${path}/resources/assets/js/browser.min.js"></script>
-	<script src="${path}/resources/assets/js/breakpoints.min.js"></script>
-	<script src="${path}/resources/assets/js/util.js"></script>
-	<script src="${path}/resources/assets/js/main.js"></script>
 </body>
 </html>
