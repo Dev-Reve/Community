@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- DAO에서 아래 mapper태그 내부에 접근하기 위해 mapper태그에 namespace를 설정 -->
+  <!-- DAO에서 member관련 sql문을 작성 또는 호출을 위해서는 mapper.member를 호출하여야 함 -->
+<mapper namespace="mapper.trade">
+	<!-- member관련 DB에서 조회해온 결과를 담을 Map을 생성하여 id값을 memResult로 저장 -->
+	<!-- 이후 조회해온 resultMap에 VO들을 담기 위해서  resultMap에 memResult를 작성하거나
+		 resultType에 memberVO를 작성하여 VO빈에 저장하면 됨  -->
+	<resultMap id="tradeResult" type="tradeVO">
+		<result property="no" column="no"/>
+		<result property="readCount" column="readCount"/>
+		<result property="price" column="price"/>
+		<result property="sellStat" column="sellStat"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="nickname" column="nickname"/>
+		<result property="writeDate" column="writeDate"/>
+		<result property="category" column="category"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileRealName" column="fileRealName"/>
+	</resultMap>
+	
+	<select id="selectAllTrades" resultMap="tradeResult" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT *  
+				FROM ( 
+					SELECT ROWNUM AS rn, t.*
+					FROM trade t
+					WHERE ROWNUM <= #{endRow}
+                    ORDER BY no desc
+				)
+			WHERE rn > #{startRow}
+		]]>		
+<!-- 			select * 
+			from (select t.*, @rownum:=@rownum+1 am rn
+					from(select *
+							from trade
+							order by writeDate desc) as t,
+							(select @rownum:=0) as tmp) as b
+			where rn > #{startRow} and rn <= #{endRow} -->
+		
+	</select>
+	
+	<select id="getTradeCount" resultType="int">
+		<![CDATA[
+			select count(*) from trade
+		]]>
+	</select>
+	
+	<insert id="insertTrade" parameterType="tradeVO">
+		
+	</insert>
+	
+	
+	
+</mapper>
