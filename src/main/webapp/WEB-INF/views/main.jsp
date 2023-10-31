@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="<%=request.getContextPath()%>" />
 <c:set var="center" value="${center}" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/top.jsp" />
 	
-<jsp:include page="${center}" />
+<jsp:include page="${center}"/>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
