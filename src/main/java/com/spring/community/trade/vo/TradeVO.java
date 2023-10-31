@@ -12,9 +12,7 @@ public class TradeVO {
 				   content, //글내용
 				   nickname, //유저닉네임
 				   writeDate, //작성일
-				   category, //카테고리
-				   fileName, //첨부파일명
-				   fileRealName; //첨부파일 실제명
+				   category; //카테고리
 				   
 	public TradeVO() {}
 
@@ -90,20 +88,4 @@ public class TradeVO {
 		this.category = category;
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	public String getFileRealName() {
-		return fileRealName;
-	}
-
-	public void setFileRealName(String fileRealName) {
-		this.fileRealName = fileRealName;
-	}
-	
 }

@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <style>
 		table img {
 		width: 70%;
@@ -237,6 +238,21 @@
 		<form action="${path}/trade/regTrade.do" method="post" enctype="multipart/form-data">
 			<table class="table">
 				<tr style="width: 100%">
+					<th class="title">분류</th>
+					<td class="content">
+						<select name="category">
+							<option value="">-----------선택-----------</option>
+							<option value="생활용품">생활용품</option>
+							<option value="패션/뷰티">패션/뷰티</option>
+							<option value="가전/디지털">가전/디지털</option>
+							<option value="사무용품">사무용품</option>
+							<option value="기타">기타</option>
+						</select>
+					</td>
+					<th class="title"></th>
+					<td class="content"></td>
+				</tr>
+				<tr style="width: 100%">
 					<th class="title">글 제목</th>
 					<td class="content" colspan="3">
 						<input type="text" name="title" placeholder="제목을 입력해주세요.">
@@ -249,7 +265,7 @@
 					</td>
 					<th class="title">첨부파일</th>
 					<td class="content" style="text-align: left;">
-						<input type="file" name="file[]" multiple="multiple">
+						<input type="file" name="files" multiple="multiple" required>
 					</td>
 				</tr>
 				<tr style="width: 100%">
@@ -281,6 +297,7 @@
 			</button>
 			
 		</form>
-
+		<script type="text/javascript">
+		</script>
 	</body>
 </html>

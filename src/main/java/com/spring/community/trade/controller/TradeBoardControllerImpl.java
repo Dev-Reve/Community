@@ -82,33 +82,31 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	@RequestMapping(value = "/trade/regTrade.do", method = {RequestMethod.GET, RequestMethod.POST}) 
 	public ModelAndView regTradeBoard(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 	 
-	 request.setCharacterEncoding("UTF-8");
-	 
-	 //입력한 값들 + 다중업로드 요청한 파일의 정보들을 저장할 Map 생성
-	 Map map = new HashMap();
-	 
-	 //request에서 값을 꺼내와 Enumeration배열에 저장 후 배열 자체를 리턴
-	 Enumeration enu = request.getParameterNames();
-	 
-	 while (enu.hasMoreElements()) {
-		 String key = (String)enu.nextElement();
+		request.setCharacterEncoding("UTF-8");
 		 
-		 String value = request.getParameter(key);
+		//입력한 값들 + 다중업로드 요청한 파일의 정보들을 저장할 Map 생성
+		Map map = new HashMap();
+		
+		//request에서 값을 꺼내와 Enumeration배열에 저장 후 배열 자체를 리턴
+		Enumeration enu = request.getParameterNames();
 		 
-		 map.put(key, value);
+		while (enu.hasMoreElements()) {
+			String key = (String)enu.nextElement();
+		 
+			String value = request.getParameter(key);
+			 
+			 map.put(key, value);
+		}
+	 
+		int no = tradeSevrvice.regTradeBoard(map);
+		
+	//	tradeService.regTradeFiles();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("map", map);
+		mav = new ModelAndView("redirect:/trade/tradeList.do");
+		 
+		return mav; 
 	}
-	 
-	 List fileList = fileProcess(request);
-	 
-	 map.put("fileList", fileList);
-	 
-	 tradeSevrvice.regTradeBoard(map); 
-	 ModelAndView mav = new ModelAndView();
-	 mav.addObject("map", map);
-	 mav = new ModelAndView("redirect:/trade/tradeList.do");
-	 
-	 return mav; 
-	 }
 
 	/*
 	 * @Override

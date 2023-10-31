@@ -59,8 +59,8 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	}
 	
 	@Override
-	public void regTradeBoard(Map map) throws Exception {
-		dao.regTradeBoard(map);
+	public int regTradeBoard(Map map) throws Exception {
+		return dao.regTradeBoard(map);
 	}
 	
 }

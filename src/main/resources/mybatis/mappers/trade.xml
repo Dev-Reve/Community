@@ -19,8 +19,6 @@
 		<result property="nickname" column="nickname"/>
 		<result property="writeDate" column="writeDate"/>
 		<result property="category" column="category"/>
-		<result property="fileName" column="fileName"/>
-		<result property="fileRealName" column="fileRealName"/>
 	</resultMap>
 	
 	<select id="selectAllTrades" resultMap="tradeResult" parameterType="java.util.HashMap">
@@ -45,8 +43,8 @@
 	
 	<insert id="insertTrade" parameterType="java.util.HashMap">
 		<![CDATA[
-			INSERT INTO trade(title, content, fileName)
-			values(#{title}, #{content}, #{filename})
+			INSERT INTO trade(title, content, category, price)
+			values(#{title}, #{content}, #{category}, #{price})
 		]]>
 	</insert>
 	

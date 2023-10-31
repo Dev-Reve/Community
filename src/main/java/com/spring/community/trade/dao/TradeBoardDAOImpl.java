@@ -37,7 +37,7 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	}
 	
 	@Override
-	public void regTradeBoard(Map map) throws DataAccessException {
-		sqlSession.insert("mapper.trade.insertTrade", map);
+	public int regTradeBoard(Map map) throws DataAccessException {
+		return sqlSession.insert("mapper.trade.insertTrade", map);
 	}
 }
