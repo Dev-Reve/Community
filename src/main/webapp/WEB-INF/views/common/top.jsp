@@ -12,8 +12,8 @@
 <body>
 	<nav id="nav">
 		<ul class="container">
-			<li><a href="#top">Top</a></li>
-			<li><a href="#work">Work</a></li>
+			<li><a href="${path}/main/index.do">집으로</a></li>
+			<li><a href="${path}/trade/tradeList.do">물물거래</a></li>
 			<li><a href="#portfolio">Portfolio</a></li>
 			<li><a href="#contact">Contact</a></li>
 		</ul>
