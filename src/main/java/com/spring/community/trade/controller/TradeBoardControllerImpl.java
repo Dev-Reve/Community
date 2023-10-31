@@ -1,6 +1,8 @@
 package com.spring.community.trade.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,16 +34,10 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	
 	@Override
 	@RequestMapping(value = "/trade/tradeList.do", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView listTradeBoards(@RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listTradeBoards(String pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		int pageSize = 10;
-		int startRow = (page - 1) * pageSize + 1;
-		int endRow = startRow + pageSize - 1;
-		
-		List tradeList = tradeSevrvice.listTradeBoards(startRow, endRow);
-		
-		int totalPosts = tradeSevrvice.getTotalPosts(); // 전체 게시물 수
-        int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+		Map<String, Object> tradeMap = new HashMap<String, Object>();
+		tradeMap = tradeSevrvice.listTradeBoards(pageNum);
 		
 		//응답할 뷰 이름 얻기 
 		String viewName = getViewName(request);
@@ -49,7 +45,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩
 		ModelAndView mav = new ModelAndView();
 		//응답할 값 저장
-		mav.addObject("tradeList", tradeList);
+		mav.addObject("tradeList", tradeMap);
 		mav.addObject("center", "/WEB-INF/views/trade/tradeBoard.jsp");
 		//뷰명 저장
 		mav.setViewName("main");

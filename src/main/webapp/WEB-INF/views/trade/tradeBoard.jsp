@@ -3,25 +3,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="<%=request.getContextPath()%>" />
-<% 
-	int totalItems = new TradeBoardDAOImpl().getTradeCount(); // 전체 게시글 개수
-	System.out.println("totalItems: " + totalItems);
-
-	int currentPage = 1; // 현재 페이지
-	int itemsPerPage = 10; // 페이지당 항목 수
-	
-	int totalPages = totalItems / itemsPerPage + (totalItems % itemsPerPage == 0 ? 0 : 1);	// 총 페이지 수
-// 	System.out.println("totalPages: " + totalPages);
-	
-	int startIndex = (currentPage - 1) * itemsPerPage; // 시작 인덱스 위치 번호
-	System.out.println("startIndex: " + startIndex);
-	int endIndex = Math.min(currentPage * itemsPerPage, totalItems); //끝 인덱스 위치 번호
-	System.out.println("endIndex: " + endIndex);
-%>
-
-<%-- 현재 페이지에 해당하는 데이터 선택 --%>
-<c:set var="currentPageData" value="${tradeList.subList(startIndex, endIndex)}" />
 
 <!DOCTYPE html>
 <html>
@@ -72,6 +55,10 @@
 		table img {
 		width: 70%;
 		}
+		
+		table td {
+			text-align: center;
+		}
 
     </style>
 	</head>
@@ -91,55 +78,98 @@
 					<a href="#">사무용품</a> <br>
 					<a href="#">기타</a> <br>
 				</div>
-				<div class="body" style="margin-left: 5%">
+				<div class="body" style="margin-left: 5%; margin-right: 5%;">
 					<table class="table table-striped">
 						<thead>
 							<tr style="text-align: center; background-color: darkgray;">
+								<th style="width: 7%;">글번호</th>
 								<th style="width: 10%;">이미지</th>
-								<th style="width: 40%;">제목</th>
+								<th style="width: 43%;">제목</th>
 								<th style="width: 15%;">닉네임</th>
 								<th style="width: 15%;">작성일</th>
 								<th style="width: 10%;">조회수</th>
 							</tr>
 						</thead>
 						<tbody>
-						<c:forEach var="list" items="${tradeList}">
+						<c:if test="${empty tradeList.vo}">
+							<tr height="40px">
+								<td colspan="5" style="text-align:center;"><font size="3" color="white">작성된 내용이 없습니다.</font></td>
+							</tr>
+						</c:if>
+				<c:if test="${not empty tradeList.vo}">
+					<c:set var="no" value="${tradeList.no}" />
+						<c:forEach var="vo" items="${tradeList.vo}" varStatus="loop">
+						<c:set var="index" value="${loop.index + 1}" />
 							<tr class="boardArticles">
+								<td class="boardNo">${index + ((tradeList.currentPage-1) * 10)}</td>
 								<td class="boardImg"><img src="${path}/resources/images/a.jpg"></td>
-								<td class="boardTitle">${list.title}</td>
-								<td class="boardUser">${list.nickname}</td>
-								<td class="boardWriteDate">${list.writeDate}</td>
-								<td class="boardReadCount">${list.readCount}</td>
+								<td class="boardTitle">${vo.title}</td>
+								<td class="boardUser">${vo.nickname}</td>
+								<td class="boardWriteDate">${vo.writeDate}</td>
+								<td class="boardReadCount">${vo.readCount}</td>
 							</tr>
 						</c:forEach>
+						</c:if>
 						</tbody>
 					</table>
 					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-						<c:if test="${currentPage > 1}">
+<%-- 					<fmt:parseNumber var="pageCount" value="${tradeList.count/tradeList.pageSize + (tradeList.count % tradeList.pageSize eq 0 ? 0 : 1)}" integerOnly="true" /> --%>
+						<ul class="pagination" style="float: right; margin-right: 20px">
+						<!-- 글이 존재 한다면 -->
+						<c:if test="${not empty tradeList.vo}">
+							<fmt:parseNumber var="pageCount" value="${tradeList.count/tradeList.pageSize + (tradeList.count % tradeList.pageSize eq 0 ? 0 : 1)}" integerOnly="true" />
+							<c:set var="startPage" value="${1}" />
+						</c:if>
+						
+						<!-- pageSize로 설정한 수보다 글이 더 많으면 -->
+						<c:if test="${(tradeList.currentPage % tradeList.pageSize) ne 0}">
+							<fmt:parseNumber var="result" value="${tradeList.currentPage / tradeList.pageSize}" integerOnly="true" />
+							<c:set var="startPage" value="${result * tradeList.pageSize + 1}" />
+						</c:if>
+						
+						<!-- pageSize보다 글 개수가 더 적으면 -->
+						<c:if test="${tradeList.currentPage % tradeList.pageSize eq 0}">
+							<c:set var="startPage" value="${(result - 1) * tradeList.pageSize + 1}" />
+						</c:if>
+						
+						<c:set var="pageBlock" value="${tradeList.pageSize}" />
+						<c:set var="endPage" value="${startPage + pageBlock - 1}" />
+						
+						<!-- 끝 페이지 -->
+						<c:if test="${endPage > pageCount}">
+							<c:set var="endPage" value="${pageCount}" />
+						</c:if>
+						
+						<!-- 시작페이지가 pageSize보다 크면 -->
+						<c:if test="${startPage > tradeList.pageSize}">
 							<li class="page-item">
-						      	<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${currentPage-1}" aria-label="Previous">
+								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage - tradeList.pageSize}" aria-label="Previous">
 						      		<span aria-hidden="true">&laquo;</span>
 						    	</a>
-						    </li>
+							</li>
 						</c:if>
-				<c:forEach var="pageNum" begin="1" end="${totalPages}">
-					<c:choose>
-						<c:when test="${pageNum == currentPage}">
-					  		<li class="page-item active"><a class="page-link" href="#">${pageNum}</a></li>
-						</c:when>
-						<c:otherwise>
-					  		<li class="page-item"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${pageNum}">${pageNum}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-						<c:if test="${currentPage < totalPages}">
-					    	<li class="page-item">
-					      		<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${currentPage+1}" aria-label="Next">
-					        		<span aria-hidden="true">&raquo;</span>
-					    		</a>
-					    	</li>
+						
+						<!-- 시작페이지부터 끝페이지까지 노출되도록 반복문 사용 -->
+						<c:forEach var="n" begin="${startPage}" end="${endPage}">
+							<c:choose>
+								<c:when test="${n eq tradeList.currentPage}">
+									<li class="page-item active"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${n}">${n}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${n}">${n}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						
+						<!-- 끝페이지 이후 다음 글 존재하면 -->
+						<c:if test="${endPage < pageCount}">
+							<li class="page-item">
+								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage + tradeList.pageSize}">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
 						</c:if>
+						
 						</ul>
 					</nav>
 				</div>

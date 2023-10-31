@@ -20,22 +20,19 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	
 	@Override
 	public List selectAllTrades(int startRow, int endRow) throws DataAccessException {
-		List<TradeVO> list = null;
-		Map map = new HashMap();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		System.out.println("dao startRow: " + startRow);
+		System.out.println("dao endRow: " + endRow);
 		
-		list = sqlSession.selectList("mapper.trade.selectAllTrades", map);
+		List<TradeVO> list = sqlSession.selectList("mapper.trade.selectAllTrades", map);
 		
 		return list;
 	}
 	
 	@Override
 	public int getTradeCount() {
-		if (sqlSession == null) {
-	        // sqlSession이 null인 경우에 대한 처리
-	        return 21; // 또는 다른 적절한 값 또는 예외 처리
-	    }
 		int count = sqlSession.selectOne("mapper.trade.getTradeCount");
 		System.out.println("DAO: " + count);
 		

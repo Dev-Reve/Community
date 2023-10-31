@@ -23,10 +23,25 @@
 		<result property="fileRealName" column="fileRealName"/>
 	</resultMap>
 	
-	<select id="selectAllTrades" resultMap="tradeResult">
+	<select id="selectAllTrades" resultMap="tradeResult" parameterType="java.util.HashMap">
 		<![CDATA[
-			select * from (select rownum as rn, t.* from (select * from trade order by writeDate desc) where rn between #{startRow} and #{endRow}
+			SELECT *  
+				FROM ( 
+					SELECT ROWNUM AS rn, t.*
+					FROM trade t
+					WHERE ROWNUM <= #{endRow}
+                    ORDER BY no desc
+				)
+			WHERE rn > #{startRow}
 		]]>		
+<!-- 			select * 
+			from (select t.*, @rownum:=@rownum+1 am rn
+					from(select *
+							from trade
+							order by writeDate desc) as t,
+							(select @rownum:=0) as tmp) as b
+			where rn > #{startRow} and rn <= #{endRow} -->
+		
 	</select>
 	
 	<select id="getTradeCount" resultType="int">
