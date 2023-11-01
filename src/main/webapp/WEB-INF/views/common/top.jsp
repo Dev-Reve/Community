@@ -9,6 +9,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
+<link rel="stylesheet" href="${path}/resources/assets/css/index.css" />
 </head>
 <body>
 	<nav id="nav">

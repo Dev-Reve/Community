@@ -13,7 +13,7 @@ public class Main {
 		System.out.println("index호출");
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
+		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
 		mav.setViewName("main");
 		
 		return mav;
@@ -22,7 +22,7 @@ public class Main {
 	public ModelAndView Test() {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/test/gallery.jsp");
+		mav.addObject("center", "/WEB-INF/views/gallery/gallery.jsp");
 		mav.setViewName("main");
 		
 		return mav;
