@@ -16,7 +16,7 @@
 		<result property="board_no" column="board_no"/>
 		<result property="trade_no" column="trade_no"/>
 	</resultMap>
-
+	
 	<insert id="insertTradeFile" parameterType="java.util.Map">
 		INSERT INTO files (no, fileName, trade_no)
 		VALUES (files_no.nextval, #{fileName}, #{trade_no})
