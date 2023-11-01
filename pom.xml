@@ -206,20 +206,8 @@
 		    <groupId>net.coobird</groupId>
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
-<<<<<<< HEAD
 		</dependency>		
 		
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-      <dependency>
-          <groupId>org.projectlombok</groupId>
-          <artifactId>lombok</artifactId>
-          <version>1.18.26</version>
-          <scope>provided</scope>
-      </dependency>
-		
-		
-=======
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
@@ -227,7 +215,7 @@
 		    <version>1.18.26</version>
 		    <scope>provided</scope>
 		</dependency>
->>>>>>> branch 'main' of https://github.com/Dev-Reve/Community.git
+
 	</dependencies>
     <build>
         <plugins>
