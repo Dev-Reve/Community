@@ -18,8 +18,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectAllboardlist" resultMap="boardResult">
 		<![CDATA[
-			select * from board order by no desc
+			    SELECT * FROM board ORDER BY no DESC
 		]]>		
 	</select>
+
+	<select id="countBoard" resultType="int">
+		<![CDATA[
+			select count(*) from board
+		]]>	
+	</select>
+	
+	<select id="selectBoard" resultMap="boardResult" parameterType="pagingVO">
+		<![CDATA[
+			SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+				FROM (
+					SELECT * 
+					FROM BOARD 
+					ORDER BY no DESC 
+			   	) A
+			)
+			WHERE RN BETWEEN ${start} AND ${end};
+		]]>	
+	</select>
+
 	
 </mapper>
