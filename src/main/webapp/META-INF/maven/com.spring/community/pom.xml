@@ -108,6 +108,10 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		
+
+
+		
 	
 		<!-- Test -->
 		<dependency>
@@ -188,6 +192,32 @@
 		    <artifactId>tiles-servlet</artifactId>
 		    <version>2.2.2</version>
 		</dependency>
+		
+		<!--스프링에서 다중파일 업로드에 필요한 Apache Commons fileupload라이브러리, common-io 라이브러리 설치-->
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.2.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.8</version>
+		</dependency>		
+		
+		<dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.18.26</version>
+          <scope>provided</scope>
+      </dependency>
 		
 	</dependencies>
     <build>
