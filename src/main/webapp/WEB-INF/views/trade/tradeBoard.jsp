@@ -125,7 +125,7 @@
 					<c:set var="no" value="${tradeList.no}" />
 						<c:forEach var="vo" items="${tradeList.vo}" varStatus="loop">
 						<c:set var="index" value="${loop.index + 1}" />
-							<tr class="boardArticles">
+							<tr class="boardArticles" onclick="location.href='${path}/trade/tradeDetail.do?no=${vo.no}'">
 								<td class="boardNo">${index + ((tradeList.currentPage-1) * 10)}</td>
 								<td class="boardImg"><img src="${path}/resources/images/a.jpg"></td>
 								<td class="boardTitle">${vo.title}</td>

@@ -10,6 +10,5 @@
  		<typeAlias type="com.spring.community.member.VO.MemberVO" alias="memberVO"/>
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
- 		<typeAlias type="com.spring.community.file.vo.FileVO" alias="fileVO"/>
  	</typeAliases>
 </configuration>

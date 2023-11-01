@@ -46,9 +46,12 @@
 	
 	<insert id="insertTrade" parameterType="java.util.HashMap">
 		<![CDATA[
-			INSERT INTO trade(no, title, content, category, price)
-			values(trade_no.nextval, #{title}, #{content}, #{category}, #{price})
+			INSERT INTO trade(no, title, content, category, price, fileName)
+			values(trade_no.nextval, #{title}, #{content}, #{category}, #{price}, StringArray(
 		]]>
+		<foreach collection="fileList" item="fileName" separator=", " close="))">
+			#{fileName}
+		</foreach>
 	</insert>
 	
 	<select id="getNewTradeNo" resultType="int">
@@ -56,7 +59,5 @@
 			SELECT MAX(no) FROM trade
 		]]>
 	</select>
-	
-	
 	
 </mapper>

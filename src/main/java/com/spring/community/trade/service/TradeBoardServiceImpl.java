@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.community.file.vo.FileVO;
 import com.spring.community.trade.dao.TradeBoardDAO;
 import com.spring.community.trade.dao.TradeBoardDAOImpl;
 import com.spring.community.trade.vo.TradeVO;
@@ -62,16 +61,11 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	
 	@Override
 	public int regTradeBoard(Map map) throws Exception {
-//		System.out.println("Service까지 옴");
+		System.out.println("Service까지 옴");
 		int tradeNo = dao.regTradeBoard(map);
 //		System.out.println("service에서 받아온 tradeNo: " + tradeNo);
 		return tradeNo;
 	}
 	
-	@Override
-	public void regTradeFile(FileVO vo) throws Exception {
-		System.out.println("Service까지 옴");
-		dao.regTradeFile(vo);
-	}
 	
 }

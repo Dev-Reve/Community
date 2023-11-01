@@ -1,5 +1,7 @@
 package com.spring.community.trade.vo;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 @Component("tradeVO")
@@ -13,6 +15,8 @@ public class TradeVO {
 				   nickname, //유저닉네임
 				   writeDate, //작성일
 				   category; //카테고리
+	private List<String> fileNames,
+						 fileRealNames;
 				   
 	public TradeVO() {}
 
@@ -86,6 +90,22 @@ public class TradeVO {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public List<String> getFileNames() {
+		return fileNames;
+	}
+
+	public void setFileNames(List<String> fileNames) {
+		this.fileNames = fileNames;
+	}
+
+	public List<String> getFileRealNames() {
+		return fileRealNames;
+	}
+
+	public void setFileRealNames(List<String> fileRealNames) {
+		this.fileRealNames = fileRealNames;
 	}
 
 }
