@@ -76,6 +76,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
         
         mav.addObject("paging", pvo);    
         
+        // 여기서 에러 터짐
         List boardlist = boardservice.selectBoard(pvo);
         System.out.println("boardlist 값 : " + boardlist);
 
@@ -87,6 +88,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
         System.out.println("mav / viewname : " + mav.getViewName());
   
         return mav;
+        
     }
 
 }
