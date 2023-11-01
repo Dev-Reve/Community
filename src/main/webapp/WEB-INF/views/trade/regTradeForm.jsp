@@ -271,7 +271,7 @@
 				<tr style="width: 100%">
 					<th class="title">글 내용</th>
 					<td class="content" colspan="3">
-						<textarea rows="20" cols="50"></textarea>
+						<textarea rows="20" cols="50" name="content"></textarea>
 					</td>
 				</tr>
 			</table>

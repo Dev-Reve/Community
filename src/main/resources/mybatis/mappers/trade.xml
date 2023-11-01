@@ -26,9 +26,12 @@
 			SELECT *  
 				FROM ( 
 					SELECT ROWNUM AS rn, t.*
-					FROM trade t
+					FROM ( 
+						SELECT *
+						FROM trade
+						ORDER BY writeDate desc
+					) t
 					WHERE ROWNUM <= #{endRow}
-                    ORDER BY no desc
 				)
 			WHERE rn > #{startRow}
 		]]>		
@@ -43,10 +46,16 @@
 	
 	<insert id="insertTrade" parameterType="java.util.HashMap">
 		<![CDATA[
-			INSERT INTO trade(title, content, category, price)
-			values(#{title}, #{content}, #{category}, #{price})
+			INSERT INTO trade(no, title, content, category, price)
+			values(trade_no.nextval, #{title}, #{content}, #{category}, #{price})
 		]]>
 	</insert>
+	
+	<select id="getNewTradeNo" resultType="int">
+		<![CDATA[
+			SELECT MAX(no) FROM trade
+		]]>
+	</select>
 	
 	
 	

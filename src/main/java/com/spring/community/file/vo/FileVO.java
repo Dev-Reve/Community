@@ -1,8 +1,13 @@
 package com.spring.community.file.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class FileVO {
 	private int no;
-	private String fileName;
+	private List<String> fileNames;
+	private List<String> fileRealNames;
 	private int board_no;
 	private int trade_no;
 	
@@ -16,12 +21,20 @@ public class FileVO {
 		this.no = no;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public List<String> getFileNames() {
+		return fileNames;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setFileNames(List<String> fileNames) {
+		this.fileNames = fileNames;
+	}
+
+	public List<String> getFileRealNames() {
+		return fileRealNames;
+	}
+
+	public void setFileRealNames(List<String> fileRealNames) {
+		this.fileRealNames = fileRealNames;
 	}
 
 	public int getBoard_no() {

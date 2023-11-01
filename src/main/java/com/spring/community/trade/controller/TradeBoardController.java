@@ -1,10 +1,12 @@
 package com.spring.community.trade.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +26,8 @@ public interface TradeBoardController {
 	public ModelAndView Form(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	//거래 게시판에서 글작성을 클릭했을 때 글을 등록하는메소드
-	public ModelAndView regTradeBoard(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
-	
+	public ModelAndView regTradeBoard(List<MultipartFile> files, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
+
 	//거래 게시판에서 글 수정을 클릭했을 때 글을 수정하는 메소드
 //	public ModelAndView modTradeBoard(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	

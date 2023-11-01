@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.file.vo.FileVO;
 import com.spring.community.trade.vo.TradeVO;
 
 public interface TradeBoardDAO {
@@ -20,4 +22,7 @@ public interface TradeBoardDAO {
 
 	//거래 게시판에 글 작성을 하는 메소드
 	public int regTradeBoard(Map map) throws DataAccessException;
+
+	//파일 테이블에 파일을 저장하는 메소드
+	public void regTradeFile(FileVO vo) throws DataAccessException;
 }
