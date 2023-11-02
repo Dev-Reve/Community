@@ -1,4 +1,4 @@
-package com.spring.community.board.Utils;
+package com.spring.community.board.utils;
 
 import org.springframework.stereotype.Component;
 

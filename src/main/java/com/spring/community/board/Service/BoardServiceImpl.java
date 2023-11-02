@@ -9,11 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring.community.board.BoardDAO.BoardDAO;
 import com.spring.community.board.BoardVO.BoardVO;
-<<<<<<< HEAD
+
 import com.spring.community.board.utils.PagingVO;
-=======
-import com.spring.community.board.Utils.PagingVO;
->>>>>>> branch 'min' of https://github.com/Dev-Reve/Community.git
 
 @Service("boardService")
 public class BoardServiceImpl extends HttpServlet implements BoardService {
