@@ -19,15 +19,25 @@
             margin: 10px; /* 테이블 사이의 간격을 조정할 수 있습니다 */
             vertical-align: top; /* 테이블을 상단 정렬로 배치합니다 */
         }
+        /* 테이블 내의 모든 텍스트 가운데 정렬 스타일 */
+        table tr th {
+            text-align: center;
+            font-weight: bold; /* 텍스트를 진하게 표시합니다 */
+        }
+        /* 테이블 내의 모든 텍스트 가운데 정렬 스타일 */
+        table td {
+            text-align: center;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <div class="centered-div">
-        <h1>인기 게시판</h1>
+        <h3>인기 게시판</h3>
     </div>
     <div class="board-container">
-        <table id="board_community" border="1">
-            <caption>커뮤니티</caption>
+        <table id="board_community" border="1" align="center">
+            <caption><p><strong>커뮤니티 게시판</strong></p></caption>
             <tr>
                 <th>글 번호</th>
                 <th>글 제목</th>
@@ -59,8 +69,8 @@
         </table>
     </div>
     <div class="board-container">
-        <table id="board_trade" border="1">
-            <caption>중고거래</caption>
+        <table id="board_trade" border="1" align="center">
+            <caption><p><strong>중고거래 게시판</strong></p></caption>
             <tr>
                 <th>글 번호</th>
                 <th>글 제목</th>
