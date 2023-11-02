@@ -215,7 +215,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		//캐시를 사용하지 않고 항상 최신 데이터를 보여주기 위한 header 설정
 		response.setHeader("Cache-Control", "no-cache");
 		//다운로드할 파일명을 response객체에 설정
-		response.addHeader("Content-disposition", "attachment; fileName=" + imageFileName);
+		response.addHeader("Content-disposition", "attachment; fileName=" + URLEncoder.encode(imageFileName, "UTF-8"));
 		
 		//다운로드할 파일을 바이트 데이터 단위로 읽어들일 입력스트림통로 생성
 		FileInputStream in = new FileInputStream(file);
