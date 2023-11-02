@@ -210,8 +210,13 @@
 		    <groupId>net.coobird</groupId>
 		    <artifactId>thumbnailator</artifactId>
 		    <version>0.4.8</version>
+<<<<<<< HEAD
 
 		</dependency>
+=======
+		</dependency>		
+		
+>>>>>>> branch 'min' of https://github.com/Dev-Reve/Community.git
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>

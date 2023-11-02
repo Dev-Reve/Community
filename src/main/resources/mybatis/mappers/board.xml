@@ -3,6 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<<<<<<< HEAD
 <mapper namespace="mappers.board">
 
 	<resultMap id="boardResult" type="boardVO">
@@ -34,5 +35,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					)
 		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
+=======
+<mapper namespace="mapper.board">
+	
+	<resultMap id="boardResult" type="boardVO">
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="content" column="content"/>
+		<result property="writeDate" column="writeDate"/>
+		<result property="nickName" column="nickName" />
+		<result property="readCount" column="readCount"/>
+		<result property="fileName" column="fileName"/>
+		<result property="fileRealName" column="fileRealName"/>
+	</resultMap>
+	
+	<select id="selectAllboardlist" resultMap="boardResult">
+		<![CDATA[
+			    SELECT * FROM board ORDER BY no DESC
+		]]>		
+	</select>
+
+	<select id="countBoard" resultType="int">
+		<![CDATA[
+			select count(*) from board
+		]]>	
+	</select>
+	
+	<select id="selectBoard" resultMap="boardResult" parameterType="pagingVO">
+		<![CDATA[
+			SELECT * 
+			FROM (
+				SELECT ROWNUM RN, A.* 
+				FROM (
+					SELECT * 
+					FROM BOARD 
+					ORDER BY no DESC 
+			   	) A
+			)
+			WHERE RN BETWEEN ${start} AND ${end};
+		]]>	
+	</select>
+
+>>>>>>> branch 'min' of https://github.com/Dev-Reve/Community.git
 	
 </mapper>

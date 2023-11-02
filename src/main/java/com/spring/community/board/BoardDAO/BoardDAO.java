@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 
 import com.spring.community.board.BoardVO.BoardVO;
+<<<<<<< HEAD
 import com.spring.community.board.utils.PagingVO;
+=======
+import com.spring.community.board.Utils.PagingVO;
+>>>>>>> branch 'min' of https://github.com/Dev-Reve/Community.git
 
 public interface BoardDAO {
 	

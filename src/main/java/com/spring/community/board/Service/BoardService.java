@@ -7,7 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+<<<<<<< HEAD
 import com.spring.community.board.utils.PagingVO;
+=======
+import com.spring.community.board.Utils.PagingVO;
+>>>>>>> branch 'min' of https://github.com/Dev-Reve/Community.git
 
 public interface BoardService {
 	
