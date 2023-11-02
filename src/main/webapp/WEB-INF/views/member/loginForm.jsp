@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="<%=request.getContextPath()%>" />
-<c:out value="${path}/WEB-INF/views/common/top.jsp"/>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -18,6 +17,15 @@
 		
 		
 		</style>
+		<c:choose>
+			<c:when test="${result=='loginFailed' }">
+			  <script>
+			    window.onload=function(){
+			      alert("아이디나 비밀번호가 틀립니다.다시 로그인 하세요!");
+			    }
+			  </script>
+			</c:when>
+		</c:choose>  
 	</head>
 	<body class="is-preload">
 			<jsp:include page="../common/top.jsp" />
@@ -25,8 +33,9 @@
 	<div id="mainbox">
 		<form method="post" action="${path}/member/login.do">
 			아이디:<input type="text" name="id"/>
-			비밀번호:<input type="text" name="password"/>
+			비밀번호:<input type="password" name="password"/>
 			<input type="submit" value="로그인"/>
+			<input type="reset" value="다시 작성"/>
 		</form>
 	</div>	
 					
@@ -76,6 +85,6 @@
 			<script src="${path}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${path}/resources/assets/js/util.js"></script>
 			<script src="${path}/resources/assets/js/main.js"></script>
-
+			
 	</body>
 </html>

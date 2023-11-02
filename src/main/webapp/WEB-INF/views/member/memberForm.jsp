@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="<%=request.getContextPath()%>" />
-<c:out value="${path}/WEB-INF/views/common/top.jsp"/>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -30,11 +29,11 @@
 				주민등록번호<input type="text" name="ssn"/>
 				닉네임<input type="text" name="nickname"/>
 				이메일<input type="text" name="email"/>
-				주소<input type="text" id="addr1" name="addr1" placeholder="우편번호">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-					<input type="text" id="addr2" name="addr2" placeholder="주소">
-					<input type="text" id="addr3" name="addr3" placeholder="상세주소">
-					<input type="text" id="addr4" name="addr4" placeholder="참고항목"><br><br>
+				주소<input type="text" id="sample6_postcode" name="addr1" placeholder="우편번호">
+				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" id="sample6_address" name="addr2" placeholder="주소"><br>
+				<input type="text" id="sample6_detailAddress" name="addr3" placeholder="상세주소">
+				<input type="text" id="sample6_extraAddress" name="addr4" placeholder="참고항목"><br><br>
 				프로필사진<input type="file" name="fileName"/><br><br>
 				<input type="submit" value="회원가입하기"/>
 			</form>

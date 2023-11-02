@@ -58,6 +58,22 @@ public class MemberControllerImpl  implements MemberController {
 	private MemberVO memberVO;
 	
 	
+	@Override
+	@RequestMapping(value="/member/myPage.do", method=RequestMethod.GET)
+	public ModelAndView myPage(HttpServletRequest request, 
+									HttpServletResponse response) 
+											throws Exception {
+		
+		String viewName = getViewName(request);//   /member/myPage
+		System.out.println(viewName); // /member/myPage
+		
+		ModelAndView mav = new ModelAndView();
+					 mav.addObject("center", "/WEB-INF/views"+viewName +".jsp");
+					 mav.setViewName("main");
+		
+		return mav;
+		
+	}
 	
 	// /member/listMembers.do DB에 저장된 모든 회원 조회 요청 주소를 받았을때 호출 되는 메소드로
 	
@@ -109,7 +125,7 @@ public class MemberControllerImpl  implements MemberController {
 	
 	
 	
-		//요청한 주소가 loginForm.do 주소로 요청하면 Form메소드가 호출되게 작성 
+		//요청한 주소가 loginForm.do 주소로 요청하면 Form2메소드가 호출되게 작성 
 		@Override     
 		@RequestMapping(value={"/member/loginForm.do"}, method=RequestMethod.GET )
 		public ModelAndView Form2(HttpServletRequest request, 
@@ -150,6 +166,9 @@ public class MemberControllerImpl  implements MemberController {
 		System.out.println(id);
 		memberVO.setPassword(password);
 		System.out.println(password);
+		
+		
+		
 		memberVO = memberService.login(memberVO);
 		
 		//입력한 아디비번에 해당하는 회원정보가 조회가 되면?
@@ -158,7 +177,7 @@ public class MemberControllerImpl  implements MemberController {
 			session.setAttribute("member", memberVO); //조회된 회원정보 저장
 			session.setAttribute("isLogOn", true); //로그인 상태값을 true로 저장
 
-			mav.addObject("center", "/WEB-INF/views/common/index.jsp");
+			mav.addObject("center", "/WEB-INF/views/common/First.jsp");
 			mav.setViewName("main");
 			
 		}else {
@@ -180,7 +199,8 @@ public class MemberControllerImpl  implements MemberController {
 		session.removeAttribute("isLogOn");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/member/listMembers.do");
+		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
+		mav.setViewName("main");
 		
 		return mav;
 	}

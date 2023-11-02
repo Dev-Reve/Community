@@ -47,8 +47,7 @@ public interface MemberController {
 						   HttpServletResponse response) throws Exception;
 
 	
-	//여러 요청주소에 대해 한개의 메소드를 호출할 경우 정규식을 이용해 매핑하는 역할을 합니다. 
-	//요청한 주소가 Form.do로 끝나는 주소로 요청하면 Form메소드가 호출되게 작성 
+	//회원가입 화면 요청
 	ModelAndView Form(HttpServletRequest request, 
 					  HttpServletResponse response) throws Exception;
 
@@ -58,14 +57,17 @@ public interface MemberController {
 	ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 
-
+	//회원가입요청
 	ModelAndView addMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
+	//로그인 화면 요청
 	ModelAndView Form2(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원로그인 처리 기능
 	ModelAndView login(RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
+	//마이페이지 화면
+	ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	
 
