@@ -11,7 +11,6 @@
         <meta name="author" content="" />
     </head>
     <body>
-       
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
             <!-- Heading Row-->
@@ -24,7 +23,7 @@
                 </div>
             </div>
             <!-- Call to Action-->
-            <div class="card bg-secondary my-5 py-4 ">
+            <div class="bg-secondary my-5 py-4 ">
                 <div class="card-body"><h2 class=" m-0">저녁 뭐 먹지 최근 게시물</h2><hr>
                 <div class="row gx-4 gx-lg-5">
                 <div class="col-md-4 mb-5">
@@ -44,7 +43,7 @@
                 </div>
                 </div>
             </div>
-            <div class="card bg-secondary my-5 py-4 ">
+            <div class=" bg-secondary my-5 py-4 ">
                 <div class="card-body"><h2 class=" m-0">거래 게시판</h2><hr>
                 <div class="row gx-4 gx-lg-5">
                 <div class="col-md-4 mb-5">
