@@ -17,6 +17,8 @@ import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Service.BoardService;
 import com.spring.community.board.Utils.PagingVO;
 
+import lombok.Value;
+
 @Controller("boardController")
 public class BoardControllerImpl extends HttpServlet implements BoardController {
 	
@@ -29,34 +31,12 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	@Autowired
 	private PagingVO pvo;
 	
-	@Override
-	@RequestMapping(value="/board/listboards.do", method = RequestMethod.GET)
-	public ModelAndView selcetAllBoard(HttpServletRequest request, 
-											HttpServletResponse response)
-												throws Exception {
-
-		List boardlist = boardservice.selcetAllBoard();
-		
-		ModelAndView mav = new ModelAndView();
-		
-		int total = boardservice.countBoard();
-
-		mav.addObject("total", total);
-		mav.addObject("boardlist", boardlist);
-		mav.setViewName("board/board");
-		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
-		mav.setViewName("main");
-
-		System.out.println("mav / viewname : " + mav.getViewName());
-		
-		return mav;
-	}
-	
     @Override
     @RequestMapping(value = "/board/listboard.do", method = RequestMethod.GET)
     public ModelAndView selcetBoard(PagingVO vo, ModelAndView mav,
                                     @RequestParam(value = "nowPage", required = false) String nowPage,
-                                    @RequestParam(value = "cntPerPage", required = false) String cntPerPage)
+                                    @RequestParam(value = "cntPerPage", required = false) String cntPerPage,
+    								@RequestParam(value = "checksel", required = false) String checksel)
                                     throws Exception {
         
     	int total = boardservice.countBoard();
@@ -64,14 +44,17 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
         
         if (nowPage == null && cntPerPage == null) {
             nowPage = "1";
-            cntPerPage = "5";
+            cntPerPage = "10";
         } else if (nowPage == null) {
             nowPage = "1";
         } else if (cntPerPage == null) {
             cntPerPage = "10";
         }
-
-        pvo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+        if(checksel == null) {
+        	checksel = "no";
+        }
+        
+        pvo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), checksel);
         System.out.println("vo 값 : " + pvo);
         
         List boardlist = boardservice.selectBoard(pvo);

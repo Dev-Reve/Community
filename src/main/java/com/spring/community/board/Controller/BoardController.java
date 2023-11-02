@@ -12,13 +12,10 @@ import com.spring.community.board.Utils.PagingVO;
 
 public interface BoardController {
 	
-	// 추천수? 좋아요? 높은 순으로 조회해서 가져오는 메소드
-	public ModelAndView selcetAllBoard(HttpServletRequest request, 
-											HttpServletResponse response)
-												throws Exception;
 	public ModelAndView selcetBoard(PagingVO vo, ModelAndView mav,
 			@RequestParam(value="nowPage", required = false) String nowPage,
-			@RequestParam(value="cntPerPage", required = false)String cntPerPage)
+			@RequestParam(value="cntPerPage", required = false)String cntPerPage,
+			@RequestParam(value = "checksel", required = false) String checkel)
 			throws Exception;
 	
 }
