@@ -23,4 +23,23 @@
 	
 	<context:component-scan base-package="com.spring.community" />
 	
+		<beans:bean 
+	  id="multipartResolver"
+	  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	
+	    
+	     														<!--  클라이언트가 업로드할 수 있는 파일의 최대 크기를 설정 -->
+		<beans:property name="maxUploadSize" value="52428800"/> <!--  multipartResolver.setMaxUploadSize(50 * 1024 * 1024); // 50MB 크기까지 허용  -->
+																	
+		
+		<beans:property name="maxInMemorySize" value="1000000" /> <!--  메모리에 저장할 최대 파일 크기를 설정합니다. 
+		                                                                업로드된 파일 중 해당 크기를 초과하는 파일은 디스크에 임시로 저장됩니다. 기본값은 256KB입니다.  -->
+																  <!--   multipartResolver.setMaxInMemorySize(1 * 1024 * 1024); // 1MB까지 메모리에 저장  -->
+	
+		<beans:property name="defaultEncoding" value="utf-8" /> <!-- 이 속성은 파일 및 텍스트 파라미터를 디코딩할 때 사용할 기본 문자 인코딩을 설정합니다. 
+																	 대부분의 경우 기본값인 "ISO-8859-1" (Latin-1)을 변경할 필요가 없습니다. 
+																	 그러나 특정 요구 사항에 따라 UTF-8 등 다른 인코딩을 사용하려면 설정할 수 있습니다. -->
+	
+	
+	</beans:bean>
 </beans:beans>

@@ -1,6 +1,7 @@
 package com.spring.community.controller.main;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,13 +19,5 @@ public class Main {
 		
 		return mav;
 	}
-	@RequestMapping(value = "/test/form.do", method = RequestMethod.GET)
-	public ModelAndView Test() {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/gallery/gallery.jsp");
-		mav.setViewName("main");
-		
-		return mav;
-	}
+	
 }
