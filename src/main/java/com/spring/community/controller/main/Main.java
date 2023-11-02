@@ -3,11 +3,15 @@ package com.spring.community.controller.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.community.gallery.vo.GalleryVO;
@@ -18,23 +22,13 @@ import com.spring.community.trade.vo.TradeVO;
 
 @Controller
 public class Main {
-	
-	@Autowired
-	private mainServiceImpl mainservice;
-	List<TradeVO> ReTradelist = new ArrayList<TradeVO>();
-	List<GalleryVO> ReGallerylist = new ArrayList<GalleryVO>();
-	
+		
 	@RequestMapping(value = "/main/first.do", method = RequestMethod.GET)
-	public ModelAndView main() {
+	public ModelAndView main(@RequestParam(value="ReGallerylist") List<GalleryVO> ReGallerylist,
+							 @RequestParam(value="ReTradelist") List<TradeVO> ReTradelist
+							) {
 		
 		System.out.println("index호출");
-		
-		
-		ReTradelist = mainservice.getRecentTradeList();
-		
-		ReGallerylist = mainservice.getRecentGarallyList();
-		
-		
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -64,7 +58,7 @@ public class Main {
 		System.out.println("index호출");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/test/write.jsp");
+		mav.addObject("center", "/WEB-INF/views/t/write.jsp");
 		mav.setViewName("main");
 			
 		return mav;
