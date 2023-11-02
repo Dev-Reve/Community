@@ -1,13 +1,22 @@
 package com.spring.community.trade.controller;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +32,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,13 +41,20 @@ import com.spring.community.trade.service.TradeBoardService;
 import com.spring.community.trade.vo.TradeVO;
 
 @Controller("tradeController")
-public class TradeBoardControllerImpl implements TradeBoardController {
+public class TradeBoardControllerImpl implements TradeBoardController, ServletContextAware {
 	
 	//1. LoggerFactory클래스를 이용하여 LogeerClass의 객체를 가져옴
 	private static final Logger logger = LoggerFactory.getLogger(TradeBoardControllerImpl.class);
 	
 	//파일이 실제 업로드되는 폴더 경로 저장
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\wtpwebapps\\community\\resources\\Board\\trade\\ImagesRepo";
+	private static final String CURR_IMAGE_REPO_PATH = "/resources/Board/trade";
+	
+	private ServletContext servletContext;
+	
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 	
 	@Autowired
 	private TradeBoardService tradeService;
@@ -87,8 +104,9 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	public ModelAndView regTradeBoard(@RequestParam("files") List<MultipartFile> files, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
 	 
 		request.setCharacterEncoding("UTF-8");
-		String path = request.getContextPath();
-		System.out.println("path: " + path);
+		
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		
 		//입력한 값들 + 다중업로드 요청한 파일의 정보들을 저장할 Map 생성
 		Map map = new HashMap();;
 		
@@ -111,8 +129,26 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 		
 		int no = tradeService.regTradeBoard(map);
 		List fileList = fileProcess(request);
-		
 		map.put("filesList", fileList);
+		
+		for(MultipartFile file : files) {
+	        String originalFileName = file.getOriginalFilename();
+	        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+	        String newFileName = UUID.randomUUID().toString() + extension; // 새 파일 이름 생성, 중복 방지
+	        
+	        // 폴더 생성
+	        File tradeDir = new File(absPath + "/" + no);
+	        tradeDir.mkdirs();
+	        
+	        String filePath = absPath + "/" + no + "/" + newFileName; // 파일 경로를 글 번호 폴더에 변경
+	        File dest = new File(filePath);
+	        
+	        // 파일을 해당 폴더로 이동
+	        file.transferTo(dest);
+	        
+	        fileNames.add(newFileName);
+	    }
+		
 		
 		ModelAndView mav = new ModelAndView();
 					 mav.addObject("map", map);
@@ -188,7 +224,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	private String getViewName(HttpServletRequest request) throws Exception {
 
 		String contextPath = request.getContextPath();
-
+		
 		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
 
 		if (uri == null || uri.trim().equals("")) {
@@ -227,7 +263,8 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	//파일을 업로드한 후 반환된 파일 이름이 저장된 fileList배열을 반환하는 메소드 
 	private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) 
 						 		    throws Exception{
-		String path = multipartRequest.getContextPath();
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		System.out.println(absPath);
 		
 		List<String> fileList = new ArrayList<String>();
 		
@@ -260,7 +297,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 			
 			//c:\spring\image_repo\duke.png  업로드할 파일 경로   
 			//c:\spring\image_repo\duke2.jpg    업로드할 파일 경로
-			File file = new File(CURR_IMAGE_REPO_PATH + "/temp/" + originFileName);
+			File file = new File(absPath + "\\temp\\" + originFileName);
 			
 			//첨부되어 업로드할 파일사이즈가 있는지  (업로드할 파일이 있는지) 체크 합니다.
 			if(mFile.getSize() != 0) { 
@@ -278,7 +315,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 				
 				//임시로 저장된 fileItem객체를 지정된 대상 파일로 전송하며, 
 				//업로드한 파일을 원하는 위치에 저장하고 동일한 이름을 가진 기존파일을 덮어 씁니다.
-				mFile.transferTo( new File(CURR_IMAGE_REPO_PATH + "/temp/" + originFileName) );
+				mFile.transferTo( new File(absPath + "\\temp\\" + originFileName) );
 				
 			}
 		}
