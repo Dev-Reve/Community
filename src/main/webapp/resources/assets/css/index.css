@@ -7798,8 +7798,9 @@ textarea.form-control-lg {
 }
 
 .py-4 {
-  padding-top: 1.5rem !important;
+  padding-top: 10px !important;
   padding-bottom: 1.5rem !important;
+  border-top: 10px solid;
 }
 
 .py-5 {
@@ -8152,7 +8153,7 @@ textarea.form-control-lg {
 
 .bg-secondary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+ <!-- background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important; -->
 }
 
 .bg-success {
@@ -10844,4 +10845,5 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+  
 }

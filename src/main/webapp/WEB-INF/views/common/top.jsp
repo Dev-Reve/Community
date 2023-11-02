@@ -14,10 +14,10 @@
 <body>
 	<nav id="nav">
 		<ul class="container">
-			<li><a href="${path}/main/index.do">집으로</a></li>
+			<li><a href="${path}/main/index.do">홈으로</a></li>
 			<li><a href="${path}/trade/tradeList.do">물물거래</a></li>
-			<li><a href="#portfolio">Portfolio</a></li>
-			<li><a href="#contact">Contact</a></li>
+			<li><a href="${path}/gallery/main.do">갤러리</a></li>
+			<li><a href="#contact">자유게시판</a></li>
 		</ul>
 	</nav>
 	

@@ -18,13 +18,5 @@ public class Main {
 		
 		return mav;
 	}
-	@RequestMapping(value = "/test/form.do", method = RequestMethod.GET)
-	public ModelAndView Test() {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/gallery/gallery.jsp");
-		mav.setViewName("main");
-		
-		return mav;
-	}
+	
 }
