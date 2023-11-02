@@ -37,7 +37,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(TradeBoardControllerImpl.class);
 	
 	//파일이 실제 업로드되는 폴더 경로 저장
-	private static final String CURR_IMAGE_REPO_PATH = "/src/main/webapp/resources/Board/trade/ImagesRepo";
+	private static final String CURR_IMAGE_REPO_PATH = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\wtpwebapps\\community\\resources\\Board\\trade\\ImagesRepo";
 	
 	@Autowired
 	private TradeBoardService tradeService;
@@ -260,7 +260,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 			
 			//c:\spring\image_repo\duke.png  업로드할 파일 경로   
 			//c:\spring\image_repo\duke2.jpg    업로드할 파일 경로
-			File file = new File(path + CURR_IMAGE_REPO_PATH + "/temp/" + originFileName);
+			File file = new File(CURR_IMAGE_REPO_PATH + "/temp/" + originFileName);
 			
 			//첨부되어 업로드할 파일사이즈가 있는지  (업로드할 파일이 있는지) 체크 합니다.
 			if(mFile.getSize() != 0) { 
@@ -278,7 +278,7 @@ public class TradeBoardControllerImpl implements TradeBoardController {
 				
 				//임시로 저장된 fileItem객체를 지정된 대상 파일로 전송하며, 
 				//업로드한 파일을 원하는 위치에 저장하고 동일한 이름을 가진 기존파일을 덮어 씁니다.
-				mFile.transferTo( new File(path + CURR_IMAGE_REPO_PATH + "/temp/" + originFileName) );
+				mFile.transferTo( new File(CURR_IMAGE_REPO_PATH + "/temp/" + originFileName) );
 				
 			}
 		}
