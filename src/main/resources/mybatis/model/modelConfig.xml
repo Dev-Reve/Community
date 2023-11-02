@@ -13,6 +13,7 @@
 
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
+ 		<typeAlias type="com.spring.community.gallery.vo.GalleryVO" alias="galleryVO"/>
 
  	</typeAliases>
 </configuration>

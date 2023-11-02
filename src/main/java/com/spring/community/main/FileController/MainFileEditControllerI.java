@@ -33,7 +33,7 @@ import net.coobird.thumbnailator.Thumbnails;
 // 2. 거래 게시판 최신글 3개 조회를 해서 크기 조절 후 출력하기 
 @Controller
 @RequestMapping("/first")
-public class MainFileEditControllerImpl implements MainFileEditController, ServletContextAware {
+public class MainFileEditControllerI implements ServletContextAware {
 	
 	
 	private static String CURR_IMAGE_REPO_PATH = "/resources/images/";
@@ -46,7 +46,7 @@ public class MainFileEditControllerImpl implements MainFileEditController, Servl
 	
 	
 	@RequestMapping(value="/download.do", method=RequestMethod.GET)
-	protected void download(@RequestParam("imageFileName") String imageFileName,
+	private void download(@RequestParam("imageFileName") String imageFileName,
 							HttpServletResponse response) throws Exception{
 		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
 		System.out.println(absPath);

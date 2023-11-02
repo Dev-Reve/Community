@@ -7514,7 +7514,7 @@ textarea.form-control-lg {
 }
 
 .m-0 {
-  margin: 0 !important;
+  margin: 10px !important;
 }
 
 .m-1 {
@@ -7798,8 +7798,6 @@ textarea.form-control-lg {
 }
 
 .py-4 {
-  padding-top: 10px !important;
-  padding-bottom: 1.5rem !important;
   border-top: 10px solid;
 }
 
