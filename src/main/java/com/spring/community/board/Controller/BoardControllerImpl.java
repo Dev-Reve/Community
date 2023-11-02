@@ -68,20 +68,17 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
         } else if (nowPage == null) {
             nowPage = "1";
         } else if (cntPerPage == null) {
-            cntPerPage = "5";
+            cntPerPage = "10";
         }
 
         pvo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
         System.out.println("vo 값 : " + pvo);
         
-        mav.addObject("paging", pvo);    
-        
-        // 여기서 에러 터짐
         List boardlist = boardservice.selectBoard(pvo);
         System.out.println("boardlist 값 : " + boardlist);
 
+        mav.addObject("paging", pvo);  
         mav.addObject("boardlist", boardlist);
-      
 		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
 		mav.setViewName("main");
         
