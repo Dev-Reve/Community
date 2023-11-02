@@ -19,6 +19,7 @@
 		<result property="nickname" column="nickname"/>
 		<result property="writeDate" column="writeDate"/>
 		<result property="category" column="category"/>
+	    <result property="fileNames" column="fileName" typeHandler="com.spring.community.utils.OracleTypeHandler"/>
 	</resultMap>
 	
 	<select id="selectAllTrades" resultMap="tradeResult" parameterType="java.util.HashMap">
@@ -54,10 +55,19 @@
 		</foreach>
 	</insert>
 	
+	
 	<select id="getNewTradeNo" resultType="int">
 		<![CDATA[
 			SELECT MAX(no) FROM trade
 		]]>
+	</select>
+	
+	<select id="selectTradeDetail" resultMap="tradeResult" parameterType="int">
+		<![CDATA[
+	        SELECT no, title, content, category, nickName, sellStat, price,
+	               CAST(MULTISET (SELECT column_value FROM TABLE(fileName)) AS sys.odcivarchar2list) AS fileName
+	        FROM trade WHERE no = #{no}
+ 	   ]]>
 	</select>
 	
 </mapper>

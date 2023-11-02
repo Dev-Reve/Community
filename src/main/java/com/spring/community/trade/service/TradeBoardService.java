@@ -23,11 +23,11 @@ public interface TradeBoardService {
 //	public List listTradeCategory(String category) throws Exception;
 	
 	//거래 게시판에서 게시글을 클릭했을 때 게시글을 조회해오는 메소드
-//	public TradeVO viewTradeDetail(int no) throws Exception;
+	public TradeVO viewTradeDetail(int no) throws Exception;
 	
 	//거래 게시판에서 글작성을 클릭했을 때 글을 등록하는메소드
 	public int regTradeBoard(Map map) throws Exception;
-
+	
 	//거래 게시판에서 글 수정을 클릭했을 때 글을 수정하는 메소드
 //	public void modTradeBoard(int no) throws Exception;
 	

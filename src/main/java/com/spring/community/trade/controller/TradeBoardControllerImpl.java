@@ -1,10 +1,14 @@
 package com.spring.community.trade.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,6 +44,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.community.trade.service.TradeBoardService;
 import com.spring.community.trade.vo.TradeVO;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 @Controller("tradeController")
 public class TradeBoardControllerImpl implements TradeBoardController, ServletContextAware {
 	
@@ -48,6 +54,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	
 	//파일이 실제 업로드되는 폴더 경로 저장
 	private static final String CURR_IMAGE_REPO_PATH = "/resources/Board/trade";
+	private static final String RESOURCE_PATH = "/resources/images/";
 	
 	private ServletContext servletContext;
 	
@@ -133,45 +140,132 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		
 		for(MultipartFile file : files) {
 	        String originalFileName = file.getOriginalFilename();
-	        String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-	        String newFileName = UUID.randomUUID().toString() + extension; // 새 파일 이름 생성, 중복 방지
 	        
 	        // 폴더 생성
 	        File tradeDir = new File(absPath + "/" + no);
 	        tradeDir.mkdirs();
 	        
-	        String filePath = absPath + "/" + no + "/" + newFileName; // 파일 경로를 글 번호 폴더에 변경
+	        String filePath = absPath + "/" + no + "/" + originalFileName; // 파일 경로를 글 번호 폴더에 변경
 	        File dest = new File(filePath);
 	        
 	        // 파일을 해당 폴더로 이동
 	        file.transferTo(dest);
 	        
-	        fileNames.add(newFileName);
+	        fileNames.add(originalFileName);
 	    }
 		
 		
 		ModelAndView mav = new ModelAndView();
 					 mav.addObject("map", map);
-//					 mav.setViewName("redirect:/trade/tradeDetail.do?no=" + no);
-					 mav.setViewName("redirect:/trade/tradeList.do");
+					 mav.setViewName("redirect:/trade/tradeDetail.do?no=" + no);
 		return mav; 
 	}
-	/*
+	
+	@Override
+	@RequestMapping(value = "/trade/thumbnail.do")
+	public void thumbnail(@RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//사진을 내려받기 위한 출력 스트림 통로 객체 생성
+		OutputStream out = response.getOutputStream();
+		//사진이 저장된 경로를 찾아가기 위해 절대 경로 저장 
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		String resourcePath = servletContext.getRealPath(RESOURCE_PATH);
+		
+		//다운로드할 파일위치의 파일경로 생성
+		String filePath = absPath + "/" + no;
+		
+		//이미지 파일을 접근해서 파일을 조작, 정보보기 등을 할 수 있는 파일 객체 생성
+		File images = new File(filePath);
+		//파일경로에 존재하는 이미지 파일들을 담을 파일배열 생성
+		File[] files = images.listFiles();
+		
+		String imageFileName = "";
+		
+		//만약 경로내에 파일이 존재한다면 첫번째 파일의 경로 반환
+		if(files != null && files.length > 0) {
+			imageFileName  = files[0]. getAbsolutePath();
+		} else {
+			imageFileName  = resourcePath + "a.jpg";
+			System.out.println(imageFileName);
+		}
+		File image = new File(imageFileName);
+		
+		Thumbnails.of(imageFileName).size(220, 220).toOutputStream(out);
+		
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
+		
+	}
+	
+	@Override
+	@RequestMapping(value = "/trade/imageList.do")
+	public void download(@RequestParam("imageFileName") String imageFileName,
+				   	 	 @RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//사진을 내려받기 위한 출력 스트림 통로 객체 생성
+		OutputStream out = response.getOutputStream();
+		//사진이 저장된 경로를 찾아가기 위해 절대 경로 저장 
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		String resourcePath = servletContext.getRealPath(RESOURCE_PATH);
+		
+		//다운로드할 파일위치의 파일경로 생성
+		String filePath = absPath + "/" + no + "/" + imageFileName;
+		
+		//이미지 파일을 접근해서 파일을 조작, 정보보기 등을 할 수 있는 파일 객체 생성
+		File file = new File(filePath);
+		
+		//캐시를 사용하지 않고 항상 최신 데이터를 보여주기 위한 header 설정
+		response.setHeader("Cache-Control", "no-cache");
+		//다운로드할 파일명을 response객체에 설정
+		response.addHeader("Content-disposition", "attachment; fileName=" + imageFileName);
+		
+		//다운로드할 파일을 바이트 데이터 단위로 읽어들일 입력스트림통로 생성
+		FileInputStream in = new FileInputStream(file);
+				
+				
+		byte[] buffer = new byte[1024*8];
+		
+		while(true) {
+			//매개변수로 지정된 바이트 배열의 데이터를 읽어들이기
+			int count = in.read(buffer);
+			
+			//읽어들일 파일의 내용이 없으면 while을 빠져나감
+			if(count == -1) break;
+			
+			//출력 스트림 통로를 통해 한번에 8kb씩 브라우저로 전송하여 다운로드
+			out.write(buffer, 0, count);
+		}//while
+		
+		in.close();
+		out.close();
+	}
+	
+	
 	@RequestMapping(value = "/trade/tradeDetail.do", method = {RequestMethod.GET, RequestMethod.POST}) 
 	public ModelAndView viewTradeDetail(@RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		  
 		request.setCharacterEncoding("UTF-8");
 	
-		//서비스 객체 메소드 호출 시 no를 전달하여 select vo = tradeService.viewTradeDetail(no);
-	
+		//서비스 객체 메소드 호출 시 no를 전달하여 select 
+		vo = tradeService.viewTradeDetail(no);
+//		System.out.println(vo.getTitle());
+//		System.out.println(vo.getContent());
+//		System.out.println(vo.getCategory());
+//		System.out.println(vo.getNo());
+//		System.out.println("price: " + vo.getPrice());
+//		System.out.println(vo.getSellStat());
+		
+//		String[] fileNames = vo.getFileNames();
+//		for(String fileName : fileNames) {
+//			System.out.println(fileName);
+//		}
+
 		ModelAndView mav = new ModelAndView(); 
 		mav.addObject("vo", vo);
-		mav.setViewName(getViewName(request));
+		mav.addObject("center", "/WEB-INF/views/trade/tradeDetail.jsp");
+		mav.setViewName("trade/tradeMain");
 	
 		return mav; 
 	}
-	*/
-	
+		
 	
 	/*
 	 * @Override

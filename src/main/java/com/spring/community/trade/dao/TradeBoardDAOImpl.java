@@ -1,5 +1,6 @@
 package com.spring.community.trade.dao;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,5 +55,10 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 		int tradeNo = sqlSession.selectOne("mapper.trade.getNewTradeNo");
 //		System.out.println("getNewTradeNo에서 호출한 tradeNo" + tradeNo);
 		return tradeNo;
+	}
+	
+	@Override
+	public TradeVO selectTradeDetail(int no) throws DataAccessException {
+		return sqlSession.selectOne("mapper.trade.selectTradeDetail", no);
 	}
 }

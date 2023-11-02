@@ -15,7 +15,7 @@ public class TradeVO {
 				   nickname, //유저닉네임
 				   writeDate, //작성일
 				   category; //카테고리
-	private List<String> fileNames,
+	private String[] fileNames,
 						 fileRealNames;
 				   
 	public TradeVO() {}
@@ -88,24 +88,25 @@ public class TradeVO {
 		return category;
 	}
 
+	public String[] getFileNames() {
+		return fileNames;
+	}
+
+	public void setFileNames(String[] fileNames) {
+		this.fileNames = fileNames;
+	}
+
+	public String[] getFileRealNames() {
+		return fileRealNames;
+	}
+
+	public void setFileRealNames(String[] fileRealNames) {
+		this.fileRealNames = fileRealNames;
+	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	public List<String> getFileNames() {
-		return fileNames;
-	}
-
-	public void setFileNames(List<String> fileNames) {
-		this.fileNames = fileNames;
-	}
-
-	public List<String> getFileRealNames() {
-		return fileRealNames;
-	}
-
-	public void setFileRealNames(List<String> fileRealNames) {
-		this.fileRealNames = fileRealNames;
-	}
 
 }

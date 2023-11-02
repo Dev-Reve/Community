@@ -67,5 +67,10 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		return tradeNo;
 	}
 	
+	@Override
+	public TradeVO viewTradeDetail(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectTradeDetail(no);
+	}
 	
 }

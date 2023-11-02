@@ -20,13 +20,19 @@ public interface TradeBoardController {
 //	public ModelAndView listTradeCategory(String category, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//거래 게시판에서 게시글을 클릭했을 때 게시글을 조회해오는 메소드
-//	public ModelAndView viewTradeDetail(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView viewTradeDetail(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//거래 게시판에서 등록 또는 수정 폼을 요청하는 메소드
 	public ModelAndView Form(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	//거래 게시판에서 글작성을 클릭했을 때 글을 등록하는메소드
 	public ModelAndView regTradeBoard(List<MultipartFile> files, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	//게시판 조회 시 사진들을 내려받아 띄워주는 메소드
+	void download(String imageFileName, int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	//게시판 리스트에 사진을 내려받아 띄워주는 메소드
+	void thumbnail(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	//거래 게시판에서 글 수정을 클릭했을 때 글을 수정하는 메소드
 //	public ModelAndView modTradeBoard(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;

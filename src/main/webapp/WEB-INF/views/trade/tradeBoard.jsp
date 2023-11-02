@@ -127,7 +127,9 @@
 						<c:set var="index" value="${loop.index + 1}" />
 							<tr class="boardArticles" onclick="location.href='${path}/trade/tradeDetail.do?no=${vo.no}'">
 								<td class="boardNo">${index + ((tradeList.currentPage-1) * 10)}</td>
-								<td class="boardImg"><img src="${path}/resources/images/a.jpg"></td>
+								<td class="boardImg">
+									<img src="${path}/trade/thumbnail.do?no=${vo.no}">
+								</td>
 								<td class="boardTitle">${vo.title}</td>
 								<td class="boardUser">${vo.nickname}</td>
 								<td class="boardWriteDate">${vo.writeDate}</td>
@@ -149,15 +151,15 @@
 						<!-- pageSize로 설정한 수보다 글이 더 많으면 -->
 						<c:if test="${(tradeList.currentPage % tradeList.pageSize) ne 0}">
 							<fmt:parseNumber var="result" value="${tradeList.currentPage / tradeList.pageSize}" integerOnly="true" />
-							<c:set var="startPage" value="${result * tradeList.pageSize + 1}" />
+							<c:set var="startPage" value="${result * tradeList.pageBlock + 1}" />
 						</c:if>
 						
 						<!-- pageSize보다 글 개수가 더 적으면 -->
 						<c:if test="${tradeList.currentPage % tradeList.pageSize eq 0}">
-							<c:set var="startPage" value="${(result - 1) * tradeList.pageSize + 1}" />
+							<c:set var="startPage" value="${(result - 1) * tradeList.pageBlock + 1}" />
 						</c:if>
 						
-						<c:set var="pageBlock" value="${tradeList.pageSize}" />
+						<c:set var="pageBlock" value="${tradeList.pageBlock}" />
 						<c:set var="endPage" value="${startPage + pageBlock - 1}" />
 						
 						<!-- 끝 페이지 -->
@@ -166,9 +168,9 @@
 						</c:if>
 						
 						<!-- 시작페이지가 pageSize보다 크면 -->
-						<c:if test="${startPage > tradeList.pageSize}">
+						<c:if test="${startPage > tradeList.pageBlock}">
 							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage - tradeList.pageSize}" aria-label="Previous">
+								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage - tradeList.pageBlock}" aria-label="Previous">
 						      		<span aria-hidden="true">&laquo;</span>
 						    	</a>
 							</li>
@@ -178,7 +180,7 @@
 						<c:forEach var="n" begin="${startPage}" end="${endPage}">
 							<c:choose>
 								<c:when test="${n eq tradeList.currentPage}">
-									<li class="page-item active"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${n}">${n}</a></li>
+									<li class="page-item active"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage}">${tradeList.currentPage}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${n}">${n}</a></li>
@@ -189,7 +191,7 @@
 						<!-- 끝페이지 이후 다음 글 존재하면 -->
 						<c:if test="${endPage < pageCount}">
 							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage + tradeList.pageSize}">
+								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage + 1}">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>

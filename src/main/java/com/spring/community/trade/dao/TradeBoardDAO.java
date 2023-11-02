@@ -22,4 +22,8 @@ public interface TradeBoardDAO {
 	//거래 게시판에 글 작성을 하는 메소드
 	public int regTradeBoard(Map map) throws DataAccessException;
 
+	public TradeVO selectTradeDetail(int no) throws DataAccessException;
+	
+
+
 }
