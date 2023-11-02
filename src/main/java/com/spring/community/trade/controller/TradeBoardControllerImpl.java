@@ -229,7 +229,6 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 			
 			//읽어들일 파일의 내용이 없으면 while을 빠져나감
 			if(count == -1) break;
-			
 			//출력 스트림 통로를 통해 한번에 8kb씩 브라우저로 전송하여 다운로드
 			out.write(buffer, 0, count);
 		}//while
