@@ -7,9 +7,14 @@
     
     
     
+<<<<<<< HEAD
     <wb-module deploy-name="sample">
                                                                 		
         
+=======
+    <wb-module deploy-name="community-1.0.0-BUILD-SNAPSHOT">
+                                                        		
+>>>>>>> branch 'main' of https://github.com/Dev-Reve/Community.git
         
         
         
@@ -44,9 +49,21 @@
         
         
         <property name="java-output-path" value="target/classes"/>
+<<<<<<< HEAD
         <property name="context-root" value="community"/>
                                                                 	
     
+=======
+                                                                
+        
+        
+        
+        
+        
+        
+        <property name="context-root" value="community"/>
+                                                        	
+>>>>>>> branch 'main' of https://github.com/Dev-Reve/Community.git
     
     
     
