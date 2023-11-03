@@ -16,6 +16,10 @@
 		var sel = document.getElementById('checksel').value;
 		location.href="${Path}/board/listboard.do?nowPage=${paging.nowPage}&cntPerPage=10&checksel="+sel;
 	}
+	function serchsel() {
+		var keyword = document.getElementById('keyword').value;
+		console.log(ketword);
+	}
 </script>
 
 <meta charset="utf-8" />
@@ -26,13 +30,18 @@
 <h2>게시판</h2>
 <div id="outter">
 	<div style="float: right;">
+		<input type="text" name="keyword" >
+		
 		<select id="checksel" name="sel" onchange="selChange()">
-			<option value="no" >
-				<c:if test="${paging.checksel == no}">selected</c:if>최신순</option>
-			<option value="readCount" >조회순</option>
-				<c:if test="${paging.checksel == readCount}">selected</c:if>조회순</option>
+			<option value="no" 
+				<c:if test="${paging.checksel == 'no'}">selected</c:if>>최신순</option>
+    		<option value="readCount" 
+    			<c:if test="${paging.checksel == 'readCount'}">selected</c:if>>조회순</option>
 		</select>
+
 	</div> <!-- 옵션선택 끝 -->
+	
+	
 	<table border="1">
 		<tr>
 			<th>글 번호</th>
