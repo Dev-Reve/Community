@@ -1,5 +1,7 @@
 package com.spring.community.likeboard.Controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,18 +22,17 @@ public class LikeBoardControllerImpl extends HttpServlet implements LikeBoardCon
 	private LikeBoardService likeboardservice;
 	
 	@Autowired
-	private LikeBoardVO likeboardVO;
-	
+	private LikeBoardVO vo;
 	
 	@Override
 	@RequestMapping(value = "/likeboard/likeboard.do", method = RequestMethod.GET)
-	public ModelAndView selcetAllLikeBoard(HttpServletRequest request, 
+	public ModelAndView selcetLikeBoard(HttpServletRequest request, 
 											HttpServletResponse response)
 												throws Exception {
-		
-		System.out.println("요청 주소 : " + request.getRequestURI());
-		
 		ModelAndView mav = new ModelAndView();
+		
+		List likeboardlist = likeboardservice.selcetLikeBoard();
+		
 		mav.setViewName("likeboard/likeboard");
 		mav.addObject("center", "/WEB-INF/views/likeboard/likeboard.jsp");
 		mav.setViewName("main");
@@ -40,5 +41,7 @@ public class LikeBoardControllerImpl extends HttpServlet implements LikeBoardCon
 		
 		return mav;
 	}
-
+	
+	
+	
 }
