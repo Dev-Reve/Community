@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.board.Utils.PagingVO;
+import com.spring.community.likeboard.likeBoardVO.LikeBoardVO;
+
 @Repository("likeboardDAO")
 public class LikeBoardDAOImpl extends HttpServlet implements LikeBoardDAO {
 	
@@ -19,11 +22,20 @@ public class LikeBoardDAOImpl extends HttpServlet implements LikeBoardDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List selcetLikeBoard() {
+	public List<LikeBoardVO> selboardList(PagingVO pvo){
 		
+		List<LikeBoardVO> boardList = sqlSession.selectList("mapper.likeboard.boardList", pvo);
 		
-		
-		return null;
+		return boardList;
 	}
 
+	@Override
+	public List<LikeBoardVO> seltradeList(PagingVO pvo) {
+		
+		List<LikeBoardVO> tradeList = sqlSession.selectList("mapper.likeboard.tradeList", pvo);
+		
+		return tradeList;
+	}
+		
+	
 }

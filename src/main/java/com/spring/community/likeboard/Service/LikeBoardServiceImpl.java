@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.board.Utils.PagingVO;
 import com.spring.community.likeboard.lickBoardDAO.LikeBoardDAO;
 import com.spring.community.likeboard.likeBoardVO.LikeBoardVO;
 
@@ -20,12 +21,15 @@ public class LikeBoardServiceImpl extends HttpServlet implements LikeBoardServic
 	private LikeBoardDAO boardDAO;
 	@Autowired
 	private LikeBoardVO vo;
-	
+
 	@Override
-	public List selcetLikeBoard() throws Exception {
-		List likeboardlist = boardDAO.selcetLikeBoard();
-		
-		return likeboardlist;
+	public List<LikeBoardVO> selboardList(PagingVO pvo) {
+		return boardDAO.selboardList(pvo);
+	}
+
+	@Override
+	public List<LikeBoardVO> seltradeList(PagingVO pvo) {
+		return boardDAO.seltradeList(pvo);
 	}
 
 }
