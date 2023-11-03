@@ -32,14 +32,16 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		
 		int currentPage = Integer.parseInt(pageNum);
 		count = dao.getTradeCount();
-		int startRow = (currentPage - 1) * pageSize + 1;
+		int startRow = ((currentPage - 1) * pageSize) + 1;
 		int endRow = currentPage * pageSize;
+		System.out.println("startRow: " + startRow);
+		System.out.println("endRow: " + endRow);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<TradeVO> vo = new ArrayList<TradeVO>(); 
 		
 		if(count > 0) {
-			vo = dao.selectAllTrades((startRow-1), endRow);
+			vo = dao.selectAllTrades(startRow, endRow);
 			no = count - (currentPage - 1 ) * pageSize;
 		}
 		
@@ -71,6 +73,16 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	public TradeVO viewTradeDetail(int no) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.selectTradeDetail(no);
+	}
+	
+	@Override
+	public void delTradeBoard(int no) throws Exception {
+		dao.delTradeBoard(no);
+	}
+	
+	@Override
+	public void modTradeBoard(Map map) throws Exception {
+		dao.modTradeBoard(map);
 	}
 	
 }

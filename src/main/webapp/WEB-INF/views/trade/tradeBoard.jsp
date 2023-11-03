@@ -151,12 +151,12 @@
 						<!-- pageSize로 설정한 수보다 글이 더 많으면 -->
 						<c:if test="${(tradeList.currentPage % tradeList.pageSize) ne 0}">
 							<fmt:parseNumber var="result" value="${tradeList.currentPage / tradeList.pageSize}" integerOnly="true" />
-							<c:set var="startPage" value="${result * tradeList.pageBlock + 1}" />
+							<c:set var="startPage" value="${result * tradeList.pageSize + 1}" />
 						</c:if>
 						
 						<!-- pageSize보다 글 개수가 더 적으면 -->
 						<c:if test="${tradeList.currentPage % tradeList.pageSize eq 0}">
-							<c:set var="startPage" value="${(result - 1) * tradeList.pageBlock + 1}" />
+							<c:set var="startPage" value="${(result - 1) * tradeList.pageSize + 1}" />
 						</c:if>
 						
 						<c:set var="pageBlock" value="${tradeList.pageBlock}" />
@@ -170,7 +170,7 @@
 						<!-- 시작페이지가 pageSize보다 크면 -->
 						<c:if test="${startPage > tradeList.pageBlock}">
 							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage - tradeList.pageBlock}" aria-label="Previous">
+								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage - tradeList.pageBlock}" aria-label="Previous">
 						      		<span aria-hidden="true">&laquo;</span>
 						    	</a>
 							</li>

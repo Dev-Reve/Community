@@ -34,7 +34,7 @@
 					) t
 					WHERE ROWNUM <= #{endRow}
 				)
-			WHERE rn > #{startRow}
+			WHERE rn >= #{startRow}
 		]]>		
 		
 	</select>
@@ -69,5 +69,20 @@
 	        FROM trade WHERE no = #{no}
  	   ]]>
 	</select>
+	
+	<delete id="delTrade" parameterType="int">
+		<![CDATA[
+			DELETE FROM trade WHERE no=#{no}
+		]]>
+	</delete>
+	
+	<update id="updateTrade" parameterType="java.util.HashMap">
+		<![CDATA[
+			UPDATE trade SET category=#{category}, title=#{title}, content=#{content}, price=#{price}, StringArray(
+		]]>
+		<foreach collection="fileList" item="fileName" separator=", " close="))">
+			#{fileName}
+		</foreach>
+	</update>
 	
 </mapper>

@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -100,6 +101,14 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		
 		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩
 		ModelAndView mav = new ModelAndView();
+		
+		if(viewName.equals("/trade/modTradeForm")) {
+			int no = Integer.parseInt( request.getParameter("no") );
+			vo = tradeService.viewTradeDetail(no);
+			
+			mav.addObject("vo", vo);
+		}
+		
 		mav.addObject("center", "/WEB-INF/views" + viewName + ".jsp");
 		mav.setViewName("trade/tradeMain");
 		
@@ -237,7 +246,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		out.close();
 	}
 	
-	
+	@Override
 	@RequestMapping(value = "/trade/tradeDetail.do", method = {RequestMethod.GET, RequestMethod.POST}) 
 	public ModelAndView viewTradeDetail(@RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		  
@@ -265,52 +274,95 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		return mav; 
 	}
 		
+	 @Override
+	 @RequestMapping(value = "/trade/delTrade.do", method = {RequestMethod.GET, RequestMethod.POST}) 
+	 public ModelAndView delTradeBoard(@RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception { request.setCharacterEncoding("UTF-8");
+		 tradeService.delTradeBoard(no);
+		 
+		 return new ModelAndView("redirect:/trade/tradeList.do"); 
+	 }
 	
+
+	 @Override
+	 @RequestMapping(value = "/trade/modTrade.do", method = {RequestMethod.GET, RequestMethod.POST}) 
+	 public ModelAndView modTradeBoard(@RequestParam("files") List<MultipartFile> files, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
+		 
+		request.setCharacterEncoding("UTF-8");
+		 
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		
+		//입력한 값들 + 다중업로드 요청한 파일의 정보들을 저장할 Map 생성
+		Map map = new HashMap();;
+		
+		//request에서 값을 꺼내와 Enumeration배열에 저장 후 배열 자체를 리턴
+		Enumeration enu = request.getParameterNames();
+		
+		while (enu.hasMoreElements()) {
+			String key = (String)enu.nextElement();
+			
+			String value = request.getParameter(key);
+			 
+			map.put(key, value);
+		}
+		
+		List<String> fileNames = new ArrayList<String>();
+		for(MultipartFile file : files) {
+			String fileName = file.getOriginalFilename();
+			fileNames.add(fileName);
+		}
+		map.put("fileList", fileNames);
+		
+		int no = (Integer)map.get("no");
+		
+		tradeService.modTradeBoard(map);
+		List fileList = fileProcess(request);
+		map.put("filesList", fileList);
+		
+		for(MultipartFile file : files) {
+		    String originalFileName = file.getOriginalFilename();
+		    
+		    // 폴더 생성
+		    File tradeDir = new File(absPath + "/" + no);
+		    tradeDir.mkdirs();
+		    
+		    String filePath = absPath + "/" + no + "/" + originalFileName; // 파일 경로를 글 번호 폴더에 변경
+		    File dest = new File(filePath);
+		    
+		    // 파일을 해당 폴더로 이동
+		    file.transferTo(dest);
+		    
+		    fileNames.add(originalFileName);
+		}
+		
+			
+		 
+		 ModelAndView mav = new ModelAndView("redirect:/trade/tradeList.do");
+		 
+		 return mav; 
+	 }
+	 
 	/*
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/trade/categoriedList.do") public ModelAndView
-	 * listTradeCategory(@RequestParam("category") String category,
-	 * HttpServletRequest request, HttpServletResponse response) throws Exception {
-	 * List categoriedList = tradeService.listTradeCategory(category);
-	 * 
-	 * request.setCharacterEncoding("UTF-8");
-	 * 
-	 * //응답할 뷰 이름 얻기 String viewName = getViewName(request);
-	 * 
-	 * //응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩 ModelAndView mav = new ModelAndView();
-	 * //응답할 값 저장 mav.addObject("categoriedList", categoriedList); //뷰명 저장
-	 * mav.setViewName(viewName);
-	 * 
-	 * return mav; }
-	 * 
-	 * @Override
-	 * 
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/trade/modTrade.do", method = {RequestMethod.GET,
-	 * RequestMethod.POST}) public ModelAndView modTradeBoard(@RequestParam("no")
-	 * int no, HttpServletRequest request, HttpServletResponse response) throws
-	 * Exception {
-	 * 
-	 * request.setCharacterEncoding("UTF-8");
-	 * 
-	 * tradeService.modTradeBoard(no);
-	 * 
-	 * ModelAndView mav = new ModelAndView("redirect:/trade/tradeList.do");
-	 * 
-	 * return mav; }
-	 * 
-	 * @Override
-	 * 
-	 * @RequestMapping(value = "/trade/delTrade.do", method = {RequestMethod.GET,
-	 * RequestMethod.POST}) public ModelAndView delTradeBoard(@RequestParam("no")
-	 * int no, HttpServletRequest request, HttpServletResponse response) throws
-	 * Exception { request.setCharacterEncoding("UTF-8");
-	 * 
-	 * tradeService.delTradeBoard(no);
-	 * 
-	 * return new ModelAndView("redirect:/trade/tradeList.do"); }
+	 @Override
+	 
+	 @RequestMapping(value = "/trade/categoriedList.do") public ModelAndView
+	 listTradeCategory(@RequestParam("category") String category,
+	 HttpServletRequest request, HttpServletResponse response) throws Exception {
+	 List categoriedList = tradeService.listTradeCategory(category);
+	 
+	 request.setCharacterEncoding("UTF-8");
+	 
+	 //응답할 뷰 이름 얻기 String viewName = getViewName(request);
+	 
+	 //응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩 ModelAndView mav = new ModelAndView();
+	 //응답할 값 저장 mav.addObject("categoriedList", categoriedList); //뷰명 저장
+	 mav.setViewName(viewName);
+	 
+	 return mav; }
+	 
+	
+	 
+	 
+	
 	 */
 
 	//request 객체에서 URL 요청명을 가져와 .do를 제외한 요청명을 구하는 메소드 

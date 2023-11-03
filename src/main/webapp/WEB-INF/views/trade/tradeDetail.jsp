@@ -13,13 +13,25 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<!-- CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+		<!-- JS -->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
 			$(function() {
 
 			});
+			
+			function regCo() {
+				var content = $('co_content').val();
+				alert(content);
+				location.href="#";
+				$.ajax({
+					url: '${path}/comment/regComment.do'
+				});
+			}
 		</script>
     <style>
 		.like {
@@ -62,9 +74,9 @@
 		  transform: rotate(-1turn);
 		}
 		
-	      .swiper-slide {
+      .swiper-slide {
 	        text-align: center;
-	        font-size: 18px;
+	        font-size: 10px;
 	        background: #fff;
 	
 	        /* Center slide text vertically */
@@ -80,24 +92,80 @@
 	        -ms-flex-align: center;
 	        -webkit-align-items: center;
 	        align-items: center;
-	      }
-	
-	      .swiper-slide img {
-	        display: block;
-	        width: 100%;
-	        height: 100%;
-	        object-fit: scale-down;
-	      }
-	      .swiper-button-next,
-		  .swiper-button-prev {
-			width: 30px; /* 버튼 너비 조절 */
-			height: 30px; /* 버튼 높이 조절 */
-			background-color: #000; /* 버튼 배경색 설정 */
-			color: #fff; /* 버튼 텍스트 색상 설정 */
-			border-radius: 50%; /* 원 모양으로 버튼 설정 */
-			font-size: 20px; /* 텍스트 크기 설정 */
+      }
+	      
+      .signupBtn {
+      	  float: right;
+		  width: 150px;
+		  height: 40px;
+		  border-radius: 30px;
+		  border: none;
+		  display: flex;
+		  align-items: center;
+		  justify-content: flex-start;
+		  padding-left: 20px;
+		  gap: 9px;
+		  color: white;
+		  background: linear-gradient(to right,rgb(128, 128, 255),rgb(183, 128, 255));
+		  position: relative;
+		  cursor: pointer;
+		  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.212);
+		}
+		
+		.arrow {
+		  position: absolute;
+		  right: 7.5px;
+		  background-color: rgb(255, 255, 255);
+		  width: 25px;
+		  height: 25px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  border-radius: 50%;
+		}
+		
+		.signupBtn:hover .arrow {
+		  animation: slide-in-left 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+		}
+		
+		@keyframes slide-in-left {
+		  0% {
+		    transform: translateX(-10px);
+		    opacity: 0;
 		  }
-		  
+		
+		  100% {
+		    transform: translateX(0);
+		    opacity: 1;
+		  }
+	  	}	
+	  	
+	  	.button {
+	  	  margin-top: 1em;
+		  font-size: 14px;
+		  font-weight: bold;
+		  border: 0px;
+		  color: white;
+		  background-color: #1877f2;
+		  padding: 1rem 2rem;
+		  border-radius: 15px;
+		  cursor: pointer;
+		}
+		
+		.button:hover {
+		  background-image: linear-gradient(45deg,
+				#B799FF 0%,
+				#ACBCFF 50%,
+				#AEE2FF 75%,
+				#E6FFFD 100%);
+		  color: black;
+		  animation: slide 10s linear infinite;
+		}
+		
+		@keyframes slide {
+		  100% {
+		    background-position: 50rem;
+		  }
 		}
     </style>
 	</head>
@@ -105,36 +173,70 @@
 		<!-- Home -->
 		<h1 style="text-align: center; padding-top: 1em;">거래 게시판</h1>
 		<hr>
-		<form action="${path}/trade/modTrade.do" method="post" enctype="multipart/form-data">
-			<div style="display: flex; flex-direction: column;">
-				<c:set var="vo" value="${vo}" />
-				<input type="hidden" name="no" value="${vo.no}">
-				<div class="swiper mySwiper" style="width: 300px; height: 300px; float: left;">
-				    <div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<c:forEach var="fileName" items="${vo.fileNames}">
-				      			<img src="${path}/trade/imageList.do?no=${vo.no}&imageFileName=${fileName}" style="width: 100%; height: 100%; object-fit:cover;">
-					    	</c:forEach>
+		<div class="container-fluid" style="display: flex; flex-direction: column;">
+			<form action="${path}/trade/modTrade.do" method="post" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-md-4">
+					<c:set var="vo" value="${vo}" />
+					<input type="hidden" name="no" value="${vo.no}">
+						<div class="swiper mySwiper" style="width: 400px; height: 400px; float: left;">
+						    <div class="swiper-wrapper">
+								<c:forEach var="fileName" items="${vo.fileNames}">
+									<div class="swiper-slide">
+						      			<img src="${path}/trade/imageList.do?no=${vo.no}&imageFileName=${fileName}" style="width: 100%; height: 100%; object-fit:scale-down;">
+									</div>
+						    	</c:forEach>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						    <div class="swiper-pagination"></div>
+			  			</div>
+		  			</div>
+					<div class="col-md-8">
+						<h4>${vo.title}</h4>
+						<small>가격: ${vo.price}원</small>
+						<p style="margin-top: 12em">
+							유저닉네임 또는 프사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소 들어가는 곳
+						<span><small></small></span>
+						<div>
+							<button class="like" type="button" > <span>찜하기</span></button>
 						</div>
-				    </div>
-				   <div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
-				    <div class="swiper-pagination"></div>
-			  	</div>
-			  	<div style="margin-left: 1em;">
-					<h4>${vo.title}</h4>
-					<small>가격: ${vo.price}원</small>
-					<p style="margin-top: 9.3em;">
-					유저닉네임 또는 프사&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 주소 들어가는 곳
-					</p>
-					<span><small></small></span>
-					<div>
-						<button class="like" type="button" > <span>찜하기</span></button>
-						
+						</p>
 					</div>
-			  	</div>
+				</div>
+			</form>
+			<div class="row" style="border-top: 1px solid gray; min-height: 400px; border-bottom: 1px solid gray; margin-top: 1em;">
+				<div class="col-md-12">
+					${vo.content}
+				</div>
 			</div>
-		</form>
+			
+			<div>
+				<button type="button" class="button" onclick="javascript:history.go(-1);">글 목록</button>
+				<button type="button" class="button" onclick="location.href='${path}/trade/modTradeForm.do?no=${vo.no}'">글 수정</button>
+				<button type="button" class="button" onclick="location.href='${path}/trade/delTrade.do?no=${vo.no}'">글 삭제</button>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-12">
+					<input type="text" name="co_content" style="width: calc(100% - 180px); float: left; height: 2.3em; border: 1px solid lightgray;" placeholder="댓글을 입력해주세요">
+					<button class="signupBtn" onclick="regCo();">
+					  댓글작성
+					  <span class="arrow">
+					     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512" fill="rgb(183, 128, 255)"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+					  </span>
+					</button>
+					<div class="comment">
+						<img src="${path }/resources/images/a.jpg" style="width: 75px; height: 75px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-top: 1em;">
+						<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em;">
+							<b>닉네임</b> | <small>작성일자</small> <br>
+							댓글내용 아라랄아랑랑랑랑랄아라
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		
 		
 		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -143,7 +245,7 @@
 				spaceBetween: 30,
 			    centeredSlides: true,
 			    autoplay: {
-			      delay: 2500,
+			      delay: 3000,
 			      disableOnInteraction: false,
 			    },
 			    pagination: {

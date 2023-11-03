@@ -29,14 +29,9 @@ public interface TradeBoardService {
 	public int regTradeBoard(Map map) throws Exception;
 	
 	//거래 게시판에서 글 수정을 클릭했을 때 글을 수정하는 메소드
-//	public void modTradeBoard(int no) throws Exception;
+	public void modTradeBoard(Map map) throws Exception;
 	
 	//거래 게시판 글 삭제 시 호출할 메소드
-//	public void delTradeBoard(int no) throws Exception;
+	public void delTradeBoard(int no) throws Exception;
 	
-	//거래 게시판 글 작성 시 파일 업로드 처리를 위한 메소드
-//	public Map<String, String> upload() throws Exception;
-	
-	//거래 게시판 글 조회 시 파일 다운로드 처리를 위한 메소드
-//	public byte[] fileDownloader() throws Exception;
 }

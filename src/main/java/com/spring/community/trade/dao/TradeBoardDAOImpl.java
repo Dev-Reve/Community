@@ -61,4 +61,15 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	public TradeVO selectTradeDetail(int no) throws DataAccessException {
 		return sqlSession.selectOne("mapper.trade.selectTradeDetail", no);
 	}
+	
+	@Override
+	public void delTradeBoard(int no) throws DataAccessException {
+		sqlSession.delete("mapper.trade.delTrade", no);
+	}
+	
+	@Override
+	public void modTradeBoard(Map map) throws DataAccessException {
+		sqlSession.update("mapper.trade.updateTrade", map);
+	}
+	
 }

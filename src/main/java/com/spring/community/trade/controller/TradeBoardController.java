@@ -35,14 +35,9 @@ public interface TradeBoardController {
 	void thumbnail(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	//거래 게시판에서 글 수정을 클릭했을 때 글을 수정하는 메소드
-//	public ModelAndView modTradeBoard(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView modTradeBoard(List<MultipartFile> files, MultipartHttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//거래 게시판 글 삭제 시 호출할 메소드
-//	public ModelAndView delTradeBoard(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView delTradeBoard(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	//거래 게시판 글 작성 시 파일 업로드 처리를 위한 메소드 public Map<String, String>
-//	public upload(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	
-	//거래 게시판 글 조회 시 파일 다운로드 처리를 위한 메소드 public byte[]
-//	public fileDownloader(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }
