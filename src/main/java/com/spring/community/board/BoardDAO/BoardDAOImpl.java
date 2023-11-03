@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.community.board.BoardVO.BoardVO;
+import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
 
 @Repository("boardDAO")
@@ -40,5 +41,21 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		List<BoardVO> selectBoard = sqlSession.selectList("mapper.board.selectBoard", pvo);
 		
 		return selectBoard;
+	}
+
+	@Override
+	public Long totalCount(PagerVO pager) {
+		
+		Long getTotalCount = sqlSession.selectOne("mapper.board.getTotalCount", pager);
+		
+		return getTotalCount;
+	}
+
+	@Override
+	public List<BoardVO> getBoardList(PagerVO pager) {
+		
+		List<BoardVO> getBoardList = sqlSession.selectList("mapper.board.getBoardList", pager);
+		
+		return getBoardList;
 	}
 }

@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.board.BoardVO.BoardVO;
+import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
 
 
 public interface BoardController {
 	
 	public ModelAndView selcetBoard(PagingVO vo, ModelAndView mav,
-			@RequestParam(value="nowPage", required = false) String nowPage,
-			@RequestParam(value="cntPerPage", required = false)String cntPerPage,
-			@RequestParam(value = "checksel", required = false) String checkel)
-			throws Exception;
+								@RequestParam(value="nowPage", required = false) String nowPage,
+								@RequestParam(value="cntPerPage", required = false)String cntPerPage,
+								@RequestParam(value = "checksel", required = false) String checkel)
+								throws Exception;
+	
+	public ModelAndView getList(PagerVO pager, ModelAndView mav, BoardVO bvo) throws Exception;
 	
 }

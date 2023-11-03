@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Service.BoardService;
+import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
 
 import lombok.Value;
@@ -30,6 +32,9 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	
 	@Autowired
 	private PagingVO pvo;
+	
+	@Autowired
+	private PagerVO pager;
 	
     @Override
     @RequestMapping(value = "/board/listboard.do", method = RequestMethod.GET)
@@ -62,7 +67,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 
         mav.addObject("paging", pvo);  
         mav.addObject("boardlist", boardlist);
-		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+		mav.addObject("center", "/WEB-INF/views/board/AAboard.jsp");
 		mav.setViewName("main");
         
         System.out.println("mav / viewname : " + mav.getViewName());
@@ -70,5 +75,23 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
         return mav;
         
     }
+
+	@Override
+	@RequestMapping(value = "/board/getList.do", method = RequestMethod.GET)
+	public ModelAndView getList(PagerVO pager, ModelAndView mav, BoardVO bvo) throws Exception {
+		
+		List<BoardVO> getBoardList = boardservice.getList(pager);
+		
+		mav.addObject("pager", pager);
+		mav.addObject("getBoardList", getBoardList);
+		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+    
+    
+    
+    
 
 }

@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>		
 	</select>
 
-	<select id="countBoard" resultType="int">
+	<select id="countBoard" resultType="Long">
 		<![CDATA[
 			select count(*) from board
 		]]>	
@@ -41,6 +41,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   	) A
 			)
 			WHERE RN BETWEEN ${start} AND ${end}
+		]]>	
+	</select>
+	
+	<select id="getBoardList" resultMap="boardResult" parameterType="pagerVO">
+		<![CDATA[
+			select * from board
+			where
+				<choose>
+					<when test="kind == 'nickName'">nickName</when>
+					<when test="kind == 'content'">content</when>
+					<otherwise>title</otherwise>
+				</choose>
+			like concat('%', #{search}, '%')
+			order by no desc
+			limit #{startRow}, #{perPage}
+		]]>	
+	</select>
+	
+	<select id="getTotalCount" resultType="Long" parameterType="pagerVO">
+		<![CDATA[
+			select count(num) from board
+			where
+				<choose>
+					<when test="kind == 'nickName'">nickName</when>
+					<when test="kind == 'contents'">content</when>
+					<otherwise>title</otherwise>
+				</choose>
+			like concat('%', #{search}, '%')
 		]]>	
 	</select>
 

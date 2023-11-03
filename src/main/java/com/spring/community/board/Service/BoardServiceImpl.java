@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.community.board.BoardDAO.BoardDAO;
 import com.spring.community.board.BoardVO.BoardVO;
+import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
 
 @Service("boardService")
@@ -37,4 +38,19 @@ public class BoardServiceImpl extends HttpServlet implements BoardService {
 		return dao.selcetBoard(pvo);
 	}
 
+	@Override
+	public List<BoardVO> getList(PagerVO pager) {
+		
+		pager.makeRow();
+		Long totalCount = dao.totalCount(pager);
+		
+		pager.makeNum(totalCount);
+		
+		List<BoardVO> getBoardList = dao.getBoardList(pager);
+		
+		return getBoardList;
+	}
+	
+
+	
 }
