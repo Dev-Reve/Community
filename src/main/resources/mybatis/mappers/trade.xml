@@ -78,11 +78,11 @@
 	
 	<update id="updateTrade" parameterType="java.util.HashMap">
 		<![CDATA[
-			UPDATE trade SET category=#{category}, title=#{title}, content=#{content}, price=#{price}, StringArray(
+			UPDATE trade SET category=#{category}, title=#{title}, content=#{content}, price=#{price}, fileName=StringArray(
 		]]>
-		<foreach collection="fileList" item="fileName" separator=", " close="))">
+		<foreach collection="fileList" item="fileName" separator=", " close=")">
 			#{fileName}
 		</foreach>
+		WHERE no = #{no}
 	</update>
-	
 </mapper>

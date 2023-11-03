@@ -312,7 +312,9 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		}
 		map.put("fileList", fileNames);
 		
-		int no = (Integer)map.get("no");
+		String noStr = (String)map.get("no");
+		System.out.println("no: " + noStr);
+		int no = Integer.parseInt(noStr);
 		
 		tradeService.modTradeBoard(map);
 		List fileList = fileProcess(request);
@@ -333,8 +335,6 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		    
 		    fileNames.add(originalFileName);
 		}
-		
-			
 		 
 		 ModelAndView mav = new ModelAndView("redirect:/trade/tradeList.do");
 		 
