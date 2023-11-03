@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                                	
+                                    	
     
     
     
@@ -7,14 +7,11 @@
     
     
     
-<<<<<<< HEAD
+    
     <wb-module deploy-name="sample">
-                                                                		
+                                                                        		
         
-=======
-    <wb-module deploy-name="community-1.0.0-BUILD-SNAPSHOT">
-                                                        		
->>>>>>> branch 'main' of https://github.com/Dev-Reve/Community.git
+        
         
         
         
@@ -22,7 +19,8 @@
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                                		
+                                                                        		
+        
         
         
         
@@ -31,7 +29,8 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                                                                		
+                                                                        		
+        
         
         
         
@@ -40,7 +39,8 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-                                                                		
+                                                                        		
+        
         
         
         
@@ -49,21 +49,11 @@
         
         
         <property name="java-output-path" value="target/classes"/>
-<<<<<<< HEAD
+                
         <property name="context-root" value="community"/>
-                                                                	
+                                                                        	
     
-=======
-                                                                
-        
-        
-        
-        
-        
-        
-        <property name="context-root" value="community"/>
-                                                        	
->>>>>>> branch 'main' of https://github.com/Dev-Reve/Community.git
+    
     
     
     
@@ -71,7 +61,8 @@
     
     
     </wb-module>
-                                
+                                    
+
 
 
 
