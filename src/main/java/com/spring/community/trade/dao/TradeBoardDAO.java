@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.community.trade.vo.TradeVO;
@@ -19,5 +20,17 @@ public interface TradeBoardDAO {
 	public int getTradeCount() throws DataAccessException;
 
 	//거래 게시판에 글 작성을 하는 메소드
-	public void regTradeBoard(TradeVO vo) throws DataAccessException;
+	public int regTradeBoard(Map map) throws DataAccessException;
+	
+	//거래 게시판의 글 하나를 조회하는 메소드
+	public TradeVO selectTradeDetail(int no) throws DataAccessException;
+	
+	//거래 게시판의 글 하나를 지우는 메소드
+	public void delTradeBoard(int no) throws DataAccessException;
+	
+	//거래 게시판의 글 하나를 수정하는 메소드
+	public void modTradeBoard(Map map) throws DataAccessException;
+	
+
+
 }

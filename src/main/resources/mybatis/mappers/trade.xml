@@ -19,8 +19,7 @@
 		<result property="nickname" column="nickname"/>
 		<result property="writeDate" column="writeDate"/>
 		<result property="category" column="category"/>
-		<result property="fileName" column="fileName"/>
-		<result property="fileRealName" column="fileRealName"/>
+	    <result property="fileNames" column="fileName" typeHandler="com.spring.community.utils.OracleTypeHandler"/>
 	</resultMap>
 	
 	<select id="selectAllTrades" resultMap="tradeResult" parameterType="java.util.HashMap">
@@ -28,19 +27,15 @@
 			SELECT *  
 				FROM ( 
 					SELECT ROWNUM AS rn, t.*
-					FROM trade t
+					FROM ( 
+						SELECT *
+						FROM trade
+						ORDER BY writeDate desc
+					) t
 					WHERE ROWNUM <= #{endRow}
-                    ORDER BY no desc
 				)
-			WHERE rn > #{startRow}
+			WHERE rn >= #{startRow}
 		]]>		
-<!-- 			select * 
-			from (select t.*, @rownum:=@rownum+1 am rn
-					from(select *
-							from trade
-							order by writeDate desc) as t,
-							(select @rownum:=0) as tmp) as b
-			where rn > #{startRow} and rn <= #{endRow} -->
 		
 	</select>
 	
@@ -50,10 +45,44 @@
 		]]>
 	</select>
 	
-	<insert id="insertTrade" parameterType="tradeVO">
-		
+	<insert id="insertTrade" parameterType="java.util.HashMap">
+		<![CDATA[
+			INSERT INTO trade(no, title, content, category, price, nickName, fileName)
+			values(trade_no.nextval, #{title}, #{content}, #{category}, #{price}, #{nickname}, StringArray(
+		]]>
+		<foreach collection="fileList" item="fileName" separator=", " close="))">
+			#{fileName}
+		</foreach>
 	</insert>
 	
 	
+	<select id="getNewTradeNo" resultType="int">
+		<![CDATA[
+			SELECT MAX(no) FROM trade
+		]]>
+	</select>
 	
+	<select id="selectTradeDetail" resultMap="tradeResult" parameterType="int">
+		<![CDATA[
+	        SELECT no, title, content, category, nickName, sellStat, price,
+	               CAST(MULTISET (SELECT column_value FROM TABLE(fileName)) AS sys.odcivarchar2list) AS fileName
+	        FROM trade WHERE no = #{no}
+ 	   ]]>
+	</select>
+	
+	<delete id="delTrade" parameterType="int">
+		<![CDATA[
+			DELETE FROM trade WHERE no=#{no}
+		]]>
+	</delete>
+	
+	<update id="updateTrade" parameterType="java.util.HashMap">
+		<![CDATA[
+			UPDATE trade SET category=#{category}, title=#{title}, content=#{content}, price=#{price}, fileName=StringArray(
+		]]>
+		<foreach collection="fileList" item="fileName" separator=", " close=")">
+			#{fileName}
+		</foreach>
+		WHERE no = #{no}
+	</update>
 </mapper>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.community.trade.dao.TradeBoardDAO;
 import com.spring.community.trade.dao.TradeBoardDAOImpl;
@@ -31,14 +32,16 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		
 		int currentPage = Integer.parseInt(pageNum);
 		count = dao.getTradeCount();
-		int startRow = (currentPage - 1) * pageSize + 1;
+		int startRow = ((currentPage - 1) * pageSize) + 1;
 		int endRow = currentPage * pageSize;
+		System.out.println("startRow: " + startRow);
+		System.out.println("endRow: " + endRow);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<TradeVO> vo = new ArrayList<TradeVO>(); 
 		
 		if(count > 0) {
-			vo = dao.selectAllTrades((startRow-1), endRow);
+			vo = dao.selectAllTrades(startRow, endRow);
 			no = count - (currentPage - 1 ) * pageSize;
 		}
 		
@@ -59,8 +62,27 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	}
 	
 	@Override
-	public void regTradeBoard(TradeVO vo) throws Exception {
-		dao.regTradeBoard(vo);
+	public int regTradeBoard(Map map) throws Exception {
+		System.out.println("Service까지 옴");
+		int tradeNo = dao.regTradeBoard(map);
+//		System.out.println("service에서 받아온 tradeNo: " + tradeNo);
+		return tradeNo;
+	}
+	
+	@Override
+	public TradeVO viewTradeDetail(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.selectTradeDetail(no);
+	}
+	
+	@Override
+	public void delTradeBoard(int no) throws Exception {
+		dao.delTradeBoard(no);
+	}
+	
+	@Override
+	public void modTradeBoard(Map map) throws Exception {
+		dao.modTradeBoard(map);
 	}
 	
 }

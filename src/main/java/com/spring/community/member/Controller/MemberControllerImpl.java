@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -38,16 +40,26 @@ import com.spring.community.member.service.MemberServiceImpl;
 //<bean id="memberController" 
 //      class="com.spring.member.controller.MemberControllerImpl">을 자동 생성해 줍니다.
 @Controller("memberController")
-public class MemberControllerImpl  implements MemberController {
+public class MemberControllerImpl  implements MemberController, ServletContextAware {
 	
 	//1. LoggerFactory클래스를 이용해 Logger클래스의 객체를 가져옵니다.
 	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 	
 	//파일이 실제 업로드되는 폴더 경로 저장
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\Program Files\\Apache Software Foundation\\Tomcat 9.0\\wtpwebapps\\community\\resources\\profile\\ImagesRepo";
+	//파일이 실제 업로드되는 폴더 경로 저장
+		private static final String CURR_IMAGE_REPO_PATH = "/resources/Board/member";
+		private static final String RESOURCE_PATH = "/resources/images/";
 	//id속성값이 memberService인 
 	//<bean id="memberService" 
 	//    class="com.spring.member.service.MemberServiceImpl">을 자동 주입 해줍니다.
+		
+	private ServletContext servletContext;
+	
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
+		
 	@Autowired
 	private MemberServiceImpl memberService; 
 
@@ -402,13 +414,14 @@ public class MemberControllerImpl  implements MemberController {
 	//파일을 업로드한 후 반환된 파일 이름이 저장된 fileList배열을 반환하는 메소드 
 		private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) 
 							 		    throws Exception{
+			String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+			System.out.println(absPath);
 			
 			List<String> fileList = new ArrayList<String>();
 			
 			//첨부된 파일들의 input 태그의 name속성값=CommonsMultipartFile객체 한쌍씩 저장된  LinkedKeyIterator 배열 자체를 반환 합니다. 
 			//{file1=[CommonsMultipartFile@42b715da], file2=[CommonsMultipartFile@78a15f55]}
 			//							0							1
-			
 			Iterator<String>  fileNames = multipartRequest.getFileNames();
 			
 			//LinkedKeyIterator 배열에  CommonsMultipartFile객체들이 저장되어 있는 동안 반복
@@ -435,7 +448,7 @@ public class MemberControllerImpl  implements MemberController {
 				
 				//c:\spring\image_repo\duke.png  업로드할 파일 경로   
 				//c:\spring\image_repo\duke2.jpg    업로드할 파일 경로
-				File file = new File(CURR_IMAGE_REPO_PATH + "\\" + originFileName);
+				File file = new File(absPath + "\\temp\\" + originFileName);
 				
 				//첨부되어 업로드할 파일사이즈가 있는지  (업로드할 파일이 있는지) 체크 합니다.
 				if(mFile.getSize() != 0) { 
@@ -453,16 +466,13 @@ public class MemberControllerImpl  implements MemberController {
 					
 					//임시로 저장된 fileItem객체를 지정된 대상 파일로 전송하며, 
 					//업로드한 파일을 원하는 위치에 저장하고 동일한 이름을 가진 기존파일을 덮어 씁니다.
-					mFile.transferTo( new File(CURR_IMAGE_REPO_PATH + "\\" + originFileName) );
+					mFile.transferTo( new File(absPath + "\\temp\\" + originFileName) );
 					
 				}
-			
 			}
 			
 			return fileList;//업로드한 파일명들이 저장된 ArrayList배열 반환 
-			
-			
-		}// fileProcess 메소드 닫는 기호 
+		}
 
 
 

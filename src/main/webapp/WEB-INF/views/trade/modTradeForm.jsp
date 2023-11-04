@@ -16,6 +16,8 @@
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript">
+		</script>
     <style>
 		table img {
 		width: 70%;
@@ -235,34 +237,34 @@
 		<!-- Home -->
 		<h1 style="text-align: center; padding-top: 1em;">거래 게시판</h1>
 		<hr>
-		<form action="${path}/trade/regTrade.do" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="nickname" value="${member.nickname}">
+		<form action="${path}/trade/modTrade.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="no" value="${vo.no }">
 			<table class="table">
 				<tr style="width: 100%">
 					<th class="title">분류</th>
 					<td class="content">
 						<select name="category">
 							<option value="">-----------선택-----------</option>
-							<option value="생활용품">생활용품</option>
-							<option value="패션/뷰티">패션/뷰티</option>
-							<option value="가전/디지털">가전/디지털</option>
-							<option value="사무용품">사무용품</option>
-							<option value="기타">기타</option>
+							<option value="생활용품" <c:if test="${vo.category eq '생활용품'}">selected</c:if> >생활용품</option>
+							<option value="패션/뷰티" <c:if test="${vo.category eq '패션/뷰티'}">selected</c:if> >패션/뷰티</option>
+							<option value="가전/디지털" <c:if test="${vo.category eq '가전/디지털'}">selected</c:if> >가전/디지털</option>
+							<option value="사무용품" <c:if test="${vo.category eq '사무용품'}">selected</c:if> >사무용품
+							<option value="기타" <c:if test="${vo.category eq '기타'}">selected</c:if> >기타</option>
 						</select>
 					</td>
-					<th class="title">작성자</th>
-					<td class="content" style="text-align: left;"><b>${member.nickname}</b></td>
+					<th class="title"></th>
+					<td class="content"></td>
 				</tr>
 				<tr style="width: 100%">
 					<th class="title">글 제목</th>
 					<td class="content" colspan="3">
-						<input type="text" name="title" placeholder="제목을 입력해주세요.">
+						<input type="text" name="title" placeholder="제목을 입력해주세요." value="${vo.title}">
 					</td>
 				</tr>
 				<tr style="width: 100%">
 					<th class="title">가격</th>
 					<td class="content">
-						<input type="text" name="price" placeholder="입력양식) 10000" style="margin-right: 20px;"> 
+						<input type="text" name="price" placeholder="입력양식) 10000" style="margin-right: 20px;" value="${vo.price}"> 
 					</td>
 					<th class="title">첨부파일</th>
 					<td class="content" style="text-align: left;">
@@ -272,7 +274,7 @@
 				<tr style="width: 100%">
 					<th class="title">글 내용</th>
 					<td class="content" colspan="3">
-						<textarea rows="20" cols="50" name="content"></textarea>
+						<textarea rows="20" cols="50" name="content"><c:out value="${vo.content }"/></textarea>
 					</td>
 				</tr>
 			</table>
