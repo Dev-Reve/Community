@@ -155,7 +155,7 @@
 						<!-- 글이 존재 한다면 -->
 						<c:if test="${not empty tradeList.vo}">
 							<fmt:parseNumber var="pageCount" value="${tradeList.count/tradeList.pageSize + (tradeList.count % tradeList.pageSize eq 0 ? 0 : 1)}" integerOnly="true" />
-							<c:set var="startPage" value="${1}" />
+							<c:set var="startPage" value="${1 + (currentPage - 1) / pageBlock * pageBlock + 1}" />
 						</c:if>
 						
 						<!-- pageSize로 설정한 수보다 글이 더 많으면 -->
@@ -201,7 +201,7 @@
 						<!-- 끝페이지 이후 다음 글 존재하면 -->
 						<c:if test="${endPage < pageCount}">
 							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage + 1}">
+								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage + tradeList.pageBlock}">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
