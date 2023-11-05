@@ -20,11 +20,12 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	TradeBoardDAO dao;
 	
 	@Override
-	public Map<String, Object> listTradeBoards(String pageNum) throws Exception {
+	public Map<String, Object> listTradeBoards(Map map2) throws Exception {
 		int pageSize = 10;
 		int pageBlock = 5;
 		int count = 0;
 		int no = 0;
+		String pageNum = (String)map2.get("pageNum");
 		
 		if(pageNum == null) {
 			pageNum = "1";
@@ -36,12 +37,13 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		int endRow = currentPage * pageSize;
 		System.out.println("startRow: " + startRow);
 		System.out.println("endRow: " + endRow);
-		
+		map2.put("startRow", startRow);
+		map2.put("endRow", endRow);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<TradeVO> vo = new ArrayList<TradeVO>(); 
 		
 		if(count > 0) {
-			vo = dao.selectAllTrades(startRow, endRow);
+			vo = dao.selectAllTrades(map2);
 			no = count - (currentPage - 1 ) * pageSize;
 		}
 		

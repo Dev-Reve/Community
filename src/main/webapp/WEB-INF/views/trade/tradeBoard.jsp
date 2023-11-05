@@ -150,64 +150,8 @@
 						</tbody>
 					</table>
 					<nav aria-label="Page navigation example">
-<%-- 					<fmt:parseNumber var="pageCount" value="${tradeList.count/tradeList.pageSize + (tradeList.count % tradeList.pageSize eq 0 ? 0 : 1)}" integerOnly="true" /> --%>
-						<ul class="pagination" style="float: right; margin-right: 20px">
-						<!-- 글이 존재 한다면 -->
-						<c:if test="${not empty tradeList.vo}">
-							<fmt:parseNumber var="pageCount" value="${tradeList.count/tradeList.pageSize + (tradeList.count % tradeList.pageSize eq 0 ? 0 : 1)}" integerOnly="true" />
-							<c:set var="startPage" value="${1 + (currentPage - 1) / pageBlock * pageBlock + 1}" />
-						</c:if>
 						
-						<!-- pageSize로 설정한 수보다 글이 더 많으면 -->
-						<c:if test="${(tradeList.currentPage % tradeList.pageSize) ne 0}">
-							<fmt:parseNumber var="result" value="${tradeList.currentPage / tradeList.pageSize}" integerOnly="true" />
-							<c:set var="startPage" value="${result * tradeList.pageSize + 1}" />
-						</c:if>
 						
-						<!-- pageSize보다 글 개수가 더 적으면 -->
-						<c:if test="${tradeList.currentPage % tradeList.pageSize eq 0}">
-							<c:set var="startPage" value="${(result - 1) * tradeList.pageSize + 1}" />
-						</c:if>
-						
-						<c:set var="pageBlock" value="${tradeList.pageBlock}" />
-						<c:set var="endPage" value="${startPage + pageBlock - 1}" />
-						
-						<!-- 끝 페이지 -->
-						<c:if test="${endPage > pageCount}">
-							<c:set var="endPage" value="${pageCount}" />
-						</c:if>
-						
-						<!-- 시작페이지가 pageSize보다 크면 -->
-						<c:if test="${startPage > tradeList.pageBlock}">
-							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage - tradeList.pageBlock}" aria-label="Previous">
-						      		<span aria-hidden="true">&laquo;</span>
-						    	</a>
-							</li>
-						</c:if>
-						
-						<!-- 시작페이지부터 끝페이지까지 노출되도록 반복문 사용 -->
-						<c:forEach var="n" begin="${startPage}" end="${endPage}">
-							<c:choose>
-								<c:when test="${n eq tradeList.currentPage}">
-									<li class="page-item active"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage}">${tradeList.currentPage}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${n}">${n}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						
-						<!-- 끝페이지 이후 다음 글 존재하면 -->
-						<c:if test="${endPage < pageCount}">
-							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage + tradeList.pageBlock}">
-									<span aria-hidden="true">&raquo;</span>
-								</a>
-							</li>
-						</c:if>
-						
-						</ul>
 					</nav>
 
 	</body>

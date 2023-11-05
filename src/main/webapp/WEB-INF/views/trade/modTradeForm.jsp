@@ -243,7 +243,7 @@
 				<tr style="width: 100%">
 					<th class="title">분류</th>
 					<td class="content">
-						<select name="category">
+						<select name="category" required>
 							<option value="">-----------선택-----------</option>
 							<option value="생활용품" <c:if test="${vo.category eq '생활용품'}">selected</c:if> >생활용품</option>
 							<option value="패션/뷰티" <c:if test="${vo.category eq '패션/뷰티'}">selected</c:if> >패션/뷰티</option>
@@ -258,13 +258,13 @@
 				<tr style="width: 100%">
 					<th class="title">글 제목</th>
 					<td class="content" colspan="3">
-						<input type="text" name="title" placeholder="제목을 입력해주세요." value="${vo.title}">
+						<input type="text" name="title" placeholder="제목을 입력해주세요." value="${vo.title}" required>
 					</td>
 				</tr>
 				<tr style="width: 100%">
 					<th class="title">가격</th>
 					<td class="content">
-						<input type="text" name="price" placeholder="입력양식) 10000" style="margin-right: 20px;" value="${vo.price}"> 
+						<input type="text" name="price" placeholder="입력양식) 10000" style="margin-right: 20px;" value="${vo.price}" required> 
 					</td>
 					<th class="title">첨부파일</th>
 					<td class="content" style="text-align: left;">

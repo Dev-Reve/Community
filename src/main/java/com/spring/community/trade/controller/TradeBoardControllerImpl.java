@@ -78,7 +78,25 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	public ModelAndView listTradeBoards(String pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, Object> tradeMap = new HashMap<String, Object>();
-		tradeMap = tradeService.listTradeBoards(pageNum);
+		Map<String, Object> map = new HashMap<String, Object>();
+		String category = request.getParameter("category");
+		if(category == null || category.equals("all")) {
+			category = "";
+		} else if(category.equals("life")) {
+			category = "생활용품";
+		} else if(category.equals("fashion")) {
+			category = "패션";
+		} else if(category.equals("digital")) {
+			category = "디지털";
+		} else if(category.equals("office")) {
+			category = "사무용품";
+		} else if(category.equals("etc")) {
+			category = "기타";
+		}
+		
+		map.put("category", category);
+		map.put("pageNum", pageNum);
+		tradeMap = tradeService.listTradeBoards(map);
 		
 		//응답할 뷰 이름 얻기 
 		String viewName = getViewName(request);

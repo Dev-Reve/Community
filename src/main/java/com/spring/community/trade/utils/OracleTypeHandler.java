@@ -1,4 +1,4 @@
-package com.spring.community.utils;
+package com.spring.community.trade.utils;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;

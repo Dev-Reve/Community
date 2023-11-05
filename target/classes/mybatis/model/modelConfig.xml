@@ -23,7 +23,7 @@
  	
  	
 	<typeHandlers>
-        <typeHandler handler="com.spring.community.utils.OracleTypeHandler"/>
+        <typeHandler handler="com.spring.community.trade.utils.OracleTypeHandler"/>
 	</typeHandlers>  
  	
 </configuration>

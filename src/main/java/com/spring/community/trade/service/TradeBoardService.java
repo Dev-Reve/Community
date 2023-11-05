@@ -14,7 +14,7 @@ import com.spring.community.trade.vo.TradeVO;
 
 public interface TradeBoardService {
 	//거래 게시판 게시글 전부 조회해서 가져오는 메소드
-	public Map<String, Object> listTradeBoards(String pageNum) throws Exception;
+	public Map<String, Object> listTradeBoards(Map<String, Object> map) throws Exception;
 	
 	//거래 게시판에 존재하는 레코드의 개수 반환하는 메소드
 	public int getTotalPosts() throws Exception;
@@ -33,5 +33,5 @@ public interface TradeBoardService {
 	
 	//거래 게시판 글 삭제 시 호출할 메소드
 	public void delTradeBoard(int no) throws Exception;
-	
+
 }

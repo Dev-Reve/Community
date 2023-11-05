@@ -21,10 +21,10 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public List selectAllTrades(int startRow, int endRow) throws DataAccessException {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
+	public List selectAllTrades(Map map) throws DataAccessException {
+		System.out.println(map.get("startRow"));
+		System.out.println(map.get("endRow"));
+		System.out.println(map.get("category"));
 		
 		List<TradeVO> list = sqlSession.selectList("mapper.trade.selectAllTrades", map);
 		
