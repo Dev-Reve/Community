@@ -7,16 +7,6 @@
 <c:set var="path" value="<%=request.getContextPath()%>" />
 <c:set var="vo" value="${vo}" />
 
-<% 
-	String strChk = request.getParameter("chk");
-	int chk = 0;
-	if(strChk != null) {
-	 	chk = Integer.parseInt(strChk);
-	} else {
-		chk = 0;
-	}
-%>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -198,13 +188,13 @@
 						<h4>${vo.title}</h4>
 						<small>가격: ${vo.price}원</small>
 						<p style="margin-top: 12em">
-							${vo.nickname} | 주소 들어가는 곳
+							${vo.nickname} | ${memInfo.addr3}
 						<span><small></small></span>
 						<div>	
-							<c:if test="<%=chk == 0%>">
+							<c:if test="${like == false or empty like}">
 								<button class="like" type="button" onclick="like();"> <span>찜하기</span></button>
 							</c:if>
-							<c:if test="<%=chk == 1%>">
+							<c:if test="${like == true}">
 								<button class="like active" type="button" onclick="like();"> <span>찜하기</span></button>
 							</c:if>
 						</div>
@@ -281,7 +271,7 @@
 				if(nickname.length == 0 && nickname== '') {
 					alert('로그인이 필요한 기능입니다.');
 				} else {
-					location.href='${path}/tradeLike/clickLike.do?nickname=' + nickname + "&no=" + ${vo.no};
+					location.href = '${path}/trade/likeTrade.do?no='+${vo.no}+'&nickname='+nickname;
 				}
 			}
 			

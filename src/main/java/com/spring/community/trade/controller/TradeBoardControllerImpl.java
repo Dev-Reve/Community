@@ -23,6 +23,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -42,11 +43,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.member.VO.MemberVO;
+import com.spring.community.member.service.MemberService;
 import com.spring.community.trade.service.TradeBoardService;
 import com.spring.community.trade.vo.TradeVO;
 import com.spring.community.tradeComment.controller.TradeCommentControllerImpl;
 import com.spring.community.tradeComment.service.TradeCommentService;
 import com.spring.community.tradeComment.vo.TradeCommentVO;
+import com.spring.community.tradeLike.service.TradeLikeService;
+import com.spring.community.tradeLike.vo.TradeLikeVO;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -69,19 +74,32 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	
 	@Autowired
 	private TradeBoardService tradeService;
+	@Autowired
+	private TradeCommentService commentService;
+	@Autowired
+	private TradeLikeService likeService;
+	@Autowired
+	private MemberService memService;
+	
 	
 	@Autowired
 	private TradeVO vo;
+	@Autowired
+	private TradeCommentVO commentVO;
+	@Autowired
+	private TradeLikeVO likeVO;
+	@Autowired
+	private MemberVO memberVO;
 	
 	@Override
 	@RequestMapping(value = "/trade/tradeList.do", method = {RequestMethod.POST, RequestMethod.GET})
-	public ModelAndView listTradeBoards(String pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listTradeBoards(@RequestParam(value = "pageNum", required = false) String pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, Object> tradeMap = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩하기 위해 객체 생성
 		ModelAndView mav = new ModelAndView();
-		
+		System.out.println(pageNum);
 		String category = request.getParameter("category");
 		
 		mav.addObject("category", category);
@@ -103,9 +121,9 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		map.put("category", category);
 		map.put("pageNum", pageNum);
 		tradeMap = tradeService.listTradeBoards(map);
+		
 		//응답할 뷰 이름 얻기 
 		String viewName = getViewName(request);
-		
 		
 		//응답할 값 저장
 		mav.addObject("tradeList", tradeMap);
@@ -276,29 +294,66 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	public ModelAndView viewTradeDetail(@RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		  
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
 	
 		//서비스 객체 메소드 호출 시 no를 전달하여 select 
 		vo = tradeService.viewTradeDetail(no);
-//		System.out.println(vo.getTitle());
-//		System.out.println(vo.getContent());
-//		System.out.println(vo.getCategory());
-//		System.out.println(vo.getNo());
-//		System.out.println("price: " + vo.getPrice());
-//		System.out.println(vo.getSellStat());
+		Map map = new HashMap();
 
-//		String[] fileNames = vo.getFileNames();
-//		for(String fileName : fileNames) {
-//			System.out.println(fileName);
-//		}
+		ModelAndView mav = new ModelAndView(); 
 
-		ModelAndView mav = new ModelAndView("redirect:/tradeComment/commentList.do"); 
+		/* 글 작성자의 정보 가져오기 */
+		memberVO = memService.getMemberInfo(no);
+		mav.addObject("memInfo", memberVO);
+		
+		if(session.getAttribute("member") != null) {
+			memberVO = (MemberVO)session.getAttribute("member");
+			map.put("nickname", memberVO.getNickname());
+			map.put("no", no);
+			
+			/* 좋아요 상태값 가져오기 */
+			likeVO = likeService.getClickStat(map);
+			boolean like = false;
+			if(likeVO == null) {
+				like = false;
+			} else {
+				like = true;
+			}
+			mav.addObject("like", like);
+		}
+		
 		mav.addObject("vo", vo);
 		mav.addObject("center", "/WEB-INF/views/trade/tradeDetail.jsp");
 		mav.setViewName("main");
 	
 		return mav; 
 	}
+	
+	@Override
+	@RequestMapping(value = "/trade/likeTrade.do", method = RequestMethod.GET)
+	public ModelAndView likeTrade(@RequestParam("nickname") String nickname, @RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Map map = new HashMap();
+		map.put("nickname", nickname);
+		map.put("no", no);
+		likeVO = likeService.getClickStat(map);
+		ModelAndView mav = new ModelAndView();
+		boolean like = false;
+		if(likeVO == null) {
+			System.out.println("노값 > 예스값");
+			likeService.regLike(map);
+			like = true;
+		} else {
+			System.out.println("예스값 > 노값");
+			likeService.delLike(map);
+			like = false;
+		}
 		
+		mav.addObject("like", like);
+		mav.setViewName("redirect:/trade/tradeDetail.do?no=" + no);
+		
+		return mav;
+	}
+	
 	 @Override
 	 @RequestMapping(value = "/trade/delTrade.do", method = {RequestMethod.GET, RequestMethod.POST}) 
 	 public ModelAndView delTradeBoard(@RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception { request.setCharacterEncoding("UTF-8");

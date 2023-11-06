@@ -27,6 +27,8 @@ public interface MemberService {
 	
 	//회원로그인 처리 기능
 	public MemberVO login(MemberVO memberVO) throws Exception;
+
+	public MemberVO getMemberInfo(int no) throws Exception;
 	
 	
 }

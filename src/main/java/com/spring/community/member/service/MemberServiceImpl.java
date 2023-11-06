@@ -73,6 +73,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 	
+	//거래게시글에서 글쓴이의 정보를 가져오는 기능
+	@Override
+	public MemberVO getMemberInfo(int no) throws Exception {
+		return memberDAO.getMemberInfo(no);
+	}
+
 }
 
 

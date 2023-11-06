@@ -32,7 +32,8 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	
 	@Override
 	public int getTradeCount(Map map2) {
-		int count = sqlSession.selectOne("mapper.trade.getTradeCount", map2);
+		String category = (String)map2.get("category");
+		int count = sqlSession.selectOne("mapper.trade.getTradeCount", category);
 		
 		return count;
 	}

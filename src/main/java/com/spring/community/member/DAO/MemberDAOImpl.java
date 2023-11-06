@@ -44,7 +44,6 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	}//selectAllMembers메소드 닫는 기호 
 
-
 	//회원 추가 기능 
 	@Override
 	public void InsertMember(MemberVO memberVO) throws DataAccessException {
@@ -53,7 +52,6 @@ public class MemberDAOImpl implements MemberDAO{
 		
 	}
 
-
 	//회원 삭제 기능 
 	@Override
 	public void DeleteMember(String id) throws DataAccessException {
@@ -61,7 +59,6 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.delete("mapper.member.deleteMember", id);
 		
 	}
-
 
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
@@ -72,7 +69,6 @@ public class MemberDAOImpl implements MemberDAO{
 		  return vo;
 	}
 
-
 	//회원정보 수정기능 
 	@Override
 	public void UpdateMember(MemberVO memberVO) throws DataAccessException {
@@ -80,10 +76,6 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.update("mapper.member.updateMember", memberVO);
 		
 	}
-
-
-
-
 
 	//회원로그인 처리 기능
 	@Override
@@ -97,5 +89,11 @@ public class MemberDAOImpl implements MemberDAO{
 		return vo;
 	}
 
-
+	//게시글 작성자 정보 가져오기
+	@Override
+	public MemberVO getMemberInfo(int no) throws DataAccessException {
+		System.out.println("DAO에서 받아온 no값: " + no);
+		return sqlSession.selectOne("mapper.member.getMemberInfo", no);
+	}
+	
 }//MemberDAOImpl클래스 닫는 기호 

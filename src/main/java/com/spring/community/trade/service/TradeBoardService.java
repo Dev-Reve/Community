@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.member.VO.MemberVO;
 import com.spring.community.trade.vo.TradeVO;
 
 

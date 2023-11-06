@@ -16,9 +16,6 @@ public interface TradeBoardController {
 	//거래 게시판 게시글 전부 조회해서 가져오는 메소드
 	ModelAndView listTradeBoards(String pageNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	//거래 게시판에서 카테고리를 클릭했을 때 카테고리별로 조회해서 가져오는 메소드
-//	public ModelAndView listTradeCategory(String category, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	
 	//거래 게시판에서 게시글을 클릭했을 때 게시글을 조회해오는 메소드
 	public ModelAndView viewTradeDetail(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
@@ -39,5 +36,8 @@ public interface TradeBoardController {
 	
 	//거래 게시판 글 삭제 시 호출할 메소드
 	public ModelAndView delTradeBoard(int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	//거래 게시글의 좋아요를 눌렀을 때 DB에 저장해주는 메소드
+	public ModelAndView likeTrade(String nickname, int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 }

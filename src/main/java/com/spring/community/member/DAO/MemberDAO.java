@@ -26,6 +26,9 @@ public interface MemberDAO {
 
 	//회원로그인 처리 기능
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException;
+
+	//거래 게시글 작성자의 정보를 가져오는 기능
+	public MemberVO getMemberInfo(int no) throws DataAccessException;
 	
 	//
 	

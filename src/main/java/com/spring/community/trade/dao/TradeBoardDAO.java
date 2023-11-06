@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.member.VO.MemberVO;
 import com.spring.community.trade.vo.TradeVO;
 
 public interface TradeBoardDAO {
@@ -30,6 +31,7 @@ public interface TradeBoardDAO {
 	
 	//거래 게시판의 글 하나를 수정하는 메소드
 	public void modTradeBoard(Map map) throws DataAccessException;
+
 
 
 
