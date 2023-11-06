@@ -25,10 +25,10 @@
 			    }
 			  </script>
 			</c:when>
-		</c:choose>  
+		</c:choose> 
+		
 	</head>
 	<body class="is-preload">
-			<jsp:include page="../common/top.jsp" />
 			
 	<div id="mainbox">
 		<form method="post" action="${path}/member/login.do">
@@ -39,9 +39,7 @@
 		</form>
 	</div>	
 					
-					<footer>
-						<jsp:include page="../common/footer.jsp" />
-					</footer>
+					
 				
 		
 

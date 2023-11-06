@@ -54,9 +54,10 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
-	public MemberVO detailMembers(String id) throws DataAccessException {
+	public MemberVO detailMembers(MemberVO memberVO) throws DataAccessException {
+	
 		
-		return memberDAO.oneMember(id);
+		return memberDAO.oneMember(memberVO);
 	}
 
 	//회원정보 수정 기능 

@@ -182,7 +182,7 @@ public class MemberControllerImpl  implements MemberController {
 			
 		}else {
 			
-			rAttr.addAttribute("result","loginFailed");//로그인 실패시 시랲메세지를 로그인창으로 전달하기 위해 저장
+			rAttr.addFlashAttribute("result","loginFailed");//로그인 실패시 시랲메세지를 로그인창으로 전달하기 위해 저장
 			mav.setViewName("redirect:/member/loginForm.do");
 		}
 		return mav;
@@ -232,6 +232,7 @@ public class MemberControllerImpl  implements MemberController {
 	         String addr3 = multipartRequest.getParameter("addr3");
 	         String addr4 = multipartRequest.getParameter("addr4");
 	         String fileName = (String) fileList.get(0);
+	         String fileRealName = (String) fileList.get(0);
 	    
 	         System.out.println(id);
 	         System.out.println(password);
@@ -267,7 +268,7 @@ public class MemberControllerImpl  implements MemberController {
 		System.out.println(viewName); 	
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
+		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
 		mav.setViewName("main");
 			
 		//회원가입 후 모든회원을 조회 하는 재요청 주소 작성 
@@ -306,15 +307,21 @@ public class MemberControllerImpl  implements MemberController {
 		
 		request.setCharacterEncoding("UTF-8");
 			
-		//요청한 값(수정할 회원을 조회 하기 위한 아이디값) 얻기
-		String id = request.getParameter("id");
+		String viewName = getViewName(request);
 		
-		//부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 SELECT명령!
-		MemberVO vo = memberService.detailMembers(id);		 
+		
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("member"); //조회된 회원정보 불러오기
+		
+		
+		
+		MemberVO vo = memberService.detailMembers(memberVO);		 
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("membervo",vo);
-		mav.setViewName( getViewName(request) ); // /memberDetail
+		mav.addObject("memberVO",vo);
+		
+		mav.addObject("center", "/WEB-INF/views"+viewName +".jsp");
+		 mav.setViewName("main");
 	 
 		return mav;
 		

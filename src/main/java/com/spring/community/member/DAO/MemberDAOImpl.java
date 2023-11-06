@@ -65,10 +65,11 @@ public class MemberDAOImpl implements MemberDAO{
 
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
-	public MemberVO oneMember(String id) throws DataAccessException {
+	public MemberVO oneMember(MemberVO memberVO) throws DataAccessException {
 
-		  MemberVO vo = (MemberVO)sqlSession.selectOne("mapper.member.selectMemberById", id);
+		  MemberVO vo = (MemberVO)sqlSession.selectOne("mapper.member.selectMemberById", memberVO);
 		
+		  
 		  return vo;
 	}
 
