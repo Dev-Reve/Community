@@ -1,5 +1,7 @@
 package com.spring.community.likeboard.Service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,13 +18,14 @@ public class LikeBoardServiceImpl extends HttpServlet implements LikeBoardServic
 	
 	@Autowired
 	private LikeBoardDAO boardDAO;
+	@Autowired
+	private LikeBoardVO vo;
 	
 	@Override
-	public ModelAndView selcetLikeBoard(HttpServletRequest request, 
-											HttpServletResponse response) 
-												throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List selcetLikeBoard() throws Exception {
+		List likeboardlist = boardDAO.selcetLikeBoard();
+		
+		return likeboardlist;
 	}
 
 }

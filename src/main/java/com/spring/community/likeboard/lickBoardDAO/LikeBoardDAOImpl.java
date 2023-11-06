@@ -1,5 +1,7 @@
 package com.spring.community.likeboard.lickBoardDAO;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,10 +19,10 @@ public class LikeBoardDAOImpl extends HttpServlet implements LikeBoardDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public ModelAndView selcetLikeBoard(HttpServletRequest request, 
-											HttpServletResponse response) 
-														throws Exception {
-		// TODO Auto-generated method stub
+	public List selcetLikeBoard() {
+		
+		
+		
 		return null;
 	}
 

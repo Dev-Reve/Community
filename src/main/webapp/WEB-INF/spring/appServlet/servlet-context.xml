@@ -43,4 +43,10 @@
 	 
 	</beans:bean>
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/first/index.do"/>
+			<beans:bean class="com.spring.community.Interceptor.LocaleInterceptor" />	
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans:beans>

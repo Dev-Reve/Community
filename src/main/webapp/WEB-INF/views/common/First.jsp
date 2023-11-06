@@ -11,7 +11,6 @@
         <meta name="author" content="" />
     </head>
     <body>
-       
         <!-- Page Content-->
         <div class="container px-4 px-lg-5">
             <!-- Heading Row-->
@@ -24,8 +23,8 @@
                 </div>
             </div>
             <!-- Call to Action-->
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><h2 class="text-white m-0">저녁 뭐 먹지 최근 게시물</h2>
+            <div class="bg-secondary my-5 py-4 ">
+                <div class="card-body"><h2 class=" m-0">저녁 뭐 먹지 최근 게시물</h2><hr>
                 <div class="row gx-4 gx-lg-5">
                 <div class="col-md-4 mb-5">
                     <div class="card h-100">
@@ -34,15 +33,35 @@
                             	<br>
                             </p>
                         </div>
-                        <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">글제목</a></div>
+                        <div class="card-footer">
+                        	<span style="color: black;">글제목</span><span style="color:red">[3]</span><br>
+                        	<span style="color: gray;">작성자</span>
+                        </div>
                     </div>
                 </div>
                 
                 </div>
                 </div>
             </div>
-            <div class="card text-white bg-secondary my-5 py-4 text-center">
-                <div class="card-body"><p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p></div>
+            <div class=" bg-secondary my-5 py-4 ">
+                <div class="card-body"><h2 class=" m-0">거래 게시판</h2><hr>
+                <div class="row gx-4 gx-lg-5">
+                <div class="col-md-4 mb-5">
+                    <div class="card h-100">
+                        <div class="card-body-footer">
+                            <p class="card-text"><img src="${path}/first/download.do?imageFileName=pic00.jpg" alt="..." width="100%" />
+                            	<br>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                        	<span style="color: black;">글제목</span><span style="color:red">[3]</span><br>
+                        	<span style="color: gray;">작성자</span>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+                </div>
             </div>
             <!-- Content Row-->
             <div class="row gx-4 gx-lg-5">
