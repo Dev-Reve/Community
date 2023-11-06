@@ -91,4 +91,9 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		dao.modTradeBoard(map);
 	}
 	
+	@Override
+	public void updateCount(int no) throws Exception {
+		dao.updateCount(no);
+	}
+	
 }

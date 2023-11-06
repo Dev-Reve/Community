@@ -29,5 +29,8 @@ public interface TradeBoardService {
 	//거래 게시판 글 삭제 시 호출할 메소드
 	public void delTradeBoard(int no) throws Exception;
 
+	//글 조회시 조회수 1 증가 메소드
+	public void updateCount(int no) throws Exception;
+
 
 }

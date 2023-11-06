@@ -230,8 +230,8 @@
 						<div class="comment">
 							<img src="${path }/resources/images/a.jpg" style="width: 75px; height: 75px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-top: 1em;">
 							<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em;">
-								<b>닉네임</b> | <small>작성일자</small> <br>
-								댓글내용 아라랄아랑랑랑랑랄아라
+								<b>${commentList.nickname}</b> | <small>${commentList.writeDate}</small> <br>
+								${commentList.content}
 							</div>
 						</div>
 					</form>

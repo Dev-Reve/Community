@@ -19,11 +19,5 @@
 		<result property="boardNo" column="boardNo"/>
 	</resultMap>
 	
-	<select id="selectAllTrades" resultMap="commentResult" parameterType="int">
-		<![CDATA[
-			SELECT * FROM trade_comment WHERE boardNo = ${no}
-		]]>		
-		
-	</select>
 	
 </mapper>

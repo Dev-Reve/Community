@@ -47,7 +47,6 @@ import com.spring.community.member.VO.MemberVO;
 import com.spring.community.member.service.MemberService;
 import com.spring.community.trade.service.TradeBoardService;
 import com.spring.community.trade.vo.TradeVO;
-import com.spring.community.tradeComment.controller.TradeCommentControllerImpl;
 import com.spring.community.tradeComment.service.TradeCommentService;
 import com.spring.community.tradeComment.vo.TradeCommentVO;
 import com.spring.community.tradeLike.service.TradeLikeService;
@@ -322,6 +321,13 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 			mav.addObject("like", like);
 		}
 		
+		/* 글 조회 시 카운트 1 증가 */
+		tradeService.updateCount(no);
+		
+		/* 글에 대한 댓글 조회 */
+//		List<TradeCommentVO> commentList = commentService.getCommentList(no);
+		
+//		mav.addObject("commentList", commentList);
 		mav.addObject("vo", vo);
 		mav.addObject("center", "/WEB-INF/views/trade/tradeDetail.jsp");
 		mav.setViewName("main");

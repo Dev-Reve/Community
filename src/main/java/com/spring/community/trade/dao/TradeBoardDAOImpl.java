@@ -72,4 +72,10 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 		sqlSession.update("mapper.trade.updateTrade", map);
 	}
 	
+	@Override
+	public void updateCount(int no) throws DataAccessException {
+		System.out.println("updateCount에서 받아온 no값: " + no);
+		sqlSession.update("mapper.trade.updateCount", no);
+	}
+	
 }

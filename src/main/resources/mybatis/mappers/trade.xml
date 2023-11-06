@@ -97,4 +97,10 @@
 		</foreach>
 		WHERE no = #{no}
 	</update>
+	
+	<update id="updateCount" parameterType="int">
+		<![CDATA[
+			UPDATE trade SET readCount = readCount + 1 WHERE no = #{no}
+		]]>
+	</update>
 </mapper>

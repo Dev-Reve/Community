@@ -31,6 +31,9 @@ public interface TradeBoardDAO {
 	
 	//거래 게시판의 글 하나를 수정하는 메소드
 	public void modTradeBoard(Map map) throws DataAccessException;
+	
+	//글 조회시 조회수 1 증가 메소드
+	public void updateCount(int no) throws DataAccessException;
 
 
 
