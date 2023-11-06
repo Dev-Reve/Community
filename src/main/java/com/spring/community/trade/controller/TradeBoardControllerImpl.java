@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -325,9 +326,9 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		tradeService.updateCount(no);
 		
 		/* 글에 대한 댓글 조회 */
-//		List<TradeCommentVO> commentList = commentService.getCommentList(no);
+		List<TradeCommentVO> commentList = commentService.getCommentList(no);
 		
-//		mav.addObject("commentList", commentList);
+		mav.addObject("commentList", commentList);
 		mav.addObject("vo", vo);
 		mav.addObject("center", "/WEB-INF/views/trade/tradeDetail.jsp");
 		mav.setViewName("main");
@@ -427,7 +428,35 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		 return mav; 
 	 }
 	 
+	 
+	 @RequestMapping(value = "/trade/regComment.do")
+	 public ModelAndView regComment(@ModelAttribute("comment") TradeCommentVO comment, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 ModelAndView mav = new ModelAndView();
 
+		 commentService.regComment(comment);
+		 mav.setViewName("redirect:/trade/tradeDetail.do?no=" + comment.getBoardNo());
+		 
+		 return mav;
+	 }
+	 
+//	 public ModelAndView modComment(@ModelAttribute("comment") TradeCommentVO comment, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		 System.out.println(comment.getContent());
+//	 }
+	 
+	 @Override
+	 @RequestMapping(value = "/trade/delComment.do", method = RequestMethod.GET)
+	 public ModelAndView delComment(@RequestParam("no") int no, @RequestParam("boardNo") int boardNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		 System.out.println(no);
+		 
+		 commentService.delComment(no);
+		 
+		 ModelAndView mav = new ModelAndView();
+		 
+		 mav.setViewName("redirect:/trade/tradeDetail.do?no=" + boardNo);
+		 
+		 return mav;
+	 }
+	 
 	//request 객체에서 URL 요청명을 가져와 .do를 제외한 요청명을 구하는 메소드 
 	private String getViewName(HttpServletRequest request) throws Exception {
 

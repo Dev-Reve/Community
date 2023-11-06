@@ -40,7 +40,7 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	
 	@Override
 	public int regTradeBoard(Map map) throws DataAccessException {
-		System.out.println("DAO까지 옴");
+//		System.out.println("DAO까지 옴");
 		System.out.println("fileList: " + map.get("fileList"));
 		
 		sqlSession.insert("mapper.trade.insertTrade", map);
@@ -74,7 +74,7 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	
 	@Override
 	public void updateCount(int no) throws DataAccessException {
-		System.out.println("updateCount에서 받아온 no값: " + no);
+//		System.out.println("updateCount에서 받아온 no값: " + no);
 		sqlSession.update("mapper.trade.updateCount", no);
 	}
 	

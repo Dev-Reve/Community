@@ -18,6 +18,7 @@
 		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 		<!-- JS -->
 		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<script src="https://kit.fontawesome.com/3c365b85f4.js" crossorigin="anonymous"></script>
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
@@ -218,24 +219,39 @@
 			
 			<div class="row">
 				<div class="col-md-12">
-					<form action="${path}/tradeComment/regComment.do" method="post">
-						<input type="text" name="co_content" style="width: calc(100% - 180px); float: left; height: 2.3em; border: 1px solid lightgray;" placeholder="댓글을 입력해주세요">
+					<form action="${path}/trade/regComment.do" method="post">
+						<input type="hidden" name="boardNo" value="${vo.no}">
 						<input type="hidden" name="nickname" value="${member.nickname}">
-						<button class="signupBtn" type="button">
-						  댓글작성
-						  <span class="arrow">
-						     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512" fill="rgb(183, 128, 255)"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
-						  </span>
+						<input type="text" name="content" style="width: calc(100% - 180px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px;" placeholder="댓글을 입력해주세요">
+						<button class="signupBtn" type="submit">
+						  	댓글작성
+						 	<span class="arrow">
+						    	<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512" fill="rgb(183, 128, 255)"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+						 	</span>
 						</button>
-						<div class="comment">
-							<img src="${path }/resources/images/a.jpg" style="width: 75px; height: 75px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-top: 1em;">
-							<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em;">
-								<b>${commentList.nickname}</b> | <small>${commentList.writeDate}</small> <br>
-								${commentList.content}
-							</div>
-						</div>
 					</form>
 				</div>
+				<c:if test="${empty commentList }">
+					<div class="col-md-12">
+						<div  style="padding-left: 1em; background-color: lightgray; vertical-align: middle;">
+						<span>아직 등록된 댓글이 없습니다.</span>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${not empty commentList}">
+					<c:forEach var="list" items="${commentList}">
+						<div class="col-md-12">
+							<img src="${path }/resources/images/a.jpg" style="width: 75px; height: 75px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-top: 1em;">
+							<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em;">
+								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp;
+								<small><a href="#");"><i class="fa-regular fa-pen-to-square"></i></button></small> &nbsp;
+								<small><a href="${path}/trade/delComment.do?no=${list.no}&boardNo=${vo.no}"><i class="fa-regular fa-trash-can"></i></a></small>
+								<br>
+								<span class="comment">${list.content}</span>
+							</div> 
+						</div>
+					</c:forEach>
+				</c:if>
 			</div>
 		</div>
 		
@@ -261,7 +277,16 @@
 		    });
 			
 			$(function() {
+				var nickname = '${member.nickname}';
 				
+				if(nickname.length == 0){
+					$('.signupBtn').on('click', function(e) {
+						e.preventDefault();
+						
+						alert('로그인이 필요한 기능입니다'); 
+						location.href='${path}/member/loginForm.do';
+					});
+				}
 			});
 			
 			function like() {

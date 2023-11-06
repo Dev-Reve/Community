@@ -2,7 +2,7 @@ package com.spring.community.tradeComment.vo;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("tradeComment")
 public class TradeCommentVO {
 	private int no;
 	private String content;

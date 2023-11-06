@@ -39,5 +39,8 @@ public interface TradeBoardController {
 	
 	//거래 게시글의 좋아요를 눌렀을 때 DB에 저장해주는 메소드
 	public ModelAndView likeTrade(String nickname, int no, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	//댓글을 삭제하는 메소드
+	public ModelAndView delComment(int no, int boardNo, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 }

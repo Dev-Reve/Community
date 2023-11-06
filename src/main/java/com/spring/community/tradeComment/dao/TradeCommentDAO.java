@@ -10,4 +10,8 @@ public interface TradeCommentDAO {
 
 	public List<TradeCommentVO> getCommentList(int no) throws DataAccessException;
 
+	public void regComment(TradeCommentVO comment) throws DataAccessException;
+
+	public void delComment(int no) throws DataAccessException;
+
 }

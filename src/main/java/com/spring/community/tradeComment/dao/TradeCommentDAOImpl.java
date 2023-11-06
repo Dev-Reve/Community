@@ -18,5 +18,14 @@ public class TradeCommentDAOImpl implements TradeCommentDAO {
 	public List<TradeCommentVO> getCommentList(int no) throws DataAccessException {
 		return sqlSession.selectList("mapper.tradeComment.getCommentList", no);
 	}
+	
+	@Override
+	public void regComment(TradeCommentVO comment) throws DataAccessException {
+		sqlSession.insert("mapper.tradeComment.regComment", comment);
+	}
 
+	@Override
+	public void delComment(int no) throws DataAccessException {
+		sqlSession.delete("mapper.tradeComment.delComment", no);
+	}
 }

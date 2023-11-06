@@ -19,5 +19,23 @@
 		<result property="boardNo" column="boardNo"/>
 	</resultMap>
 	
+	<select id="getCommentList" resultMap="commentResult" parameterType="int">
+		<![CDATA[
+			SELECT * FROM trade_comment WHERE boardNo = #{no} ORDER BY writeDate desc, no desc
+		]]>		
+	</select>
+	
+	<insert id="regComment" parameterType="tradeCommentVO">
+		<![CDATA[
+			INSERT INTO trade_comment(no, content, nickname, boardNo)
+			VALUES (tc_no.nextval, #{content}, #{nickname}, #{boardNo})
+		]]>
+	</insert>
+	
+	<delete id="delComment" parameterType="int">
+		<![CDATA[
+			DELETE FROM trade_comment WHERE no = #{no}
+		]]>
+	</delete>
 	
 </mapper>

@@ -19,4 +19,14 @@ public class TradeCommentServiceImpl implements TradeCommentService {
 	public List<TradeCommentVO> getCommentList(int no) throws Exception {
 		return dao.getCommentList(no);
 	}
+	
+	@Override
+	public void regComment(TradeCommentVO comment) throws Exception {
+		dao.regComment(comment);
+	}
+	
+	@Override
+	public void delComment(int no) throws Exception {
+		dao.delComment(no);
+	}
 }
