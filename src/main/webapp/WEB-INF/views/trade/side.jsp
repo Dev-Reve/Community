@@ -15,7 +15,7 @@
 	<br>
 	<a href="${path}/trade/tradeList.do?category=all">전체보기</a> <br>
 	<a href="${path}/trade/tradeList.do?category=life">생활용품</a> <br>
-	<a href="${path}/trade/tradeList.do?category=fasion">패션/뷰티</a> <br>
+	<a href="${path}/trade/tradeList.do?category=fashion">패션/뷰티</a> <br>
 	<a href="${path}/trade/tradeList.do?category=digital">가전/디지털</a> <br>
 	<a href="${path}/trade/tradeList.do?category=office">사무용품</a> <br>
 	<a href="${path}/trade/tradeList.do?category=etc">기타</a> <br>

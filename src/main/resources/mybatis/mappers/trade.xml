@@ -32,16 +32,29 @@
 						FROM trade
 						ORDER BY writeDate desc
 					) t
-					WHERE ROWNUM <= #{endRow}
-				)
-			WHERE rn >= #{startRow}
+					WHERE
+		    ]]>
+		    <if test="category != null">
+		    	<![CDATA[
+		    		category=#{category} and 
+		    	]]>
+		    </if>
+		    <![CDATA[
+		    	 	ROWNUM <= #{endRow}
+					)
+				WHERE rn >= #{startRow}
 		    ]]>
 	  </select>
 	
-	<select id="getTradeCount" resultType="int">
+	<select id="getTradeCount" resultType="int" parameterType="java.util.HashMap">
 		<![CDATA[
 			select count(*) from trade
 		]]>
+		<if test="category != null"> 
+			<![CDATA[
+				WHERE category=#{category}
+			]]>
+		</if>
 	</select>
 	
 	<insert id="insertTrade" parameterType="java.util.HashMap">

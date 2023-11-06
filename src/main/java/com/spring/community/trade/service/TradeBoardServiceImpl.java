@@ -26,13 +26,16 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		int count = 0; //전체 글 개수
 		int no = 0; //글번호
 		String pageNum = (String)map2.get("pageNum");
+		String category = (String)map2.get("category");
+		
+		System.out.println("serCategory: " + category);
 		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
 		
 		int currentPage = Integer.parseInt(pageNum); //현재 페이지
-		count = dao.getTradeCount(); //전체 글 개수 조회
+		count = dao.getTradeCount(map2); //전체 글 개수 조회
 		int totalPage = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 		int startPage = ( (currentPage / pageBlock) - (currentPage % pageBlock == 0 ? 1 : 0) ) * pageBlock + 1; //시작 페이지 번호
 		int endPage = startPage + pageBlock - 1; //끝 페이지 번호
@@ -61,13 +64,7 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		map.put("currentPage", currentPage);
 		map.put("vo", vo);
 		
-		
 		return map;
-	}
-	
-	@Override
-	public int getTotalPosts() {
-		return dao.getTradeCount();
 	}
 	
 	@Override

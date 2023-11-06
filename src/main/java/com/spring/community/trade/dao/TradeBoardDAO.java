@@ -17,7 +17,7 @@ public interface TradeBoardDAO {
 	public List selectAllTrades(Map map2) throws DataAccessException;
 	
 	//거래 게시판의 모든 레코드 행의 갯수를 반환하는 메소드
-	public int getTradeCount() throws DataAccessException;
+	public int getTradeCount(Map map2) throws DataAccessException;
 
 	//거래 게시판에 글 작성을 하는 메소드
 	public int regTradeBoard(Map map) throws DataAccessException;

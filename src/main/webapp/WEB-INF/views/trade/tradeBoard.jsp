@@ -97,7 +97,7 @@
 	</head>
 	<body class="is-preload">
 		<!-- Home -->
-			<h1 style="text-align: center; padding-top:1em;">거래 게시판</h1>
+			<h1 style="text-align: center; padding-top:1em;">거래 게시판 - <c:out value="${tradeList.category}"/></h1>
 			<hr>
 					<button class="cssbuttons-io-button writeBtn" onclick="location.href='${path}/trade/regTradeForm.do'">
 					  글작성
@@ -128,7 +128,7 @@
 						<tbody>
 						<c:if test="${empty tradeList.vo}">
 							<tr height="40px">
-								<td colspan="5" style="text-align:center;"><font size="3" color="white">작성된 내용이 없습니다.</font></td>
+								<td colspan="6" style="text-align:center;"><font size="3" color="black">작성된 내용이 없습니다.</font></td>
 							</tr>
 						</c:if>
 				<c:if test="${not empty tradeList.vo}">
@@ -149,7 +149,8 @@
 						</c:if>
 						</tbody>
 					</table>
-					<nav aria-label="Page navigation example">
+				<nav aria-label="Page navigation example">
+					<c:if test="${not empty tradeList.vo}">
 <%-- 					<fmt:parseNumber var="pageCount" value="${tradeList.count/tradeList.pageSize + (tradeList.count % tradeList.pageSize eq 0 ? 0 : 1)}" integerOnly="true" /> --%>
 						<ul class="pagination" style="float: right; margin-right: 20px">
 						<!-- 글이 존재 한다면 -->
@@ -180,7 +181,7 @@
 						<!-- 시작페이지가 pageSize보다 크면 -->
 						<c:if test="${startPage > tradeList.pageBlock}">
 							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage - tradeList.pageBlock}" aria-label="Previous">
+								<a class="page-link" href="${path}/trade/tradeList.do?<c:if test="${not empty category}">category=${category}&</c:if>pageNum=${startPage - tradeList.pageBlock}" aria-label="Previous">
 						      		<span aria-hidden="true">&laquo;</span>
 						    	</a>
 							</li>
@@ -190,10 +191,10 @@
 						<c:forEach var="n" begin="${startPage}" end="${endPage}">
 							<c:choose>
 								<c:when test="${n == tradeList.currentPage}">
-									<li class="page-item active"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${tradeList.currentPage}">${tradeList.currentPage}</a></li>
+									<li class="page-item active"><a class="page-link" href="${path}/trade/tradeList.do?<c:if test="${not empty category}">category=${category}&</c:if>pageNum=${tradeList.currentPage}">${tradeList.currentPage}</a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a class="page-link" href="${path}/trade/tradeList.do?pageNum=${n}">${n}</a></li>
+									<li class="page-item"><a class="page-link" href="${path}/trade/tradeList.do?<c:if test="${not empty category}">category=${category}&</c:if>pageNum=${n}">${n}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -201,14 +202,18 @@
 						<!-- 끝페이지 이후 다음 글 존재하면 -->
 						<c:if test="${endPage < pageCount}">
 							<li class="page-item">
-								<a class="page-link" href="${path}/trade/tradeList.do?pageNum=${startPage + pageBlock}">
+								<a class="page-link" href="${path}/trade/tradeList.do?<c:if test="${not empty category}">category=${category}&</c:if>pageNum=${startPage + pageBlock}">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
 						</c:if>
 						
 						</ul>						
-					</nav>
+					</c:if>
+					<c:if test="${empty tradeList.vo}">
+						
+					</c:if>
+				</nav>
 
 	</body>
 </html>

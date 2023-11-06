@@ -79,15 +79,21 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		
 		Map<String, Object> tradeMap = new HashMap<String, Object>();
 		Map<String, Object> map = new HashMap<String, Object>();
+		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩하기 위해 객체 생성
+		ModelAndView mav = new ModelAndView();
+		
 		String category = request.getParameter("category");
+		
+		mav.addObject("category", category);
+		
 		if(category == null || category.equals("all")) {
 			category = null;
 		} else if(category.equals("life")) {
 			category = "생활용품";
 		} else if(category.equals("fashion")) {
-			category = "패션";
+			category = "패션/뷰티";
 		} else if(category.equals("digital")) {
-			category = "디지털";
+			category = "가전/디지털";
 		} else if(category.equals("office")) {
 			category = "사무용품";
 		} else if(category.equals("etc")) {
@@ -97,12 +103,10 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		map.put("category", category);
 		map.put("pageNum", pageNum);
 		tradeMap = tradeService.listTradeBoards(map);
-		
 		//응답할 뷰 이름 얻기 
 		String viewName = getViewName(request);
 		
-		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩
-		ModelAndView mav = new ModelAndView();
+		
 		//응답할 값 저장
 		mav.addObject("tradeList", tradeMap);
 		mav.addObject("center", "/WEB-INF/views/trade/tradeBoard.jsp");
@@ -362,29 +366,6 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		 return mav; 
 	 }
 	 
-	/*
-	 @Override
-	 
-	 @RequestMapping(value = "/trade/categoriedList.do") public ModelAndView
-	 listTradeCategory(@RequestParam("category") String category,
-	 HttpServletRequest request, HttpServletResponse response) throws Exception {
-	 List categoriedList = tradeService.listTradeCategory(category);
-	 
-	 request.setCharacterEncoding("UTF-8");
-	 
-	 //응답할 뷰 이름 얻기 String viewName = getViewName(request);
-	 
-	 //응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩 ModelAndView mav = new ModelAndView();
-	 //응답할 값 저장 mav.addObject("categoriedList", categoriedList); //뷰명 저장
-	 mav.setViewName(viewName);
-	 
-	 return mav; }
-	 
-	
-	 
-	 
-	
-	 */
 
 	//request 객체에서 URL 요청명을 가져와 .do를 제외한 요청명을 구하는 메소드 
 	private String getViewName(HttpServletRequest request) throws Exception {
