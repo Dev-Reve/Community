@@ -21,30 +21,37 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 	
 	@Override
 	public Map<String, Object> listTradeBoards(Map map2) throws Exception {
-		int pageSize = 10;
-		int pageBlock = 5;
-		int count = 0;
-		int no = 0;
+		int pageSize = 10; //한번에 보여질 글 개수
+		int pageBlock = 5; //한번에 보여질 페이지 수
+		int count = 0; //전체 글 개수
+		int no = 0; //글번호
 		String pageNum = (String)map2.get("pageNum");
 		
 		if(pageNum == null) {
 			pageNum = "1";
 		}
 		
-		int currentPage = Integer.parseInt(pageNum);
-		count = dao.getTradeCount();
-		int startRow = ((currentPage - 1) * pageSize) + 1;
+		int currentPage = Integer.parseInt(pageNum); //현재 페이지
+		count = dao.getTradeCount(); //전체 글 개수 조회
+		int totalPage = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = ( (currentPage / pageBlock) - (currentPage % pageBlock == 0 ? 1 : 0) ) * pageBlock + 1; //시작 페이지 번호
+		int endPage = startPage + pageBlock - 1; //끝 페이지 번호
 		int endRow = currentPage * pageSize;
+		int startRow = ( (currentPage - 1) * pageSize );
 		System.out.println("startRow: " + startRow);
 		System.out.println("endRow: " + endRow);
+		
 		map2.put("startRow", startRow);
 		map2.put("endRow", endRow);
+		
+//		map2.put("startRow", startRow);
+//		map2.put("endRow", endRow);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<TradeVO> vo = new ArrayList<TradeVO>(); 
 		
 		if(count > 0) {
 			vo = dao.selectAllTrades(map2);
-			no = count - (currentPage - 1 ) * pageSize;
+			no = count - (currentPage - 1 ) * pageBlock;
 		}
 		
 		map.put("pageSize", pageSize);

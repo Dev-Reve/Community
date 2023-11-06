@@ -81,7 +81,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		Map<String, Object> map = new HashMap<String, Object>();
 		String category = request.getParameter("category");
 		if(category == null || category.equals("all")) {
-			category = "";
+			category = null;
 		} else if(category.equals("life")) {
 			category = "생활용품";
 		} else if(category.equals("fashion")) {

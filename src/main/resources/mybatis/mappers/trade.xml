@@ -23,25 +23,19 @@
 	</resultMap>
 	
 	<select id="selectAllTrades" resultMap="tradeResult" parameterType="java.util.HashMap">
-	  <![CDATA[
-	    SELECT *  
-	    FROM ( 
-	      SELECT ROWNUM AS rn, t.*
-	      FROM ( 
-	        SELECT *
-	        FROM trade
-	        WHERE 
-	  ]]>
-	  <if test="category != null and category != ''">
-	    category = #{category} AND 
-	  </if>
-	  <![CDATA[
-	        ORDER BY writeDate DESC
-	      ) t
-	      WHERE ROWNUM <= #{endRow}
-	    )
-	    WHERE rn >= #{startRow}]]>
-	    
+			<![CDATA[
+		    	SELECT *  
+				FROM ( 
+					SELECT ROWNUM AS rn, t.*
+					FROM ( 
+						SELECT *
+						FROM trade
+						ORDER BY writeDate desc
+					) t
+					WHERE ROWNUM <= #{endRow}
+				)
+			WHERE rn >= #{startRow}
+		    ]]>
 	  </select>
 	
 	<select id="getTradeCount" resultType="int">
