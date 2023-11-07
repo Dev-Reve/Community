@@ -100,10 +100,8 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		Map<String, Object> map = new HashMap<String, Object>();
 		//응답할 값과 뷰명을 ModelAndView객체 메모리에 바인딩하기 위해 객체 생성
 		ModelAndView mav = new ModelAndView();
-		System.out.println(pageNum);
+//		System.out.println(pageNum);
 		String category = request.getParameter("category");
-		
-		mav.addObject("category", category);
 		
 		if(category == null || category.equals("all")) {
 			category = null;
@@ -121,7 +119,10 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		
 		map.put("category", category);
 		map.put("pageNum", pageNum);
+		mav.addObject("category", category);
 		tradeMap = tradeService.listTradeBoards(map);
+		
+		System.out.println("mav에 저장된 category: " + category);
 		
 		//응답할 뷰 이름 얻기 
 		String viewName = getViewName(request);

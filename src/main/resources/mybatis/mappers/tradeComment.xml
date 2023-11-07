@@ -10,6 +10,7 @@
 	<!-- 이후 조회해온 resultMap에 VO들을 담기 위해서  resultMap에 memResult를 작성하거나
 		 resultType에 memberVO를 작성하여 VO빈에 저장하면 됨  -->
 	<resultMap id="commentResult" type="tradeCommentVO">
+		<result property="level" column="level"/>
 		<result property="no" column="no"/>
 		<result property="content" column="content"/>
 		<result property="nickname" column="nickname"/>
@@ -21,8 +22,18 @@
 	
 	<select id="getCommentList" resultMap="commentResult" parameterType="int">
 		<![CDATA[
-			SELECT * FROM trade_comment WHERE boardNo = #{no} ORDER BY writeDate desc, no desc
-		]]>		
+			SELECT boardNo, nickname, LEVEL, LPAD(' ', 2*(LEVEL-1)) || content AS content,
+		        no, 
+		        parentNo,
+		        writeDate
+		    FROM trade_comment
+		    WHERE boardNo = #{no}
+		    START WITH parentNo = 0
+		    CONNECT BY PRIOR no = parentNo
+		]]>
+<!-- 		<![CDATA[ -->
+<!-- 			SELECT * FROM trade_comment WHERE boardNo = #{no} ORDER BY writeDate desc, no desc -->
+<!-- 		]]>		 -->
 	</select>
 	
 	<insert id="regComment" parameterType="tradeCommentVO">

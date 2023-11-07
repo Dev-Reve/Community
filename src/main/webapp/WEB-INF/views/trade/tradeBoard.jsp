@@ -97,7 +97,10 @@
 	</head>
 	<body class="is-preload">
 		<!-- Home -->
-			<h1 style="text-align: center; padding-top:1em;">거래 게시판 - <c:out value="${tradeList.category}"/></h1>
+			<h1 style="text-align: center; padding-top:1em;">거래 게시판
+			<c:if test="${(category ne null) or (not empty category)}">
+				 - <c:out value="${category}" />
+			</c:if></h1>
 			<hr>
 					<button class="cssbuttons-io-button writeBtn" onclick="location.href='${path}/trade/regTradeForm.do'">
 					  글작성

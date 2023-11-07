@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component("tradeComment")
 public class TradeCommentVO {
+	private int level;
 	private int no;
 	private String content;
 	private String nickname;
@@ -68,6 +69,14 @@ public class TradeCommentVO {
 
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 	

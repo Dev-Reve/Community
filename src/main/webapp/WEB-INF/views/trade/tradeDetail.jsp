@@ -240,15 +240,23 @@
 				<c:if test="${not empty commentList}">
 					<c:forEach var="list" items="${commentList}" varStatus="loop">
 						<div class="col-md-12">
-							<img src="${path }/resources/images/a.jpg" style="width: 75px; height: 75px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-top: 1em;">
-							<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em; width: calc(100% - 125px);">
+							<div style="float: left; line-height: 2em; margin-left: 1em; width: calc(100% - 125px); ">
+							<img src="${path }/resources/images/a.jpg" style="width: 30px; height: 30px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-right: 1em; background: white;">
 								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp;
 								<c:if test="${member.nickname eq list.nickname}">
 									<small><a href="javascript:modForm(${loop.index})"><i class="fa-regular fa-pen-to-square"></i></a></small> &nbsp;
 									<small><a href="${path}/trade/delComment.do?no=${list.no}&boardNo=${vo.no}"><i class="fa-regular fa-trash-can"></i></a></small>
 								</c:if>
 								<br>
-								<span class="content" style="display: inline-block;">${list.content}</span>
+								<c:choose>
+									<c:when test="${list.level > 1}">
+										<c:forEach begin="1" end="${list.level}" step="1">
+											<span style="padding-left: 20px"></span>
+										</c:forEach>
+										└ 
+									</c:when>
+								</c:choose>
+								<span class="content" style="display: inline-block;">&nbsp;${list.content}</span>
 								<span class="comment" style="display: none; width: 100%;">
 									<input type="text" name="content" value="${list.content}" style="width: calc(100% - 150px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px; color:black;">
 									<button class="signupBtn" type="button" onclick="javascript: modComment(${list.no}, ${vo.no}, ${loop.index})">
@@ -264,8 +272,6 @@
 				</c:if>
 			</div>
 		</div>
-		
-		
 		
 		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 		<script type="text/javascript">
