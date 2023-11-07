@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.community.member.VO.MemberVO;
 import com.spring.community.trade.vo.TradeVO;
+import com.spring.community.tradeComment.vo.TradeCommentVO;
 
 
 public interface TradeBoardService {

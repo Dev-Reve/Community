@@ -29,4 +29,9 @@ public class TradeCommentServiceImpl implements TradeCommentService {
 	public void delComment(int no) throws Exception {
 		dao.delComment(no);
 	}
+	
+	@Override
+	public TradeCommentVO modComment(TradeCommentVO commentVO) {
+		return dao.modComment(commentVO);
+	}
 }

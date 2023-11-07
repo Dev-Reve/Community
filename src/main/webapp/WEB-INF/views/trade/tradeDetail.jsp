@@ -21,8 +21,7 @@
 		<script src="https://kit.fontawesome.com/3c365b85f4.js" crossorigin="anonymous"></script>
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js">
-		</script>
+		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
 		.like {
 		  padding: 0 20px 0 10px;
@@ -90,7 +89,7 @@
 	      
       .signupBtn {
       	  float: right;
-		  width: 150px;
+		  width: 130px;
 		  height: 40px;
 		  border-radius: 30px;
 		  border: none;
@@ -222,7 +221,7 @@
 					<form action="${path}/trade/regComment.do" method="post">
 						<input type="hidden" name="boardNo" value="${vo.no}">
 						<input type="hidden" name="nickname" value="${member.nickname}">
-						<input type="text" name="content" style="width: calc(100% - 180px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px;" placeholder="댓글을 입력해주세요">
+						<input type="text" name="content" style="width: calc(100% - 150px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px;" placeholder="댓글을 입력해주세요">
 						<button class="signupBtn" type="submit">
 						  	댓글작성
 						 	<span class="arrow">
@@ -239,15 +238,26 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty commentList}">
-					<c:forEach var="list" items="${commentList}">
+					<c:forEach var="list" items="${commentList}" varStatus="loop">
 						<div class="col-md-12">
 							<img src="${path }/resources/images/a.jpg" style="width: 75px; height: 75px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-top: 1em;">
-							<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em;">
+							<div style="float: left; margin-top: 1em; line-height: 2.2em; margin-left: 1em; width: calc(100% - 125px);">
 								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp;
-								<small><a href="#");"><i class="fa-regular fa-pen-to-square"></i></button></small> &nbsp;
-								<small><a href="${path}/trade/delComment.do?no=${list.no}&boardNo=${vo.no}"><i class="fa-regular fa-trash-can"></i></a></small>
+								<c:if test="${member.nickname eq list.nickname}">
+									<small><a href="javascript:modForm(${loop.index})"><i class="fa-regular fa-pen-to-square"></i></a></small> &nbsp;
+									<small><a href="${path}/trade/delComment.do?no=${list.no}&boardNo=${vo.no}"><i class="fa-regular fa-trash-can"></i></a></small>
+								</c:if>
 								<br>
-								<span class="comment">${list.content}</span>
+								<span class="content" style="display: inline-block;">${list.content}</span>
+								<span class="comment" style="display: none; width: 100%;">
+									<input type="text" name="content" value="${list.content}" style="width: calc(100% - 150px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px; color:black;">
+									<button class="signupBtn" type="button" onclick="javascript: modComment(${list.no}, ${vo.no}, ${loop.index})">
+									  	댓글수정
+									 	<span class="arrow">
+									    	<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512" fill="rgb(183, 128, 255)"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>
+									 	</span>
+									</button>
+								</span>
 							</div> 
 						</div>
 					</c:forEach>
@@ -309,6 +319,43 @@
 				});
 			}
 			
+			function modForm(index) {
+				var _content = $('.content');
+				var content = _content[index];
+				var _comment = $('.comment');
+				var comment = _comment[index];
+				
+				if(content.style.display == "none") {
+					content.style.display="inline-block";
+					comment.style.display="none";
+				} else if (content.style.display == "inline-block") {
+					content.style.display="none";
+					comment.style.display="inline-block";
+				}
+			}
+			
+			function modComment(no, boardNo, index) {
+				var comment = $('.comment')[index];
+				var content = comment.children[0].value;
+				var i_content = $('.content')[index];
+// 				console.log(no);
+// 				console.log(boardNo);
+// 				console.log(index);
+				
+				$.ajax({
+					url: '${path}/trade/modComment.do',
+					type: 'POST',
+					dataType: 'text',
+					data: {no: no, boardNo: boardNo, content: content},
+					success: function(data) {
+						i_content.innerText=data;
+						
+						i_content.style.display="inline-block";
+						comment.style.display="none";
+					}
+				});
+				
+			}
 		</script>
 	</body>
 </html>

@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -439,9 +440,16 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		 return mav;
 	 }
 	 
-//	 public ModelAndView modComment(@ModelAttribute("comment") TradeCommentVO comment, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		 System.out.println(comment.getContent());
-//	 }
+	 @Override
+	 @RequestMapping(value = "/trade/modComment.do", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
+	 public @ResponseBody String modComment(@ModelAttribute("comment") TradeCommentVO comment_VO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 commentVO = commentService.modComment(comment_VO);
+		 
+		 String content = commentVO.getContent();
+		 System.out.println(content);
+		 
+		 return content;
+	 }
 	 
 	 @Override
 	 @RequestMapping(value = "/trade/delComment.do", method = RequestMethod.GET)

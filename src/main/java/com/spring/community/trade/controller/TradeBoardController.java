@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.community.trade.vo.TradeVO;
+import com.spring.community.tradeComment.vo.TradeCommentVO;
 
 public interface TradeBoardController {
 	//거래 게시판 게시글 전부 조회해서 가져오는 메소드
@@ -42,5 +43,8 @@ public interface TradeBoardController {
 
 	//댓글을 삭제하는 메소드
 	public ModelAndView delComment(int no, int boardNo, HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	//댓글을 수정하는 메소드
+	public String modComment(TradeCommentVO commentVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 }

@@ -38,4 +38,15 @@
 		]]>
 	</delete>
 	
+	<update id="modComment" parameterType="tradeCommentVO">
+		<![CDATA[
+			UPDATE trade_comment SET content=#{content} WHERE boardNo=#{boardNo} and no=#{no}
+		]]>
+	</update>
+	
+	<select id="selModedComment" parameterType="tradeCommentVO" resultType="tradeCommentVO">
+		<![CDATA[
+			SELECT * FROM trade_comment WHERE boardNo=#{boardNo} and no=#{no}
+		]]>
+	</select>
 </mapper>

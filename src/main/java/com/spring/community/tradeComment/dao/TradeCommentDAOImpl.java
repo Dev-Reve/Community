@@ -28,4 +28,13 @@ public class TradeCommentDAOImpl implements TradeCommentDAO {
 	public void delComment(int no) throws DataAccessException {
 		sqlSession.delete("mapper.tradeComment.delComment", no);
 	}
+	
+	@Override
+	public TradeCommentVO modComment(TradeCommentVO commentVO) throws DataAccessException {
+		sqlSession.update("mapper.tradeComment.modComment", commentVO);
+		TradeCommentVO vo = sqlSession.selectOne("mapper.tradeComment.selModedComment", commentVO);
+		
+		return vo;
+	}
+	
 }

@@ -14,4 +14,6 @@ public interface TradeCommentDAO {
 
 	public void delComment(int no) throws DataAccessException;
 
+	public TradeCommentVO modComment(TradeCommentVO commentVO) throws DataAccessException;
+
 }

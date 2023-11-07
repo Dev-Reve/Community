@@ -14,4 +14,7 @@ public interface TradeCommentService {
 	//댓글을 삭제하는 메소드
 	public void delComment(int no) throws Exception;
 
+	//댓글을 수정하는 메소드
+	public TradeCommentVO modComment(TradeCommentVO commentVO);
+
 }
