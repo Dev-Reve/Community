@@ -32,10 +32,6 @@ public interface MemberController {
 //	public String   UpdateMember(HttpServletRequest request, 
 //			 	    			 HttpServletResponse response) throws Exception;
 	
-	//회원 한명 정보 수정 기능
-	ModelAndView UpdateMember(MemberVO member, 
-							  HttpServletRequest request, 
-							  HttpServletResponse response) throws Exception;
 	
 	//회원정보 삭제 기능
 //	public String memberDel(HttpServletRequest request, 
@@ -68,6 +64,9 @@ public interface MemberController {
 			throws Exception;
 	//마이페이지 화면
 	ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+	ModelAndView UpdateMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception;
 
 	
 

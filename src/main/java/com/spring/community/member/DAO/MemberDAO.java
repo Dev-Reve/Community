@@ -27,6 +27,11 @@ public interface MemberDAO {
 	public MemberVO loginById(MemberVO memberVO) throws DataAccessException;
 
 	MemberVO oneMember(MemberVO memberVO) throws DataAccessException;
+
+	//like한 리스트 불러오는 메소드
+	public List likelistByNick(MemberVO memberVO);
+
+	
 	
 	//
 	

@@ -3,6 +3,7 @@ package com.spring.community.member.service;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 	
+	@Override
+	//like한 리스트불러오는메소드
+	public List likelist(MemberVO memberVO) throws Exception {
+		return memberDAO.likelistByNick(memberVO);
+	
+	}
 }
 
 

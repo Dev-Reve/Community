@@ -27,6 +27,9 @@ public interface MemberService {
 	public MemberVO login(MemberVO memberVO) throws Exception;
 
 	MemberVO detailMembers(MemberVO memberVO) throws DataAccessException;
+
+	List likelist(MemberVO memberVO) throws Exception;
+	
 	
 	
 }

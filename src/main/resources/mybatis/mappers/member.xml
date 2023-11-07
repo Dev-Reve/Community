@@ -64,6 +64,30 @@
   	</select>
 	
 	
+	<!-- 업데이트멤버바이아이디 -->
+	<select id="updateMember" parameterType="memberVO" resultType="memberVO">
+  		<![CDATA[
+  			UPDATE member
+			SET 
+			    password = #{password},
+			    name = #{name},
+			    ssn = #{ssn},
+			    nickname = #{nickname},
+			    email = #{email},
+			    addr1 = #{addr1},
+			    addr2 = #{addr2},
+			    addr3 = #{addr3},
+			    addr4 = #{addr4},
+			    fileName = #{fileName},
+			    fileRealName = #{fileRealName}
+			WHERE id = #{id} 
+  		]]>
+  	</select>
 	
-	
+	<select id="likelistByNick" parameterType="memberVO" resultType="likeboardVO">
+  		<![CDATA[
+  				select t.no,l.nickname, t.title   from likes l, trade t
+        	where l.trade_no = t.no and l.nickname= #{nickname}
+  		]]>
+  	</select>
 </mapper>

@@ -23,7 +23,7 @@
 	<div id="mainbox">	
 			<form action="${path}/member/UpdateMember.do" method="post" enctype="multipart/form-data">
 				
-				아이디<input type="text" name="id" value="${memberVO.id }"/>
+				아이디<input type="text" name="id" value="${memberVO.id }" readonly/>
 				비밀번호<input type="password" name="password" value="${memberVO.password }"/>
 				이름<input type="text" name="name" value="${memberVO.name }"/>
 				주민등록번호<input type="text" name="ssn" value="${memberVO.ssn }"/>

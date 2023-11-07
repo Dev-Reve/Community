@@ -20,7 +20,7 @@
 						</div>
 						<div class="col-8 col-7-large col-12-medium">
 							<header>
-								<h1>Hello <strong>${memberVO.nickname}님</strong>.</h1>
+								<h1>반가워요 <strong>${nickname.nickname}님</strong>.</h1>
 							</header>
 							<p>And this is <strong>Miniport</strong>, a free, fully responsive HTML5 site template designed by <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net">HTML5 UP</a> &amp; released under the <a href="http://html5up.net/license">CCA license</a>.</p>
 							<a href="${path}/member/memberDetail.do" class="button large scrolly">내 정보 관리</a>
@@ -29,7 +29,22 @@
 				</div>
 			</article>
 
-
+		<article>
+			<h2>내 관심목록</h2>
+			<table>
+			<hr>
+				
+				<c:forEach var="like" items="${liksList}">
+				<tr>				
+					<td>
+					
+					<a herf="${path}/trade/tradeDetail.do?no=${like.no}">${like.title}</a>
+					<hr>
+					</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</article>
 			
 		
 

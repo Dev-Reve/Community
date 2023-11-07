@@ -2,6 +2,7 @@ package com.spring.community.member.DAO;
 
 import java.sql.ResultSet;
 
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -98,5 +99,11 @@ public class MemberDAOImpl implements MemberDAO{
 		return vo;
 	}
 
+	public List likelistByNick(MemberVO memberVO) throws DataAccessException{
+		
+	List<MemberVO>likeList = sqlSession.selectList("mapper.member.likelistByNick",memberVO);
+			
+			return likeList;
+	}
 
 }//MemberDAOImpl클래스 닫는 기호 
