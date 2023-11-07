@@ -22,8 +22,9 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	
 	@Override
 	public List selectAllTrades(Map map) throws DataAccessException {
-		System.out.println(map.get("startRow"));
-		System.out.println(map.get("endRow"));
+//		System.out.println(map.get("startRow"));
+//		System.out.println(map.get("endRow"));
+		System.out.println("category: " + map.get("category"));
 		
 		List<TradeVO> list = sqlSession.selectList("mapper.trade.selectAllTrades", map);
 		
@@ -31,9 +32,8 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	}
 	
 	@Override
-	public int getTradeCount(Map map2) {
-		String category = (String)map2.get("category");
-		int count = sqlSession.selectOne("mapper.trade.getTradeCount", category);
+	public int getTradeCount(Map map) {
+		int count = sqlSession.selectOne("mapper.trade.getTradeCount", map);
 		
 		return count;
 	}

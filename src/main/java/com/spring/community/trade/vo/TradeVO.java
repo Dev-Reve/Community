@@ -84,10 +84,6 @@ public class TradeVO {
 		this.writeDate = writeDate;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
 	public String[] getFileNames() {
 		return fileNames;
 	}
@@ -108,5 +104,8 @@ public class TradeVO {
 		this.category = category;
 	}
 
-
+	public String getCategory() {
+		return category;
+	}
+	
 }

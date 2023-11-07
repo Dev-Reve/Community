@@ -46,7 +46,7 @@
 		    ]]>
 	  </select>
 	
-	<select id="getTradeCount" resultType="int" parameterType="String">
+	<select id="getTradeCount" resultType="int" parameterType="java.util.HashMap">
 		<![CDATA[
 			select count(*) from trade
 		]]>
