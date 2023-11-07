@@ -20,6 +20,10 @@ public class PagerVO {
 	private Integer pageNum;	// 현제 페이지 번호
 	
 	public void makeRow() {
+		
+		System.out.println("makeRow 메소드 PageNum : " + getPageNum());
+		System.out.println("makeRow 메소드 PerPage : " + getPerPage());
+		
 		this.startRow = (this.getPageNum()-1) * this.getPerPage();
 	}
 	

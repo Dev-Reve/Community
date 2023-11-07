@@ -80,6 +80,8 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	@RequestMapping(value = "/board/getList.do", method = RequestMethod.GET)
 	public ModelAndView getList(PagerVO pager, ModelAndView mav, BoardVO bvo) throws Exception {
 		
+		
+		
 		List<BoardVO> getBoardList = boardservice.getList(pager);
 		
 		mav.addObject("pager", pager);
