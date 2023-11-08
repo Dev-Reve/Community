@@ -38,9 +38,16 @@
 	
 	<insert id="regComment" parameterType="tradeCommentVO">
 		<![CDATA[
-			INSERT INTO trade_comment(no, content, nickname, boardNo)
-			VALUES (tc_no.nextval, #{content}, #{nickname}, #{boardNo})
+			INSERT INTO trade_comment(no, content, nickname, boardNo, parentNo)
+			VALUES (tc_no.nextval, #{content}, #{nickname}, #{boardNo}, 
 		]]>
+		<if test="parentNo != 0">
+			#{parentNo}
+		</if>
+		<if test="parentNo == 0">
+			0
+		</if>
+		<![CDATA[ ) ]]>
 	</insert>
 	
 	<delete id="delComment" parameterType="int">

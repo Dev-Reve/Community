@@ -197,6 +197,7 @@
 							<c:if test="${like == true}">
 								<button class="like active" type="button" onclick="like();"> <span>찜하기</span></button>
 							</c:if>
+							
 						</div>
 						</p>
 					</div>
@@ -243,6 +244,9 @@
 							<div style="float: left; line-height: 2em; margin-left: 1em; width: calc(100% - 125px); ">
 							<img src="${path }/resources/images/a.jpg" style="width: 30px; height: 30px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-right: 1em; background: white;">
 								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp;
+								<c:if test="${not empty member.id}">
+									<small><a href="javascript:recommentForm(${loop.index}, ${list.no})"><i class="fa-regular fa-comment"></i></a></small> &nbsp;
+								</c:if>
 								<c:if test="${member.nickname eq list.nickname}">
 									<small><a href="javascript:modForm(${loop.index})"><i class="fa-regular fa-pen-to-square"></i></a></small> &nbsp;
 									<small><a href="${path}/trade/delComment.do?no=${list.no}&boardNo=${vo.no}"><i class="fa-regular fa-trash-can"></i></a></small>
@@ -316,15 +320,6 @@
 				}
 			}
 			
-			function regCo() {
-				var content = $('co_content').val();
-				alert(content);
-				location.href="#";
-				$.ajax({
-					url: '${path}/comment/regComment.do'
-				});
-			}
-			
 			function modForm(index) {
 				var _content = $('.content');
 				var content = _content[index];
@@ -362,6 +357,27 @@
 				});
 				
 			}
+			
+			function recommentForm(index, parentNo) {
+				var recForm = document.createElement("div");
+				recForm.innerHTML = '<form action="${path}/trade/regComment.do" method="post">' + 
+										'<input type="hidden" name="nickname" value="${member.nickname}">' + 
+										'<input type="hidden" name="boardNo" value="${vo.no}">' + 
+										'<input type="hidden" name="parentNo" value="' + parentNo + '">' + 
+										'<input type="text" name="content" style="width: calc(100% - 150px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px; color: black;" placeholder="댓글을 입력해주세요">' +
+										'<button class="signupBtn" type="submit" >' +
+									  		'댓글작성' +
+					 						'<span class="arrow">' +
+					    						'<svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512" fill="rgb(183, 128, 255)"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg>' +
+					 						'</span>' + 
+										'</button>'
+									'</form>';
+				
+				// 클릭한 댓글 다음에 댓글 작성 폼 추가
+			    var comment = document.getElementsByClassName("content")[index];
+			    comment.parentElement.appendChild(recForm);
+			}
+			
 		</script>
 	</body>
 </html>

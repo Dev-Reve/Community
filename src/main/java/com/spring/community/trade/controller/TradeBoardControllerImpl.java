@@ -434,7 +434,12 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	 @RequestMapping(value = "/trade/regComment.do")
 	 public ModelAndView regComment(@ModelAttribute("comment") TradeCommentVO comment, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		 ModelAndView mav = new ModelAndView();
-
+		 
+		 System.out.println("boardNo: " + comment.getBoardNo());
+		 System.out.println("nickname: " + comment.getNickname());
+		 System.out.println("parentNo: " + comment.getParentNo());
+		 System.out.println("content: " + comment.getContent());
+		 
 		 commentService.regComment(comment);
 		 mav.setViewName("redirect:/trade/tradeDetail.do?no=" + comment.getBoardNo());
 		 
