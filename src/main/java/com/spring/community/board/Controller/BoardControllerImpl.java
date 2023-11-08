@@ -37,7 +37,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	private PagerVO pager;
 	
     @Override
-    @RequestMapping(value = "/board/listboard.do", method = RequestMethod.GET)
+    @RequestMapping(value="/board/listboard.do", method = RequestMethod.GET)
     public ModelAndView selcetBoard(PagingVO vo, ModelAndView mav,
                                     @RequestParam(value = "nowPage", required = false) String nowPage,
                                     @RequestParam(value = "cntPerPage", required = false) String cntPerPage,
@@ -67,7 +67,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 
         mav.addObject("paging", pvo);  
         mav.addObject("boardlist", boardlist);
-		mav.addObject("center", "/WEB-INF/views/board/AAboard.jsp");
+		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
 		mav.setViewName("main");
         
         System.out.println("mav / viewname : " + mav.getViewName());
@@ -77,7 +77,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
     }
 
 	@Override
-	@RequestMapping(value = "/board/getList.do", method = RequestMethod.GET)
+	@RequestMapping(value="/board/getList.do", method = RequestMethod.GET)
 	public ModelAndView getList(PagerVO pager, ModelAndView mav, BoardVO bvo) throws Exception {
 		
 		
