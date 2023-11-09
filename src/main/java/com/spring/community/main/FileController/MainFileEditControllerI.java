@@ -26,7 +26,6 @@ import com.spring.community.trade.vo.TradeVO;
 
 import net.coobird.thumbnailator.Thumbnails;
 
-
 //메인 페이지를 요청할때 불러올 때 처리할 컨트롤러
 // 처리 내용
 // 1. 갤러리 게시판 최신글 3개 조회를 해와서 크기 조절 후 출력하기
@@ -34,38 +33,68 @@ import net.coobird.thumbnailator.Thumbnails;
 @Controller
 @RequestMapping("/first")
 public class MainFileEditControllerI implements ServletContextAware {
-	
-	
-	private static String CURR_IMAGE_REPO_PATH = "/resources/images/";
+
+	private static String CURR_IMAGE_REPO_PATH = "/resources/Board";
 	private ServletContext servletContext;
-	
+
 	@Override
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
-	} 
-	
-	
-	@RequestMapping(value="/download.do", method=RequestMethod.GET)
-	private void download(@RequestParam("imageFileName") String imageFileName,
-							HttpServletResponse response) throws Exception{
+	}
+
+	@RequestMapping(value = "/galldownload.do", method = RequestMethod.GET)
+	private void download1(@RequestParam("no") int no, HttpServletResponse response) throws Exception {
+		// /resources/Board
 		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
 		System.out.println(absPath);
 		OutputStream out = response.getOutputStream();
-		
-		String filePath = absPath + "/" + imageFileName;
-		
+		String filePath = absPath + "/" + "gallery" + "/" + no + "/";
+
+		System.out.println(filePath);
+
 		File image = new File(filePath);
-		
-		int lastIndex = imageFileName.lastIndexOf(".");
-		String fileName = imageFileName.substring(0,lastIndex);
-		File thumbnail = new File( absPath + "/" + "mainThumbnail" + "/" + fileName +".png");
-		if(image.exists()) {
-			Thumbnails.of(image).size(220, 220).outputFormat("png").toOutputStream(out);
-		}else {
-			return;
+
+		File[] Files = image.listFiles();
+
+		String filename = "";
+		if (Files != null && Files.length > 0) {
+			filename = Files[0].getAbsolutePath();
 		}
-		byte[] buffer =new byte[1024 * 8];
-		out.write(buffer);	
+
+		File file = new File(filename);
+
+		Thumbnails.of(file).size(170, 170).toOutputStream(out);
+
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
+	}
+
+	@RequestMapping(value = "/tradedownload.do", method = RequestMethod.GET)
+	private void download2(@RequestParam("no") int no, HttpServletResponse response) throws Exception {
+		// /resources/Board
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		System.out.println(absPath);
+		OutputStream out = response.getOutputStream();
+
+		String filePath = absPath + "/" + "trade" + "/" + no + "/";
+
+		System.out.println(filePath);
+
+		File image = new File(filePath);
+
+		File[] Files = image.listFiles();
+
+		String filename = "";
+		if (Files != null && Files.length > 0) {
+			filename = Files[0].getAbsolutePath();
+		}
+
+		File file = new File(filename);
+
+		Thumbnails.of(file).size(170, 170).toOutputStream(out);
+
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
 	}
 
 }

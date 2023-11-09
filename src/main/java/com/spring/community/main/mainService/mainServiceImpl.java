@@ -6,24 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.community.gallery.vo.GalleryVO;
-import com.spring.community.main.DAO.MainDaoImpl;
+import com.spring.community.main.DAO.MainDao;
 import com.spring.community.trade.vo.TradeVO;
 
-@Service
+@Service("mainService")
 public class mainServiceImpl implements mainService {
 	
 	
 	@Autowired
-	MainDaoImpl MainDao;
+	MainDao mainDao;
 	
 	 @Override
-	public List<TradeVO> getRecentTradeList() {
-		return MainDao.getRecentTradeList();
+	public List getRecentTradeList() {
+		return mainDao.getRecentTradeList();
 	}
 	 
 	 @Override
-	public List<GalleryVO> getRecentGarallyList() {
-		return MainDao.getRecentGarallyList();
+	public List getRecentGarallyList() {
+		return mainDao.getRecentGarallyList();
 	
 	}
 	

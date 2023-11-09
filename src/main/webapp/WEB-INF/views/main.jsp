@@ -11,20 +11,20 @@
 <link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
 <link rel="stylesheet" href="${path}/resources/assets/css/index.css" />
 <link rel="stylesheet" href="${path}/resources/assets/css/side.css" />
-<link rel="icon" type="image/x-icon" href="${path}/resources/aseets/icon/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="${path}/resources/assets/icon/favicon.ico" />
 <title>네꺼내꺼내꺼네꺼</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/top.jsp" />
 <section class="layout">
-<div class="sidebar">
+		<div class="sidebar">
 			<jsp:include page="/WEB-INF/views/trade/side.jsp" />
-</div>
-<div class="body" style="margin-left: 5%; margin-right: 5%;">
+		</div>
+		<div class="body" style="margin-left: 5%; margin-right: 5%;">
 			<jsp:include page="${center}" />
 		</div>
-</div>	
+
 </section>
 </body>
- <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+ 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </html>
