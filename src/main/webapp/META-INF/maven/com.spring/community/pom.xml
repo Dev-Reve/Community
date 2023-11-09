@@ -233,6 +233,15 @@
 		
 		
 		
+		<!-- WebSocket 채팅 구현을 위한 API -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		
 	</dependencies>
     <build>
         <plugins>

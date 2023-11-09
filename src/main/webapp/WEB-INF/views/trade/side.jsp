@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<<<<<<< HEAD
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="path" value="<%=request.getContextPath()%>" />
+>>>>>>> d6b61d3bf5d78d1c76986a9ba29864eaeea178ff
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +16,7 @@
 <body>
 	<h5 style="margin-bottom: -10px;">카테고리</h5>
 	<br>
+<<<<<<< HEAD
 	<a href="#">전체보기</a> <br>
 	<a href="#">생활용품</a> <br>
 	<a href="#">패션/뷰티</a> <br> 
@@ -56,5 +63,13 @@
 			</tr>
 		</table>
 	</div>
+=======
+	<a href="${path}/trade/tradeList.do?category=all">전체보기</a> <br>
+	<a href="${path}/trade/tradeList.do?category=life">생활용품</a> <br>
+	<a href="${path}/trade/tradeList.do?category=fashion">패션/뷰티</a> <br>
+	<a href="${path}/trade/tradeList.do?category=digital">가전/디지털</a> <br>
+	<a href="${path}/trade/tradeList.do?category=office">사무용품</a> <br>
+	<a href="${path}/trade/tradeList.do?category=etc">기타</a> <br>
+>>>>>>> d6b61d3bf5d78d1c76986a9ba29864eaeea178ff
 </body>
 </html>

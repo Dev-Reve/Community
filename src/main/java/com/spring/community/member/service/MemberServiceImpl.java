@@ -1,7 +1,7 @@
 package com.spring.community.member.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +40,9 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원 가입 기능
 	@Override
-	public void addMembers(MemberVO vo) throws DataAccessException{
+	public void addMembers(Map map) throws DataAccessException{
 		
-		memberDAO.InsertMember(vo);
+		memberDAO.InsertMember(map);
 		
 	}
 
@@ -75,12 +75,26 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(memberVO);
 	}
 	
+
 	@Override
 	//like한 리스트불러오는메소드
 	public List likelist(MemberVO memberVO) throws Exception {
 		return memberDAO.likelistByNick(memberVO);
 	
 	}
+
+	//거래게시글에서 글쓴이의 정보를 가져오는 기능
+	@Override
+	public MemberVO getMemberInfo(int no) throws Exception {
+		return memberDAO.getMemberInfo(no);
+	}
+	
+	@Override
+	public MemberVO getMemberId(String nickname) throws Exception {
+		return memberDAO.getMemberId(nickname);
+	}
+
+
 }
 
 

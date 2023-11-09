@@ -38,7 +38,7 @@
 	
 	<!-- 회원정보를 등록하기 위해 받아온 매개변수 타입이 memberVO이기 때문에 아래의 parameterType속성 값으로
 		  매개변수로 지정했던 memberVO값을 설정 -->
-	<insert id="insertMember" parameterType="memberVO">
+	<insert id="insertMember" parameterType="java.util.HashMap">
 		<!-- memberVO에 저장된 변수명들을 작성하기 위해서는 #{VO에 저장된 변수명}으로 작성 -->
 		<!-- update문이나 delete문도 동일하게 작성하면 됨 -->
 		<![CDATA[
@@ -54,6 +54,7 @@
 		]]>
 	</select>
 	
+
 
    <!--  parameterType속성에는 값으로 MemberDAO파일에서 selectOne메소드 호출시 전달되는 값의 타입을 적어준다 -->
    <!--  resultType속성에는 값으로 조회된 한행(레코드)를 MembeVO객체의 각변수에 저장하기 위해  memberVO별칭을 적어준다 -->	
@@ -83,6 +84,21 @@
 			WHERE id = #{id} 
   		]]>
   	</select>
+
+	<select id="getMemberInfo" resultType="memberVO" parameterType="int">
+		<![CDATA[
+			SELECT * FROM member WHERE nickname = (
+			    SELECT nickname FROM trade WHERE no=#{no}
+			)
+		]]>
+	</select>
+	
+	<select id="getMemberId" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			SELECT * FROM member WHERE nickname = #{nickname}
+		]]>
+	</select>
+
 	
 	<select id="likelistByNick" parameterType="memberVO" resultType="likeboardVO">
   		<![CDATA[

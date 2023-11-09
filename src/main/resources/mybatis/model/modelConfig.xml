@@ -17,7 +17,14 @@
  		<typeAlias type="com.spring.community.board.Utils.PagerVO" alias="pagerVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
  		<typeAlias type="com.spring.community.gallery.vo.GalleryVO" alias="galleryVO"/>
+ 		<typeAlias type="com.spring.community.tradeComment.vo.TradeCommentVO" alias="tradeCommentVO"/>
+ 		<typeAlias type="com.spring.community.tradeLike.vo.TradeLikeVO" alias="tradeLikeVO"/>
 
  	</typeAliases>
+ 	
+ 	
+	<typeHandlers>
+        <typeHandler handler="com.spring.community.trade.utils.OracleTypeHandler"/>
+	</typeHandlers>  
  	
 </configuration>

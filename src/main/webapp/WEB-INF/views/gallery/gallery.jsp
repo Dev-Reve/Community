@@ -28,6 +28,10 @@
        			<div class="col mb-5">
                         <div class="card h-100">
                             <!-- Product image-->
+<<<<<<< HEAD
+=======
+                            <img class="card-img-top" src="${path}/resources/images/pic04.jpg" alt="..." />
+>>>>>>> d6b61d3bf5d78d1c76986a9ba29864eaeea178ff
                             
                             <!-- Product details-->
                             <div class="card-body p-4">
