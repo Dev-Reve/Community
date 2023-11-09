@@ -21,9 +21,14 @@
 			<jsp:include page="/WEB-INF/views/trade/side.jsp" />
 </div>
 <div class="body" style="margin-left: 5%; margin-right: 5%;">
-			<jsp:include page="${center}" />
-		</div>
-</div>	
+	<jsp:include page="${center}" />
+</div>
+<div class="chat" style="position: fixed; bottom: 20px; right: 20px; background-color: gray; width: 50px; height: 50px; border-radius: 50%;">
+	<a href="${path}/chat" style="text-decoration: none;">
+		<i class="fa-solid fa-message" style="padding: 1.1em; width: 40px; height: 40px;"></i>
+	</a>
+</div>
+	
 </section>
 </body>
  <jsp:include page="/WEB-INF/views/common/footer.jsp" />
