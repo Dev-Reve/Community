@@ -3,8 +3,44 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mappers.likeboard">
+<mapper namespace="mapper.likeboard">
+	<resultMap type="likeboardVO" id="likeResult">
+		<result property="no" column="no" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="writedate" column="writedate" />
+		<result property="readcount" column="readcount" />
+		<result property="filename" column="filename" />
+	</resultMap>
 	
+	<select id="boardList" parameterType="pagingVO" resultType="likeboardVO">
+		<![CDATA[
+			SELECT * 
+			    FROM (
+			        SELECT ROWNUM RN, A.* 
+			        FROM (
+			            SELECT * 
+			            FROM BOARD 
+			            ORDER BY readcount DESC 
+			            ) A
+			)
+			WHERE RN BETWEEN 1 AND 5
+		]]>
+	</select>
+		<select id="tradeList" parameterType="pagingVO" resultType="likeboardVO">
+		<![CDATA[
+			SELECT * 
+			    FROM (
+			        SELECT ROWNUM RN, A.* 
+			        FROM (
+			            SELECT * 
+			            FROM trade 
+			            ORDER BY readcount DESC 
+			            ) A
+			)
+			WHERE RN BETWEEN 1 AND 5
+		]]>
+	</select>
 	
 	
 </mapper>

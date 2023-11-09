@@ -14,6 +14,7 @@
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
  		<typeAlias type="com.spring.community.board.BoardVO.BoardVO" alias="boardVO"/>
  		<typeAlias type="com.spring.community.board.Utils.PagingVO" alias="pagingVO"/>
+ 		<typeAlias type="com.spring.community.board.Utils.PagerVO" alias="pagerVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
  		<typeAlias type="com.spring.community.gallery.vo.GalleryVO" alias="galleryVO"/>
 

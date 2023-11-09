@@ -20,7 +20,8 @@
 			<li><a href="${path}/main/index.do">홈으로</a></li>
 			<li><a href="${path}/trade/tradeList.do">물물거래</a></li>
 			<li><a href="${path}/gallery/main.do">갤러리</a></li>
-			<li><a href="#contact">자유게시판</a></li>
+			<li><a href="${path}/board/listboard.do">자유게시판</a></li>
+			<li><a href="${path}//likeboard/likeboard.do">인기게시판</a></li>
 			
 			
 			<c:choose>
