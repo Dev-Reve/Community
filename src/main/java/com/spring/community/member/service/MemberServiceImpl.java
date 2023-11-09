@@ -1,7 +1,7 @@
 package com.spring.community.member.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -39,9 +39,9 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원 가입 기능
 	@Override
-	public void addMembers(MemberVO vo) throws DataAccessException{
+	public void addMembers(Map map) throws DataAccessException{
 		
-		memberDAO.InsertMember(vo);
+		memberDAO.InsertMember(map);
 		
 	}
 
@@ -77,6 +77,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO getMemberInfo(int no) throws Exception {
 		return memberDAO.getMemberInfo(no);
+	}
+	
+	@Override
+	public MemberVO getMemberId(String nickname) throws Exception {
+		return memberDAO.getMemberId(nickname);
 	}
 
 }

@@ -39,8 +39,8 @@ public class TradeBoardServiceImpl implements TradeBoardService {
 		int totalPage = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 		int startPage = ( (currentPage / pageBlock) - (currentPage % pageBlock == 0 ? 1 : 0) ) * pageBlock + 1; //시작 페이지 번호
 		int endPage = startPage + pageBlock - 1; //끝 페이지 번호
-		int endRow = currentPage * pageSize;
 		int startRow = ( (currentPage - 1) * pageSize );
+		int endRow = currentPage * pageSize;
 		System.out.println("startRow: " + startRow);
 		System.out.println("endRow: " + endRow);
 		

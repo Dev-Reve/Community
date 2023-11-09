@@ -187,9 +187,11 @@
 					<div class="col-md-8">
 						<h4>${vo.title}</h4>
 						<small>가격: ${vo.price}원</small>
-						<p style="margin-top: 12em">
+						<p style="margin-top: 12em;">
+						<div style="display: inline-block; margin-bottom: 10px;">
+							<img src="${path }/member/download.do?nickname=${vo.nickname}" style="width: 50px; height: 50px; border-radius: 60%; object-fit: cover; border: 1px solid lightgray; margin-right: 1em;">
 							${vo.nickname} | ${memInfo.addr3}
-						<span><small></small></span>
+						</div>
 						<div>	
 							<c:if test="${like == false or empty like}">
 								<button class="like" type="button" onclick="like();"> <span>찜하기</span></button>
@@ -242,7 +244,7 @@
 					<c:forEach var="list" items="${commentList}" varStatus="loop">
 						<div class="col-md-12">
 							<div style="float: left; line-height: 2em; margin-left: 1em; width: calc(100% - 125px); ">
-							<img src="${path }/resources/images/a.jpg" style="width: 30px; height: 30px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-right: 1em; background: white;">
+							<img src="${path }/member/download.do?nickname=${list.nickname}" style="width: 30px; height: 30px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-right: 1em; background: white;">
 								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp;
 								<c:if test="${not empty member.id}">
 									<small><a href="javascript:recommentForm(${loop.index}, ${list.no})"><i class="fa-regular fa-comment"></i></a></small> &nbsp;

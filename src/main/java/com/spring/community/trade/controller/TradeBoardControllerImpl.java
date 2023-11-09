@@ -169,7 +169,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
 		
 		//입력한 값들 + 다중업로드 요청한 파일의 정보들을 저장할 Map 생성
-		Map map = new HashMap();;
+		Map map = new HashMap();
 		
 		//request에서 값을 꺼내와 Enumeration배열에 저장 후 배열 자체를 리턴
 		Enumeration enu = request.getParameterNames();

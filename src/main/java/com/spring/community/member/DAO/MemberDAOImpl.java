@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -46,10 +47,19 @@ public class MemberDAOImpl implements MemberDAO{
 
 	//회원 추가 기능 
 	@Override
-	public void InsertMember(MemberVO memberVO) throws DataAccessException {
-			
-		sqlSession.insert("mapper.member.insertMember", memberVO); 
-		
+	public void InsertMember(Map map) throws DataAccessException {
+		System.out.println(map.get("id"));
+		System.out.println(map.get("password"));
+		System.out.println(map.get("name"));
+		System.out.println(map.get("ssn"));
+		System.out.println(map.get("nickname"));
+		System.out.println(map.get("email"));
+		System.out.println(map.get("addr1"));
+		System.out.println(map.get("addr2"));
+		System.out.println(map.get("addr3"));
+		System.out.println(map.get("addr4"));
+		System.out.println(map.get("fileName"));
+		sqlSession.insert("mapper.member.insertMember", map); 
 	}
 
 	//회원 삭제 기능 
@@ -94,6 +104,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public MemberVO getMemberInfo(int no) throws DataAccessException {
 		System.out.println("DAO에서 받아온 no값: " + no);
 		return sqlSession.selectOne("mapper.member.getMemberInfo", no);
+	}
+	
+	//회원의 id 가져오기
+	@Override
+	public MemberVO getMemberId(String nickname) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.getMemberId", nickname);
 	}
 	
 }//MemberDAOImpl클래스 닫는 기호 

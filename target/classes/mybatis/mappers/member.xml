@@ -37,7 +37,7 @@
 	
 	<!-- 회원정보를 등록하기 위해 받아온 매개변수 타입이 memberVO이기 때문에 아래의 parameterType속성 값으로
 		  매개변수로 지정했던 memberVO값을 설정 -->
-	<insert id="insertMember" parameterType="memberVO">
+	<insert id="insertMember" parameterType="java.util.HashMap">
 		<!-- memberVO에 저장된 변수명들을 작성하기 위해서는 #{VO에 저장된 변수명}으로 작성 -->
 		<!-- update문이나 delete문도 동일하게 작성하면 됨 -->
 		<![CDATA[
@@ -61,6 +61,11 @@
 		]]>
 	</select>
 	
+	<select id="getMemberId" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			SELECT * FROM member WHERE nickname = #{nickname}
+		]]>
+	</select>
 	
 	
 </mapper>
