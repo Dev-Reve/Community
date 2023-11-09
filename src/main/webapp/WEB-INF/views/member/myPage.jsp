@@ -16,7 +16,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-4 col-5-large col-12-medium">
-							<span class="image fit"><img src="${path}/resources/images/pic00.jpg" alt="" /></span>
+							<span class="image fit"><img src="${path}/member/download.do?FileName=${nickname.fileName}" alt="" /></span>
 						</div>
 						<div class="col-8 col-7-large col-12-medium">
 							<header>

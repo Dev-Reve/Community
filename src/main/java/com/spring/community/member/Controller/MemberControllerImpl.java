@@ -1,6 +1,8 @@
 package com.spring.community.member.Controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -32,6 +34,8 @@ import com.spring.community.member.VO.MemberVO;
 import com.spring.community.member.DAO.MemberDAO;
 import com.spring.community.member.service.MemberServiceImpl;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 //MVC중에 C  
 //사장 
 //id속성값이 memberController인 
@@ -56,6 +60,8 @@ public class MemberControllerImpl  implements MemberController {
 	//      class="com.spring.member.vo.MemberVO">을 자동 주입해 줍니다. 
 	@Autowired
 	private MemberVO memberVO;
+	
+	
 	
 	
 	@Override
