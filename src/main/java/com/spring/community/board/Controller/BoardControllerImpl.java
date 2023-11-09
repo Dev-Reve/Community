@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.log.UserDataHelper.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Service.BoardService;
@@ -77,23 +79,48 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
     }
 
 	@Override
-	@RequestMapping(value="/board/getList.do", method = RequestMethod.GET)
-	public ModelAndView getList(PagerVO pager, ModelAndView mav, BoardVO bvo) throws Exception {
+	@RequestMapping(value = "/board/boardInfo.do", method = RequestMethod.GET)
+	public ModelAndView selectInfo(HttpServletRequest request, HttpServletResponse response) 
+											throws Exception {
 		
+		String no = request.getParameter("no");
+		System.out.println("글 번호 : " + no);
 		
+		vo = boardservice.boardInfo(no);
 		
-		List<BoardVO> getBoardList = boardservice.getList(pager);
+		System.out.println("리턴받은 VO : " + vo);
 		
-		mav.addObject("pager", pager);
-		mav.addObject("getBoardList", getBoardList);
-		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("boardInfo", vo);
+		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
 		mav.setViewName("main");
 		
 		return mav;
 	}
+
+	@Override
+	@RequestMapping(value = "/board/addCommnet.do", method = RequestMethod.GET)
+	public ModelAndView addCommnet(HttpServletRequest request, HttpServletResponse response) 
+											throws Exception {
+		String no = request.getParameter("no");
+		System.out.println("글 번호 : " + no);
+		
+		vo = boardservice.boardInfo(no);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("boardInfo", vo);
+		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+	
+	
     
     
     
-    
+   
 
 }

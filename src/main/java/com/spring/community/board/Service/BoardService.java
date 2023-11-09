@@ -23,6 +23,9 @@ public interface BoardService {
 	public List selectBoard(PagingVO pvo);
 
 	public List<BoardVO> getList(PagerVO pager);
+
+	// 글 하나 조회하는 메소드
+	public BoardVO boardInfo(String no);
 	
 	
 }

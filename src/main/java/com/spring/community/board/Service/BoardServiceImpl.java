@@ -50,6 +50,13 @@ public class BoardServiceImpl extends HttpServlet implements BoardService {
 		
 		return getBoardList;
 	}
+
+	@Override
+	public BoardVO boardInfo(String no) {
+		
+		return dao.boardInfo(no);
+		
+	}
 	
 
 	

@@ -1,14 +1,16 @@
 package com.spring.community.Kakao.Controller;
 
-import javax.servlet.http.HttpServlet;
+import java.io.IOException;
 
-import org.springframework.stereotype.Controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-@Controller("kakaoController")
-public class KakaoController extends HttpServlet {
-	
-	
-	
+import org.springframework.web.servlet.ModelAndView;
+
+public interface KakaoController {
+
+	ModelAndView kakaologin(HttpServletResponse response, HttpServletRequest request) 
+								throws Exception, IOException;
 	
 	
 }

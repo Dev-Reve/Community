@@ -19,7 +19,11 @@ public interface BoardController {
 								@RequestParam(value="cntPerPage", required = false)String cntPerPage,
 								@RequestParam(value = "checksel", required = false) String checkel)
 								throws Exception;
-	
-	public ModelAndView getList(PagerVO pager, ModelAndView mav, BoardVO bvo) throws Exception;
-	
+
+	public ModelAndView selectInfo (HttpServletRequest request, HttpServletResponse response)
+										throws Exception;
+
+	public ModelAndView addCommnet(HttpServletRequest request, HttpServletResponse response)
+										throws Exception;
+
 }

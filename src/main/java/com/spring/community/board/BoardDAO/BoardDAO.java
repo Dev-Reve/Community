@@ -21,6 +21,9 @@ public interface BoardDAO {
 	public Long totalCount(PagerVO pager);
 
 	public List<BoardVO> getBoardList(PagerVO pager);
+
+	// 글 조회 메소드
+	public BoardVO boardInfo(String no);
 	
 	
 }

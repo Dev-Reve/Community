@@ -58,4 +58,14 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		
 		return getBoardList;
 	}
+
+	@Override
+	public BoardVO boardInfo(String no) {
+		
+		BoardVO vo = new BoardVO();
+		
+		vo = sqlSession.selectOne("mapper.board.getBoardInfo", no);
+		
+		return vo;
+	}
 }

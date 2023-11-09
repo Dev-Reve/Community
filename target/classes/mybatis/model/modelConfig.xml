@@ -17,7 +17,8 @@
  		<typeAlias type="com.spring.community.board.Utils.PagerVO" alias="pagerVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
  		<typeAlias type="com.spring.community.gallery.vo.GalleryVO" alias="galleryVO"/>
-
+		<typeAlias type="com.spring.community.boardcomment.VO.BoardCommentVO" alias="boardCommentVO"/>
+		
  	</typeAliases>
  	
 </configuration>

@@ -71,6 +71,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			like concat('%', #{search}, '%')
 		]]>	
 	</select>
-
+	
+	<select id="getBoardInfo" parameterType="int" resultMap="boardResult">
+		<![CDATA[
+			SELECT
+			    *
+			FROM board where no=#{no}
+		]]>
+	</select>
 	
 </mapper>
