@@ -35,6 +35,7 @@ import net.coobird.thumbnailator.Thumbnails;
 public class MainFileEditControllerI implements ServletContextAware {
 
 	private static String CURR_IMAGE_REPO_PATH = "/resources/Board";
+	private static String CURR_MAIN_IMAGE = "resources/images";
 	private ServletContext servletContext;
 
 	@Override
@@ -92,6 +93,33 @@ public class MainFileEditControllerI implements ServletContextAware {
 		File file = new File(filename);
 
 		Thumbnails.of(file).size(170, 170).toOutputStream(out);
+
+		byte[] buffer = new byte[1024 * 8];
+		out.write(buffer);
+	}
+	@RequestMapping(value = "/maintopdownload.do", method = RequestMethod.GET)
+	private void download3(HttpServletResponse response) throws Exception {
+		// /resources/Board
+		String absPath = servletContext.getRealPath(CURR_MAIN_IMAGE);
+		System.out.println(absPath);
+		OutputStream out = response.getOutputStream();
+
+		String filePath = absPath;
+
+		System.out.println(filePath);
+
+		File image = new File(filePath);
+
+		File[] Files = image.listFiles();
+
+		String filename = "";
+		if (Files != null && Files.length > 0) {
+			filename = Files[0].getAbsolutePath();
+		}
+
+		File file = new File(filename);
+
+		Thumbnails.of(file).size(900, 400).toOutputStream(out);
 
 		byte[] buffer = new byte[1024 * 8];
 		out.write(buffer);

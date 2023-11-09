@@ -15,11 +15,11 @@
         <div class="container px-4 px-lg-5">
             <!-- Heading Row-->
             <div class="row gx-4 gx-lg-5 align-items-center my-5">
-                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." /></div>
+                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src="${path}/first/maintopdownload.do" alt="..." /></div>
                 <div class="col-lg-5">
-                    <h1 class="font-weight-light">아웃스타그램</h1>
-                    <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-                    <a class="btn btn-primary" href="#!">Call to Action!</a>
+                    <h1 class="font-weight-light">오늘의 추천 영화</h1>
+                    <p>그웬 스테이시와 힘을 합쳐 새로운 모험에 나서는 십 대 소년 마일스 모랄레스. 멀티버스에서 사악한 악당 스팟과 평행우주 속 수많은 영웅들을 만나게 된다.</p>
+                    <a class="btn btn-primary" href="https://www.netflix.com/kr/title/81594921">넥플릭스에서 시청하기!</a>
                 </div>
             </div>
             <!-- Call to Action-->

@@ -57,14 +57,25 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 	//갤러리 게시판 메인으로 가는 메소드
 	@Override
 	@RequestMapping(value = "/gallery/main.do", method = RequestMethod.GET)
-	public ModelAndView GalleryMain(HttpServletRequest repuest, HttpServletResponse response) throws Exception {
+	public ModelAndView GalleryMain(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
+		int pageNum = 1;
+		
+		String pageParam = request.getParameter("page");
+		
+		if(pageParam != null && !pageParam.isEmpty()) {
+			pageNum = Integer.parseInt(pageParam);
+		}
 		
 		
 		List<GalleryDao> list = galleryservice.getGalleryList();
 		
+		int gall = list.size();
+		System.out.println(pageNum + " 페이지 입니다.");
+		System.out.println( gall + "개의 글이 있습니다.");
 		
+		mav.addObject("page", pageNum);
 		mav.addObject("gallery", list);
 		mav.addObject("center", "/WEB-INF/views/gallery/gallery.jsp");
 		mav.setViewName("main");

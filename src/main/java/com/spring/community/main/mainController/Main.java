@@ -3,6 +3,8 @@ package com.spring.community.main.mainController;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +27,10 @@ public class Main {
 
         List<GalleryVO> ReGallerylist = mainService.getRecentGarallyList();
         List<TradeVO> ReTradelist = mainService.getRecentTradeList();
-
+        
+        
         ModelAndView mav = new ModelAndView();
+       
         mav.addObject("ReT", ReTradelist);
         mav.addObject("ReG", ReGallerylist);
         mav.addObject("center", "/WEB-INF/views/common/First.jsp");
