@@ -25,5 +25,8 @@ public interface BoardDAO {
 	// 글 조회 메소드
 	public BoardVO boardInfo(String no);
 	
+	// 글 추가
+	public void insertboard(BoardVO vo);
+	
 	
 }

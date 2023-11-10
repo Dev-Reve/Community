@@ -6,6 +6,7 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <c:set var="Path" value="${pageContext.request.contextPath}" />
+<c:set var="id" value="${member.id} " />
 
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,7 @@
 </head>
 <body>
 <h2>게시판</h2>
+<h1>${name}</h1>
 <div id="outter">
 	<div style="float: right;">	
 		<select id="checksel" name="sel" onchange="selChange()">
@@ -52,7 +54,7 @@
 		<c:forEach items="${boardlist}" var="list">
 			<tr>
 				<td>${list.no }</td>
-				<td><a href="${Path }/board/boardInfo.do?no=${list.no}">${list.title}</a></td>
+				<td><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${list.nickName}">${list.title}</a></td>
 <%-- 				<td>${list.content }</td> --%>
 				<td>${list.writeDate } </td>
 				<td>${list.nickName }</td>
@@ -60,7 +62,14 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<input type="button" value="글쓰기" style="float: right;" onclick="location.href='/write'"><br>
+	<c:choose>
+		<c:when test="${member.id == null}">
+		</c:when>
+		<c:otherwise>
+			<input type="button" value="글쓰기" style="float: right;"
+				onclick="location.href='${Path}/board/insertForm.do'">
+		</c:otherwise>
+	</c:choose>
 	
 	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">

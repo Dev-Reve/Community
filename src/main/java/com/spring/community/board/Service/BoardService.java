@@ -27,5 +27,7 @@ public interface BoardService {
 	// 글 하나 조회하는 메소드
 	public BoardVO boardInfo(String no);
 	
-	
+
+	public void insertboard(BoardVO vo);
+
 }

@@ -68,4 +68,15 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		
 		return vo;
 	}
+
+	@Override
+	public void insertboard(BoardVO boardVO) {
+		System.out.println("다오" + boardVO.getContent());
+		System.out.println("다오" + boardVO.getTitle());
+		System.out.println("다오" + boardVO.getNickName());
+		System.out.println(boardVO.getNickName().length());
+		
+		sqlSession.insert("mapper.board.addBoard", boardVO);
+
+	}                                   
 }

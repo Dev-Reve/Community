@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="Path" value="${pageContext.request.contextPath}" />
-
+<c:set var="id" value="${member.id} " />
+<c:set var="name" value="${member.nickname} " />
 <!DOCTYPE html>
 <html>
 <head>

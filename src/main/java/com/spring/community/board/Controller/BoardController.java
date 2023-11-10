@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.community.board.BoardVO.BoardVO;
@@ -25,5 +26,13 @@ public interface BoardController {
 
 	public ModelAndView addCommnet(HttpServletRequest request, HttpServletResponse response)
 										throws Exception;
+	
+	public ModelAndView insertForm(HttpServletRequest request, HttpServletResponse response) 
+										throws Exception;
+	
 
+	public ModelAndView insertboard(BoardVO vo) throws Exception;
+	
+////	public ModelAndView insertboard(HttpServletRequest request, HttpServletResponse response) 
+//							throws Exception;
 }

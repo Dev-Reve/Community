@@ -10,9 +10,12 @@ import org.apache.tomcat.util.log.UserDataHelper.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
@@ -85,6 +88,8 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		
 		String no = request.getParameter("no");
 		System.out.println("글 번호 : " + no);
+		String name = request.getParameter("name");
+		System.out.println("글 번호 : " + name);
 		
 		vo = boardservice.boardInfo(no);
 		
@@ -116,6 +121,40 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		
 		return mav;
 	}
+
+	@Override
+	@RequestMapping(value = "/board/insertForm.do", method = RequestMethod.GET)
+	public ModelAndView insertForm(HttpServletRequest request, HttpServletResponse response) 
+											throws Exception {
+		
+		ModelAndView mav = new  ModelAndView();
+		
+		mav.addObject("center", "/WEB-INF/views/board/insertForm.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value = "/board/insertBoard.do", method = RequestMethod.POST)
+	public ModelAndView insertboard(@ModelAttribute BoardVO vo) throws Exception {
+		
+		System.out.println("내부" + vo.getContent());
+		System.out.println("내부" + vo.getTitle());
+		System.out.println("내부" + vo.getNickName());
+		
+		boardservice.insertboard(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		
+		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+		mav.setViewName("redirect:/board/listboard.do");
+		
+		return mav;
+	}
+
+
 	
 	
     

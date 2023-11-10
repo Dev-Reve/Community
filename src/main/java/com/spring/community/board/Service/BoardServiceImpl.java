@@ -57,6 +57,16 @@ public class BoardServiceImpl extends HttpServlet implements BoardService {
 		return dao.boardInfo(no);
 		
 	}
+
+	@Override
+	public void insertboard(BoardVO vo) {
+
+		System.out.println("서비스" + vo.getContent());
+		System.out.println("서비스" + vo.getTitle());
+		System.out.println("서비스" + vo.getNickName());
+		
+		dao.insertboard(vo); 
+	}
 	
 
 	
