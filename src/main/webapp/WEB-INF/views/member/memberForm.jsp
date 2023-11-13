@@ -23,7 +23,9 @@
 	<div id="mainbox">	
 			<form action="${path}/member/addMember.do" method="post" enctype="multipart/form-data">
 				
-				아이디<input type="text" name="id"/>
+				아이디<input type="text" name="id" id="id"/>
+				<input type="button" value="아이디 중복 검사" onClick="checkid()"/>
+				<br>
 				비밀번호<input type="password" name="password"/>
 				이름<input type="text" name="name"/>
 				주민등록번호<input type="text" name="ssn"/>
@@ -85,6 +87,19 @@
 			<script src="${path}/resources/assets/js/main.js"></script>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+	function checkid(){
+		var id = document.getElementById("id").value;
+		var path=
+		if(id)  //id로 받음
+		{
+			url = "${path}/member/idCheck.do?id="+id;
+			window.open(url,"아이디중복확인","width=400,height=200");
+		} else {
+			alert("아이디를 입력하세요.");
+		}
+	}
+	//우편번호 API
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
