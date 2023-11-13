@@ -20,7 +20,7 @@ public class Main {
 
     @Autowired
     private mainService mainService;
-
+    
     @RequestMapping(value = "/main/firstmain.do", method = RequestMethod.GET)
     public ModelAndView main() {
         System.out.println("firstmain 호출");
