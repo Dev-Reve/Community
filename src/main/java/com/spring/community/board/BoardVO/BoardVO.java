@@ -15,6 +15,7 @@ public class BoardVO {
 	private String fileName;
 	private String fileRealName;
 	
+
 	public int getNo() {
 		return no;
 	}

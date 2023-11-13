@@ -74,21 +74,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getBoardInfo" parameterType="int" resultMap="boardResult">
 		<![CDATA[
-		
 			SELECT
 			    *
 			FROM board where no=#{no}
 		]]>
 	</select>
-	
-<!-- 	<insert id="addBoard" parameterType="boardVO"> -->
-<!-- 	    <selectKey keyProperty="no" resultType="int" order="BEFORE"> -->
-<!-- 	        SELECT BOARD_NO.NEXTVAL AS no FROM DUAL -->
-<!-- 	    </selectKey> -->
-<!-- 	    INSERT INTO BOARD (no, title, content, nickName) -->
-<!-- 	    VALUES (#{no}, #{title}, #{content}, #{nickName}) -->
-	    
-<!-- 	</insert> -->
 	
 	<insert id="addBoard" parameterType="boardVO" >
 	<![CDATA[
@@ -96,4 +86,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			values(board_no.nextval, #{title}, #{content}, #{nickName})
 		]]>
 	</insert>
+	
+	<insert id="addCount" parameterType="int" >
+		<![CDATA[
+			UPDATE board
+			SET readcount = readcount + 1
+			WHERE no = #{no}
+		]]>
+	</insert>
+	
+	<select id="nextTitle" parameterType="int" resultType="String">
+		<![CDATA[
+			SELECT title FROM board where no = #{no}+1
+		]]>
+	</select>
+	
+	<select id="beforeTitle" parameterType="int" resultType="String">
+		<![CDATA[
+			SELECT * FROM board where no = #{no}-1
+		]]>
+	</select>
+	
 </mapper>

@@ -107,6 +107,7 @@ public class Main {
         	String category = items.getString("category");
         	String obsrValue = items.getString("obsrValue");
         	
+        	
         	System.out.print(category + " ");
         	System.out.println(obsrValue);
         	pubData.put(category, obsrValue);

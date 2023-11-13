@@ -1,6 +1,7 @@
 package com.spring.community.board.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ public interface BoardService {
 
 	public void insertboard(BoardVO vo);
 
-	BoardVO boardInfo(String no, String name);
+	public Map<String, String> nextTitle(String no);
+
 
 }
