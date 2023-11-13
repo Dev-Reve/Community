@@ -94,6 +94,16 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 
 		return mav;
 	}
+	
+	@Override
+	@RequestMapping(value="/gallery/galleryDetail.do")
+	public ModelAndView GalleryDetail(@RequestParam int no) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		
+		
+		return mav;
+	}
 
 	@Override
 	@RequestMapping(value = "/gallery/insertGallery.do")

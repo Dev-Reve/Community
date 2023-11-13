@@ -62,21 +62,13 @@
 			                            <div class="card-body p-4">
 			                                <div class="text-center">
 			                                    <!-- Product name-->
-			                                    <h5 class="fw-bolder">${gall.title} </h5>
+			                                    <h5 class="fw-bolder" href="#">${gall.title} </h5>
 			                                    <h3 class="fw-bolder">${gall.nickname} </h3>
-			                                    <div class="d-flex justify-content-center small text-warning mb-2">
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                    </div>
-			         
 			                                </div>
 			                            </div>
 			                            <!-- Product actions-->
 			                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-			                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="text-center">Add to cart</a></div>
+			                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${path}/file/galleryList.do?no=${gall.no}">더 보기</a></div>
 			                            </div>
 			                        </div>
 			                    </div> 
