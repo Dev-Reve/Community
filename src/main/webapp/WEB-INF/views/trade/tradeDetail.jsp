@@ -22,6 +22,12 @@
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<!-- 카카오 -->
+		<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
+		  integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous"></script>
+		<script>
+		  Kakao.init('b6e688a776bd76b50b5d3bc6d2ec75ee'); // 사용하려는 앱의 JavaScript 키 입력
+		</script>
     <style>
 		.like {
 		  padding: 0 20px 0 10px;
@@ -185,6 +191,10 @@
 			  			</div>
 		  			</div>
 					<div class="col-md-8">
+						<a id="kakaotalk-sharing-btn" href="javascript:kakaoShare();" style="float: right; ">
+						  	<img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+						    alt="카카오톡 공유 보내기 버튼"  style="width: 48px; height: 48px;"/>
+						</a>
 						<h4>${vo.title}</h4>
 						<small>가격: ${vo.price}원</small>
 						<p style="margin-top: 12em;">
@@ -199,7 +209,6 @@
 							<c:if test="${like == true}">
 								<button class="like active" type="button" onclick="like();"> <span>찜하기</span></button>
 							</c:if>
-							
 						</div>
 						</p>
 					</div>
@@ -281,6 +290,11 @@
 		
 		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 		<script type="text/javascript">
+		const url = 'http://localhost:8090/';
+		var resultImg = "${path}/trade/thumbnail.do?no=${vo.no}";
+		const shareTitle = '${vo.title}';
+		const shareImg = url + 'community/trade/thumbnail.do?no=${vo.no}';
+		const shareUrl = url + 'community/trade/tradeDetail.do?no=${vo.no}';
 			var swiper = new Swiper(".mySwiper", {
 				spaceBetween: 30,
 			    centeredSlides: true,
@@ -378,6 +392,44 @@
 				// 클릭한 댓글 다음에 댓글 작성 폼 추가
 			    var comment = document.getElementsByClassName("content")[index];
 			    comment.parentElement.appendChild(recForm);
+			}
+			
+			function kakaoShare() {
+				Kakao.Share.createDefaultButton({
+				    container: '#kakaotalk-sharing-btn',
+				    objectType: 'feed',
+				    content: {
+				      title: shareTitle,
+				      imageUrl:
+				        shareImg,
+				      link: {
+				        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+				        mobileWebUrl: shareUrl,
+				        webUrl: shareUrl,
+				      },
+				    },
+				    social: {
+				      likeCount: 286,
+				      commentCount: 45,
+				      sharedCount: 845,
+				    },
+				    buttons: [
+				      {
+				        title: '웹으로 보기',
+				        link: {
+				          mobileWebUrl: shareUrl,
+				          webUrl: shareUrl,
+				        },
+				      },
+				      {
+				        title: '앱으로 보기',
+				        link: {
+				          mobileWebUrl: shareUrl,
+				          webUrl: shareUrl,
+				        },
+				      },
+				    ],
+				  });
 			}
 			
 		</script>
