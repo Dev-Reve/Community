@@ -102,14 +102,21 @@ function area() {
     <hr>
     <c:choose>
     	<c:when test="${nextTitle.next != '없음'}">
-    		다음글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no+1}">${nextTitle.next}</a><br>
+    		다음 글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no+1}&name=${member.name}">${nextTitle.next}</a><br>
     	</c:when>
     	<c:otherwise>
-    		다음글 : 다음 글이 없습니다. <br>
+    		다음 글 : 다음 글이 없습니다. <br>
+    	</c:otherwise>
+    </c:choose>
+    <c:choose>
+    	<c:when test="${nextTitle.before != '없음'}">
+    		이전 글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no-1}&name=${member.name}">${nextTitle.before}</a><br>
+    	</c:when>
+    	<c:otherwise>
+    		이전 글 : 이전 글이 없습니다.
     	</c:otherwise>
     </c:choose>
     
-    	이전글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no-1}">${nextTitle.before}</a>
     <hr>
     <a href="${Path}/board/listboard.do">목록으로 가기</a>
 </body>

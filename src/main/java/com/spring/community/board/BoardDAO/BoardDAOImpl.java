@@ -119,7 +119,12 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		}
 		
 		before = sqlSession.selectOne("mapper.board.beforeTitle", no);
-		nextTitle.put("before", before);
+		
+		if(before == null) {
+			nextTitle.put("before", "없음");
+		} else {
+			nextTitle.put("before", before);
+		}
 		
 		System.out.println("다음 글 " + nextTitle.get("next"));
 		System.out.println("이전 글 " + nextTitle.get("before"));
