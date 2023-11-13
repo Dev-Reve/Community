@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.boardcomment">
 
-	<resultMap type="boardCommentVO" id="CommentResult">
+	<resultMap id="Result" type="boardcommentVO">
 		<result property="no" column="no"/>
 		<result property="content" column="content"/>
 		<result property="nickName" column="nickName"/>
@@ -14,6 +14,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="boardNo" column="boardNo"/>
 	
 	</resultMap>	
-
-
+	
+	<select id="commentList" parameterType="boardcommentVO" resultMap="Result">
+	
+		<![CDATA[
+			SELECT * FROM board_comment where boardno = #{boardNo}
+		]]>
+		
+	</select>
+	
+	<insert id="addComment" parameterType="boardcommentVO" >
+	
+		<![CDATA[
+			INSERT INTO board_comment (no, content, nickname, boardno) 
+			VALUES(bc_no.nextval, #{content}, #{nickName}, #{boardNo})
+		]]>
+		
+	</insert>
+	
+	<delete id="delComment" parameterType="String">
+		<![CDATA[
+			DELETE FROM board_comment WHERE no = #{no}
+		]]>
+	</delete>
+	
+	<update id="editComment" parameterType="boardcommentVO">
+		<![CDATA[
+			UPDATE board_comment 
+			SET content = #{content}
+			WHERE no = #{no} AND boardno = #{boardNo} 
+		]]>
+		
+	</update>
+	
+	
+	
 </mapper>

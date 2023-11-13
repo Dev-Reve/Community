@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.spring.community.board.BoardVO.BoardCommentVO;
 import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
@@ -30,6 +31,15 @@ public interface BoardDAO {
 	public void insertboard(BoardVO vo);
 
 	public Map<String, String> nextTitle(String no);
+
+	public List<BoardCommentVO> commentList(BoardCommentVO cVo);
+
+	public void addComment(BoardCommentVO cVo);
+
+	public void delComment(String no);
+
+	public void editComment(BoardCommentVO cVo);
+
 	
 	
 }

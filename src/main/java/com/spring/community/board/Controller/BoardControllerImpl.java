@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.ant.jmx.JMXAccessorQueryTask;
 import org.apache.tomcat.util.log.UserDataHelper.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
+import com.spring.community.board.BoardVO.BoardCommentVO;
 import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Service.BoardService;
 import com.spring.community.board.Utils.PagerVO;
@@ -43,6 +45,9 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	
 	@Autowired
 	private PagerVO pager;
+	
+	@Autowired
+	private BoardCommentVO cVo;
 
 	
     @Override
@@ -91,9 +96,10 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 											throws Exception {
 		
 		String no = request.getParameter("no");
-		System.out.println("글 번호 : " + no);
+//		System.out.println("글 번호 : " + no);
 		String name = request.getParameter("name");
-		System.out.println("닉네임 : " + name);
+//		System.out.println("닉네임 : " + name);
+		cVo.setBoardNo(Integer.parseInt(no));
 		
 		vo = boardservice.boardInfo(no, name);
 		
@@ -101,28 +107,16 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		
 		nextTitle = boardservice.nextTitle(no);
 		
-		System.out.println("리턴받은 VO : " + vo);
+		List<BoardCommentVO> commentList = boardservice.commentList(cVo);
+		
+//		System.out.println("댓글 리턴 리스트 : " + commentList.size());
+//		
+//		System.out.println("리턴받은 VO : " + vo);
 		
 		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("commentList", commentList);
 		mav.addObject("nextTitle", nextTitle);
-		mav.addObject("boardInfo", vo);
-		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
-		mav.setViewName("main");
-		
-		return mav;
-	}
-
-	@Override
-	@RequestMapping(value = "/board/addCommnet.do", method = RequestMethod.GET)
-	public ModelAndView addCommnet(HttpServletRequest request, HttpServletResponse response) 
-											throws Exception {
-		String no = request.getParameter("no");
-		System.out.println("글 번호 : " + no);
-		
-		vo = boardservice.boardInfo(no, no);
-		
-		ModelAndView mav = new ModelAndView();
-		
 		mav.addObject("boardInfo", vo);
 		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
 		mav.setViewName("main");
@@ -176,7 +170,83 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		return mav;
 	}
 
+	@Override
+	@RequestMapping(value = "/board/addComment.do", method = RequestMethod.GET)
+	public ModelAndView addCommnet(HttpServletRequest request, HttpServletResponse response) 
+											throws Exception {
+		String no = request.getParameter("no");
+		String name = request.getParameter("name");
+		String comment = request.getParameter("comment");
+		System.out.println("보고있는 글 번호 : " + no);
+		System.out.println("로그인된 nickname : " + name);
+		System.out.println("작성된 comment : " + comment);
+		
+		cVo.setBoardNo(Integer.parseInt(no));
+		cVo.setNickName(name);
+		cVo.setContent(comment);
+		
+		Map<String, String> nextTitle = new HashMap<String, String>();
+		nextTitle = boardservice.nextTitle(no);
+		
+		boardservice.addComment(cVo);
+		
+		List<BoardCommentVO> commentList = boardservice.commentList(cVo);
+	
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("commentList", commentList);
+		mav.addObject("nextTitle", nextTitle);
+		mav.addObject("boardInfo", vo);
+		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
 
+	@Override
+	@RequestMapping(value = "/board/delComment.do", method= RequestMethod.GET)
+	public ModelAndView delComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String no = request.getParameter("no");
+		
+		System.out.println("삭제할 댓글 번호 : " + no);
+		
+		boardservice.delComment(no);
+		List<BoardCommentVO> commentList = boardservice.commentList(cVo);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("commentList", commentList);
+		mav.addObject("boardInfo", vo);
+		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/board/editComment.do", method = RequestMethod.GET)
+	public ModelAndView editComment(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String comment = request.getParameter("comment");
+		String cno = request.getParameter("cno");
+		String bno = request.getParameter("bno");
+		cVo.setBoardNo(Integer.parseInt(bno));
+		cVo.setContent(comment);
+		cVo.setNo(Integer.parseInt(cno));
+		
+		System.out.println("수정할 댓글 번호 : " + cno);
+		System.out.println("수정할 댓글 내용 : " + comment);
+		System.out.println("수정할 글 번호 : " + bno);
+		
+		boardservice.editComment(cVo);
+		
+		
+		return null;
+	}
+	
+	
+	
 	
 	
     

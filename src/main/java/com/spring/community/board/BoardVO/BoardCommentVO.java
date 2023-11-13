@@ -1,8 +1,8 @@
-package com.spring.community.boardcomment.VO;
+package com.spring.community.board.BoardVO;
 
 import org.springframework.stereotype.Component;
 
-@Component("boardCommentVO")
+@Component
 public class BoardCommentVO {
 	private int no;
 	private String content;

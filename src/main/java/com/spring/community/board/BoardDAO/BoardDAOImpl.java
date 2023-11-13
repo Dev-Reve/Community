@@ -1,5 +1,6 @@
 package com.spring.community.board.BoardDAO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.community.board.BoardVO.BoardCommentVO;
 import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
@@ -132,8 +134,46 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		return nextTitle;
 	}
 
+	@Override
+	public List<BoardCommentVO> commentList(BoardCommentVO cVo) {
+		
+		List<BoardCommentVO> commentList = new ArrayList<BoardCommentVO>();
+		
+		commentList = sqlSession.selectList("mapper.boardcomment.commentList", cVo);
+		
+		System.out.println("댓글 다오 안쪽 : " + commentList);
+		
+		return commentList;
+	}
 
-	
-	
-	
+	@Override
+	public void addComment(BoardCommentVO cVo) {
+		
+		System.out.println("다오 내용" + cVo.getContent());
+		System.out.println("다오 주 글 번호" + cVo.getBoardNo());
+		System.out.println("다오 댓글작성 유저" + cVo.getNickName());
+		
+		
+		sqlSession.insert("mapper.boardcomment.addComment", cVo);
+		
+	}
+
+	@Override
+	public void delComment(String no) {
+		sqlSession.update("mapper.boardcomment.delComment", no);
+		 
+	}
+
+	@Override
+	public void editComment(BoardCommentVO cVo) {
+		
+		sqlSession.update("mapper.boardcomment.editComment", cVo);
+		
+	}
+
+
+
+
+
+
 }
