@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="${path}/resources/assets/css/side.css" />
 <link rel="icon" type="image/x-icon" href="${path}/resources/aseets/icon/favicon.ico" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <title>네꺼내꺼내꺼네꺼</title>
 </head>
 <body>
@@ -29,7 +30,6 @@
 		<i class="fa-solid fa-message" style="padding: 1.1em; width: 40px; height: 40px; color:white;"></i>
 	</a>
 </div>
-	
 </section>
 <script type="text/javascript">
 	var id = '${member.id}';
@@ -39,5 +39,5 @@
 	}
 </script>
 </body>
- <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+ 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </html>

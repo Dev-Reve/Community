@@ -16,6 +16,6 @@ public interface mainService {
 	public List getRecentGarallyList();
 	
 	//거래게시판 테이블에 있는 최신글 3개의 글번호, 파일이름, 가격 불러오기
-	public List<TradeVO> getRecentTradeList();
+	public List getRecentTradeList();
 	
 }
