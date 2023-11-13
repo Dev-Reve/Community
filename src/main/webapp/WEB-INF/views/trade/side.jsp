@@ -19,5 +19,33 @@
 	<a href="${path}/trade/tradeList.do?category=digital">가전/디지털</a> <br>
 	<a href="${path}/trade/tradeList.do?category=office">사무용품</a> <br>
 	<a href="${path}/trade/tradeList.do?category=etc">기타</a> <br>
+	<div>
+	<hr>	
+		<h6 style="margin-bottom: -10px;">오늘의 날씨</h6>
+	<br>
+		<table>
+
+			<tr>
+				<td>강수형태</td>
+				<td>${pubDate.PTY}</td>
+			</tr>
+			<tr>
+				<td>습도</td>
+				<td>${pubDate.REH}</td>
+			</tr>
+			<tr>
+				<td>1시간 강수량</td>
+				<td>${pubDate.RN1}</td>
+			</tr>
+			<tr>
+				<td>기온</td>
+				<td>${pubDate.T1H}</td>
+			</tr>
+			<tr>
+				<td>풍속</td>
+				<td>${pubDate.WSD}</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

@@ -25,4 +25,9 @@ public class GalleryServiceImpl implements GalleryService {
 	public List<GalleryDao> getGalleryList() {
 		return galleryDao.getGalleryList();
 	}
+	
+	@Override
+	public GalleryVO getGalleryInfo(int no) {
+		return galleryDao.getGalleryInfo(no);
+	}
 }

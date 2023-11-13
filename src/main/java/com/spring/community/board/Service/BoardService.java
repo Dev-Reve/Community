@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.board.BoardVO.BoardVO;
+import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
 
 public interface BoardService {
@@ -19,5 +21,15 @@ public interface BoardService {
 	
 	// 조회하는 메소드
 	public List selectBoard(PagingVO pvo);
+
+	public List<BoardVO> getList(PagerVO pager);
+
+	// 글 하나 조회하는 메소드
+	public BoardVO boardInfo(String no, String name);
 	
+
+	public void insertboard(BoardVO vo);
+
+	BoardVO boardInfo(String no, String name);
+
 }

@@ -49,4 +49,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<select id="GalleryInfo" resultMap="galleryResult" parameterType="int">
+		<![CDATA[
+		SELECT * FROM GALLERY
+		WHERE no = #{no} 
+		]]>
+	
+	</select>
 </mapper>

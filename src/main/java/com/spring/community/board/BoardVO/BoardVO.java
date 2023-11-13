@@ -1,6 +1,5 @@
 package com.spring.community.board.BoardVO;
 
-import javax.xml.crypto.Data;
 
 import org.springframework.stereotype.Component;
 

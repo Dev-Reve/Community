@@ -44,9 +44,6 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
-
-	@Autowired
-	private GalleryDao galleryDao;
 	
 	@Autowired
 	private GalleryService galleryservice ;
@@ -100,8 +97,11 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 	public ModelAndView GalleryDetail(@RequestParam int no) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
+		vo = galleryservice.getGalleryInfo(no);
 		
-		
+		mav.addObject("vo", vo);
+		mav.addObject("center", "/WEB-INF/views/gallery/galleryDetail.jsp");
+		mav.setViewName("main");
 		return mav;
 	}
 

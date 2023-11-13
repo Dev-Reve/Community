@@ -17,7 +17,7 @@ public class GalleryDaoImpl implements GalleryDao {
 	SqlSession sqlSession;
 
 	@Override
-	public int InsertGallery(Map map) {
+	public int InsertGallery(Map map) throws DataAccessException{
 		
 		sqlSession.insert("mapper.gallery.insertGallery", map);
 		int no = getInsertedNo();
@@ -30,9 +30,17 @@ public class GalleryDaoImpl implements GalleryDao {
 		return no;
 	}
 	
+	//갤러리 글 모두 조회해오기
 	@Override
-	public List<GalleryDao> getGalleryList() {
+	public List<GalleryDao> getGalleryList() throws DataAccessException{
 		List <GalleryDao> list = sqlSession.selectList("mapper.gallery.GallerylIST");
 		return list;
+	}
+	
+	//갤러리 글 하나 조회해오기
+	@Override
+	public GalleryVO getGalleryInfo(int no) throws DataAccessException {
+		GalleryVO vo = sqlSession.selectOne("mapper.gallery.GalleryInfo", no);
+		return vo;
 	}
 }

@@ -12,4 +12,6 @@ public interface GalleryService {
 	public int InsertGallery(Map map);
 
 	public List<GalleryDao> getGalleryList();
+
+	public GalleryVO getGalleryInfo(int no);
 }

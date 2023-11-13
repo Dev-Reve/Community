@@ -62,13 +62,13 @@
 			                            <div class="card-body p-4">
 			                                <div class="text-center">
 			                                    <!-- Product name-->
-			                                    <h5 class="fw-bolder" href="#">${gall.title} </h5>
+			                                    <h5 class="fw-bolder" >${gall.title} </h5>
 			                                    <h3 class="fw-bolder">${gall.nickname} </h3>
 			                                </div>
 			                            </div>
 			                            <!-- Product actions-->
 			                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-			                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${path}/file/galleryList.do?no=${gall.no}">더 보기</a></div>
+			                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${path}/gallery/galleryDetail.do?no=${gall.no}">더 보기</a></div>
 			                            </div>
 			                        </div>
 			                    </div> 
