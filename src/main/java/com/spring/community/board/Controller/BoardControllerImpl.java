@@ -1,7 +1,9 @@
 package com.spring.community.board.Controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -95,10 +97,14 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		
 		vo = boardservice.boardInfo(no, name);
 		
+		Map<String, String> nextTitle = new HashMap<String, String>();
+		
+		nextTitle = boardservice.nextTitle(no);
+		
 		System.out.println("리턴받은 VO : " + vo);
 		
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("nextTitle", nextTitle);
 		mav.addObject("boardInfo", vo);
 		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
 		mav.setViewName("main");
@@ -113,7 +119,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		String no = request.getParameter("no");
 		System.out.println("글 번호 : " + no);
 		
-		vo = boardservice.boardInfo(no);
+		vo = boardservice.boardInfo(no, no);
 		
 		ModelAndView mav = new ModelAndView();
 		

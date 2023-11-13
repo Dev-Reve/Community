@@ -100,6 +100,17 @@ function area() {
       <input type="text" name="comment" style="width: 90%;"> 
       <a href="${Path}/board/addCommnet.do?no=${boardInfo.no}">댓글 작성</a> </div>
     <hr>
+    <c:choose>
+    	<c:when test="${nextTitle.next != '없음'}">
+    		다음글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no+1}">${nextTitle.next}</a><br>
+    	</c:when>
+    	<c:otherwise>
+    		다음글 : 다음 글이 없습니다. <br>
+    	</c:otherwise>
+    </c:choose>
+    
+    	이전글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no-1}">${nextTitle.before}</a>
+    <hr>
     <a href="${Path}/board/listboard.do">목록으로 가기</a>
 </body>
 

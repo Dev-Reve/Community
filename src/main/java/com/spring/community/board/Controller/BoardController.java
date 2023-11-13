@@ -31,8 +31,8 @@ public interface BoardController {
 										throws Exception;
 	
 
-	public ModelAndView insertboard(BoardVO vo, HttpServletResponse response, HttpServletRequest request) throws Exception;
+	public ModelAndView insertboard(BoardVO vo, HttpServletResponse response, HttpServletRequest request) 
+												throws Exception;
 	
-////	public ModelAndView insertboard(HttpServletRequest request, HttpServletResponse response) 
-//							throws Exception;
+
 }

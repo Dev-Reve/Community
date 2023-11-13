@@ -1,6 +1,7 @@
 package com.spring.community.board.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServlet;
 
@@ -67,6 +68,14 @@ public class BoardServiceImpl extends HttpServlet implements BoardService {
 		
 		dao.insertboard(vo); 
 	}
+
+	@Override
+	public Map<String, String> nextTitle(String no) {
+		return dao.nextTitle(no);
+	}
+
+
+
 	
 
 	

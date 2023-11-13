@@ -1,6 +1,7 @@
 package com.spring.community.board.BoardDAO;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,8 @@ public interface BoardDAO {
 	
 	// 글 추가
 	public void insertboard(BoardVO vo);
+
+	public Map<String, String> nextTitle(String no);
 	
 	
 }

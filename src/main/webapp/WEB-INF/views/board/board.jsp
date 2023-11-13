@@ -6,7 +6,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <c:set var="Path" value="${pageContext.request.contextPath}" />
-<c:set var="id" value="${member.id} " />
+<c:set var="id" value="${member.id}" />
+<c:set var="id" value="${member.name}" />
 
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,7 @@
 		<c:forEach items="${boardlist}" var="list">
 			<tr>
 				<td>${list.no }</td>
-				<td><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${list.nickName}">${list.title}</a></td>
+				<td><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${member.name}">${list.title}</a></td>
 				<td>${list.writeDate } </td>
 				<td>${list.nickName }</td>
 				<td>${list.readCount }</td>
