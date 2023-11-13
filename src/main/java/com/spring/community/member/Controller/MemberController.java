@@ -61,8 +61,8 @@ public interface MemberController {
 	ModelAndView Form2(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원로그인 처리 기능
-	ModelAndView login(RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response)
-			throws Exception;
+//	ModelAndView login(RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response)
+//			throws Exception;
 	//마이페이지 화면
 	ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
@@ -71,6 +71,9 @@ public interface MemberController {
 			throws Exception;
 
 	ModelAndView addMember(MultipartFile fileName, MultipartHttpServletRequest multipartRequest,
+			HttpServletResponse response) throws Exception;
+
+	ModelAndView login(String id, String password, RedirectAttributes rAttr, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
 

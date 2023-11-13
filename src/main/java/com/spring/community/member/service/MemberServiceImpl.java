@@ -71,8 +71,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	//회원로그인 처리 기능
 	@Override
-	public MemberVO login(MemberVO memberVO) throws Exception {
-		return memberDAO.loginById(memberVO);
+	public MemberVO login(Map<String, String> loginInfo) throws Exception {
+		return memberDAO.loginById(loginInfo);
 	}
 	
 
@@ -93,6 +93,8 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getMemberId(String nickname) throws Exception {
 		return memberDAO.getMemberId(nickname);
 	}
+
+	
 
 
 }

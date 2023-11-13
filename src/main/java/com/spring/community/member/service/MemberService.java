@@ -23,8 +23,7 @@ public interface MemberService {
 	//회원 삭제 기능 
 	public void delMembers(String id) throws DataAccessException;
 	
-	//회원로그인 처리 기능
-	public MemberVO login(MemberVO memberVO) throws Exception;
+	
 
 
 	MemberVO detailMembers(MemberVO memberVO) throws DataAccessException;
@@ -35,6 +34,8 @@ public interface MemberService {
 	public MemberVO getMemberInfo(int no) throws Exception;
 
 	public MemberVO getMemberId(String nickname) throws Exception;
+
+	public MemberVO login(Map<String, String> loginInfo) throws Exception;
 
 	
 	

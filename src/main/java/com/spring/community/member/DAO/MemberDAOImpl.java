@@ -91,12 +91,12 @@ public class MemberDAOImpl implements MemberDAO{
 
 	//회원로그인 처리 기능
 	@Override
-	public MemberVO loginById(MemberVO memberVO) throws DataAccessException{
+	public MemberVO loginById(Map<String, String> map) throws DataAccessException{
 		
-		System.out.println("loginById: "+memberVO.getId());
-		System.out.println("loginById: "+memberVO.getPassword());
+		System.out.println("loginById: "+map.get("id"));
+		System.out.println("loginById: "+map.get("password"));
 		
-		MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
+		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", map);
 		
 		return vo;
 	}

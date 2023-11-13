@@ -194,33 +194,28 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	@Override
 	@RequestMapping(value="/member/login.do", method=RequestMethod.POST)
 							
-	public ModelAndView login(
-												//로그인실패시 리다이렉트하여 실패메시지를 전달할 객체를 매개변수로 받는다
+	public ModelAndView login(@RequestParam("id") String id,
+						        @RequestParam("password") String password,
+						        //로그인실패시 리다이렉트하여 실패메시지를 전달할 객체를 매개변수로 받는다
 												  RedirectAttributes rAttr,
 												  HttpServletRequest request,
 												  HttpServletResponse response
 												  )throws Exception {
-		
+		System.out.println(id);
+		System.out.println(password);
 		
 		ModelAndView mav = new ModelAndView();
+
+		Map<String, String> loginInfo = new HashMap<>();
 		
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
+		loginInfo.put("id",id);
+		loginInfo.put("password", password);
 		
-		
-		MemberVO memberVO1 = new MemberVO();
-		
-		memberVO1.setId(id);
-		
-		memberVO1.setPassword(password);
-		
-		
-		
-		
-		memberVO = memberService.login(memberVO1);
-		
+
+			memberVO = memberService.login(loginInfo);
+			
 		//입력한 아디비번에 해당하는 회원정보가 조회가 되면?
-		if(memberVO != null) {
+		if(memberVO != null) {	
 			HttpSession session = request.getSession();
 			session.setAttribute("member", memberVO); //조회된 회원정보 저장
 			session.setAttribute("isLogOn", true); //로그인 상태값을 true로 저장
@@ -603,6 +598,8 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			
 			return fileList;//업로드한 파일명들이 저장된 ArrayList배열 반환 
 		}
+
+	
 
 
 
