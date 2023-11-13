@@ -93,6 +93,10 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getMemberId(String nickname) throws Exception {
 		return memberDAO.getMemberId(nickname);
 	}
+	
+	//public int idCheck(String id)throws Exception {
+	//	return memberDAO.idCheck(id);
+	//}
 
 	
 

@@ -36,8 +36,8 @@
 			비밀번호:<input type="password" name="password"/>
 			<input type="submit" value="로그인"/>
 			<input type="reset" value="다시 작성"/>
-			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=40c9af4fd7c7ac42c3b0b28e870d8397&redirect_uri=http://localhost:8090/community/member/loginForm.do">
-			<img src="${path}/resources/images/kakao_login_medium_narrow.png"/></a>
+<!-- 			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=40c9af4fd7c7ac42c3b0b28e870d8397&redirect_uri=http://localhost:8090/community/member/loginForm.do"> -->
+<%-- 			<img src="${path}/resources/images/kakao_login_medium_narrow.png"/></a> --%>
 		</form>
 	</div>	
 					

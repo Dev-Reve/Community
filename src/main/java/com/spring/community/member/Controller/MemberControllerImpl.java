@@ -76,14 +76,23 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	@Autowired
 	private MemberVO memberVO;
 	
-	
-	//아이디중복 주소를 받았을때
+	//아이디중복을 눌렀을때 중복인지 아닌지 알려주는 메소드
+		@RequestMapping(value="/member/idCheck2.do", method=RequestMethod.GET)
+		public void idCheck2(@RequestParam ("id") String id,
+										HttpServletRequest request, 
+										HttpServletResponse response) 
+												throws Exception {
+		//	memberVO = memberService.idCheck(id);
+			
+			
+		}
+	//아이디중복 주소를 받았을때 팝업창 띄우는 메소드
 	@RequestMapping(value="/member/idCheck.do", method=RequestMethod.GET)
 	public String idCheck(HttpServletRequest request, 
 									HttpServletResponse response) 
 											throws Exception {
 		
-		return "/memeber/idCheck";
+		return "/member/idCheck";
 		
 	}
 	

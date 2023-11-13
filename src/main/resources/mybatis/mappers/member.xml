@@ -106,4 +106,11 @@
         	where l.trade_no = t.no and l.nickname= #{nickname}
   		]]>
   	</select>
+
+	<select id="CheckById" parameterType="String" resultType="int">
+  		<![CDATA[
+  				select * from member where id = #{id}
+  		]]>
+  	</select>
+
 </mapper>

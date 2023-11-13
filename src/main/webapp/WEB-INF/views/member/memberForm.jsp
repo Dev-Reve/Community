@@ -90,10 +90,10 @@
 
 	function checkid(){
 		var id = document.getElementById("id").value;
-		var path=
+		 var path = "${path}";
 		if(id)  //id로 받음
 		{
-			url = "${path}/member/idCheck.do?id="+id;
+			url = path+"/member/idCheck.do?id="+id;
 			window.open(url,"아이디중복확인","width=400,height=200");
 		} else {
 			alert("아이디를 입력하세요.");

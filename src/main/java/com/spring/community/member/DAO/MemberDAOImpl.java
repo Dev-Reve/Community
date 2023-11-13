@@ -124,4 +124,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 
+	public int idCheck(String id) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.CheckById",id);
+	}
 }//MemberDAOImpl클래스 닫는 기호 

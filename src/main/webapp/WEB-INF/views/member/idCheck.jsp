@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
-		<input type="text" value="${id}"/>
+	<form action="member/">
+		아이디<input type="text" value="${id}"/>
+		<input type="button" value="중복 검사"/>
 	</form>
 </body>
 </html>
