@@ -52,9 +52,9 @@ public class BoardServiceImpl extends HttpServlet implements BoardService {
 	}
 
 	@Override
-	public BoardVO boardInfo(String no) {
+	public BoardVO boardInfo(String no, String name) {
 		
-		return dao.boardInfo(no);
+		return dao.boardInfo(no, name);
 		
 	}
 

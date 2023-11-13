@@ -4,7 +4,6 @@
 <c:set var="Path" value="${pageContext.request.contextPath}" />
 <c:set var="id" value="${member.id}" />
 <c:set var="name" value="${member.name}" />
-<c:out value='${name}'/>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -228,13 +227,29 @@
 		  }
 		}
     </style>
+    <script>
+        function validateForm() {
+            var title = document.forms["myForm"]["title"].value;
+            var content = document.forms["myForm"]["content"].value;
+
+            if (title == null || title.trim() === "") {
+                alert("제목을 입력해주세요.");
+                return false;
+            }
+
+            if (content == null || content.trim() === "") {
+                alert("내용을 입력해주세요.");
+                return false;
+            }
+        }
+    </script>
 </head>
 <body class="is-preload">
 	
 		<!-- Home -->
 		<h1 style="text-align: center; padding-top: 1em;">자유 게시판</h1>
 		<hr>
-		<form action="${Path}/board/insertBoard.do" method="post" >
+		<form name="myForm" action="${Path}/board/insertBoard.do" method="post" >
 		<input type="hidden" name="id" value="${id}" />
 		<input type="hidden" name="nickName" value="${name}" />
 			<table class="table">

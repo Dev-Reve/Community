@@ -46,7 +46,6 @@
 		<tr>
 			<th>글 번호</th>
             <th>글 제목</th>
-<!--             <th>글 내용</th> -->
             <th>작성일</th>
             <th>작성자</th>
             <th>조회수</th>	
@@ -55,7 +54,6 @@
 			<tr>
 				<td>${list.no }</td>
 				<td><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${list.nickName}">${list.title}</a></td>
-<%-- 				<td>${list.content }</td> --%>
 				<td>${list.writeDate } </td>
 				<td>${list.nickName }</td>
 				<td>${list.readCount }</td>

@@ -1,5 +1,6 @@
 package com.spring.community.board.Controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	
 	@Autowired
 	private PagerVO pager;
+
 	
     @Override
     @RequestMapping(value="/board/listboard.do", method = RequestMethod.GET)
@@ -89,9 +91,9 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		String no = request.getParameter("no");
 		System.out.println("글 번호 : " + no);
 		String name = request.getParameter("name");
-		System.out.println("글 번호 : " + name);
+		System.out.println("닉네임 : " + name);
 		
-		vo = boardservice.boardInfo(no);
+		vo = boardservice.boardInfo(no, name);
 		
 		System.out.println("리턴받은 VO : " + vo);
 		
@@ -137,19 +139,33 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 	
 	@Override
 	@RequestMapping(value = "/board/insertBoard.do", method = RequestMethod.POST)
-	public ModelAndView insertboard(@ModelAttribute BoardVO vo) throws Exception {
+	public ModelAndView insertboard(@ModelAttribute BoardVO vo, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
 		System.out.println("내부" + vo.getContent());
 		System.out.println("내부" + vo.getTitle());
 		System.out.println("내부" + vo.getNickName());
+		String Path = request.getContextPath();
 		
-		boardservice.insertboard(vo);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		
 		
 		ModelAndView mav = new ModelAndView();
 		
-		
-		mav.addObject("center", "/WEB-INF/views/board/board.jsp");
-		mav.setViewName("redirect:/board/listboard.do");
+		if(vo.getTitle().equals("") || vo.getContent().equals("")) {
+			mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+			mav.setViewName("redirect:/board/insertForm.do");
+			
+			writer.println("<script>alert('제목 또는 내용을 입력하세요'); location.href='"+Path+"/board/insertForm.do';</script>"); 
+			writer.close();
+			
+			System.out.println("입력한 값 없음");
+		}else {
+			boardservice.insertboard(vo);
+			mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+			mav.setViewName("redirect:/board/listboard.do");
+			System.out.println("입력한 값 있음");
+		}
 		
 		return mav;
 	}

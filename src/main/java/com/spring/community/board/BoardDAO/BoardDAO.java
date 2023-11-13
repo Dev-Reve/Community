@@ -23,7 +23,7 @@ public interface BoardDAO {
 	public List<BoardVO> getBoardList(PagerVO pager);
 
 	// 글 조회 메소드
-	public BoardVO boardInfo(String no);
+	public BoardVO boardInfo(String no, String name);
 	
 	// 글 추가
 	public void insertboard(BoardVO vo);

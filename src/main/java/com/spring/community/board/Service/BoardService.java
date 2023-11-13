@@ -25,9 +25,11 @@ public interface BoardService {
 	public List<BoardVO> getList(PagerVO pager);
 
 	// 글 하나 조회하는 메소드
-	public BoardVO boardInfo(String no);
+	public BoardVO boardInfo(String no, String name);
 	
 
 	public void insertboard(BoardVO vo);
+
+	BoardVO boardInfo(String no, String name);
 
 }

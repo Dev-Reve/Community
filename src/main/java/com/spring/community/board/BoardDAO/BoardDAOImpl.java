@@ -60,9 +60,11 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 	}
 
 	@Override
-	public BoardVO boardInfo(String no) {
+	public BoardVO boardInfo(String no, String name) {
 		
 		BoardVO vo = new BoardVO();
+		
+		System.out.println("선택된 닉네임 : " + vo.getNickName());
 		
 		vo = sqlSession.selectOne("mapper.board.getBoardInfo", no);
 		
