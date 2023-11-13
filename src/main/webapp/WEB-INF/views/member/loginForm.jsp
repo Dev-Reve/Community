@@ -37,6 +37,9 @@
 			<input type="submit" value="로그인"/>
 			<input type="reset" value="다시 작성"/>
 		</form>
+		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=24341d26e46f6a5b4c17148bfb5e6d48&redirect_uri=http://localhost:8090${path}/member/kakaoCallback&prompt=select_account'">
+			<img src="${path}/resources/images/kakao_login.png">
+		</a>
 	</div>	
 					
 					<footer>

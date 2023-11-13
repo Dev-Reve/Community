@@ -70,10 +70,10 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	//      class="com.spring.member.vo.MemberVO">을 자동 주입해 줍니다. 
 	@Autowired
 	private MemberVO memberVO;
-	
-	
-	@Override
-	@RequestMapping(value="/member/myPage.do", method=RequestMethod.GET)
+		
+		
+		@Override
+		@RequestMapping(value="/member/myPage.do", method=RequestMethod.GET)
 	public ModelAndView myPage(HttpServletRequest request, 
 									HttpServletResponse response) 
 											throws Exception {
@@ -97,18 +97,18 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 									HttpServletResponse response) 
 											throws Exception {	
 		
-	//요청한 주소를 이용해 응답할 값을 마련
+		//요청한 주소를 이용해 응답할 값을 마련
 		//부장 MemberServiceImpl객체의 listMembers()메소드를 호출하여
 		//모든 회원 조회 요청을 명령함!
 		//웹브라우저로 응답할 조회한 정보들이 담긴  List배열을 반환 받는다.
 		List membersList = memberService.listMembers();
-	
-	//응답할 뷰 이름 얻기 	
+		
+		//응답할 뷰 이름 얻기 	
 		//요청 URL주소  /member/listMembers.do 에서  .do를 제외한 /listMembers뷰이름얻기
 		String viewName = getViewName(request); 
-		
+			
 
-	//응답할 값 과 응답할 뷰 이름을  ModelAndView객체 메모리에 바인딩(저장)
+		//응답할 값 과 응답할 뷰 이름을  ModelAndView객체 메모리에 바인딩(저장)
 		ModelAndView mav = new ModelAndView();
 					 //응답할 데이터 저장
 					 mav.addObject("membersList", membersList);	
@@ -137,12 +137,10 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		return mav;
 	}
 	
-	
-	
-		//요청한 주소가 loginForm.do 주소로 요청하면 Form2메소드가 호출되게 작성 
-		@Override     
-		@RequestMapping(value={"/member/loginForm.do"}, method=RequestMethod.GET )
-		public ModelAndView Form2(HttpServletRequest request, 
+	//요청한 주소가 loginForm.do 주소로 요청하면 Form2메소드가 호출되게 작성 
+	@Override     
+	@RequestMapping(value={"/member/loginForm.do"}, method=RequestMethod.GET )
+	public ModelAndView Form2(HttpServletRequest request, 
 								       HttpServletResponse response) 
 										throws Exception {	
 			
@@ -163,13 +161,12 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	*/
 	@Override
 	@RequestMapping(value="/member/login.do", method=RequestMethod.POST)
-							
 	public ModelAndView login(
-												//로그인실패시 리다이렉트하여 실패메시지를 전달할 객체를 매개변수로 받는다
-												  RedirectAttributes rAttr,
-												  HttpServletRequest request,
-												  HttpServletResponse response
-												  )throws Exception {
+							  //로그인실패시 리다이렉트하여 실패메시지를 전달할 객체를 매개변수로 받는다
+							  RedirectAttributes rAttr,
+							  HttpServletRequest request,
+							  HttpServletResponse response
+							  )throws Exception {
 		
 		
 		ModelAndView mav = new ModelAndView();
@@ -180,8 +177,6 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		System.out.println(id);
 		memberVO.setPassword(password);
 		System.out.println(password);
-		
-		
 		
 		memberVO = memberService.login(memberVO);
 		
@@ -218,7 +213,6 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		
 		return mav;
 	}
-	
 	
 	// 회원가입 요청 주소 /member/addMember.do를 받았을때....
 	@Override
@@ -324,7 +318,6 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		mav.setViewName( getViewName(request) ); // /memberDetail
 	 
 		return mav;
-		
 		
 	}
 	
@@ -454,70 +447,66 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 
 
 	//파일을 업로드한 후 반환된 파일 이름이 저장된 fileList배열을 반환하는 메소드 
-		private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) 
-							 		    throws Exception{
-			String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
-			System.out.println(absPath);
+	private List<String> fileProcess(MultipartHttpServletRequest multipartRequest) 
+						 		    throws Exception{
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		System.out.println(absPath);
+		
+		List<String> fileList = new ArrayList<String>();
+		
+		//첨부된 파일들의 input 태그의 name속성값=CommonsMultipartFile객체 한쌍씩 저장된  LinkedKeyIterator 배열 자체를 반환 합니다. 
+		//{file1=[CommonsMultipartFile@42b715da], file2=[CommonsMultipartFile@78a15f55]}
+		//							0							1
+		Iterator<String>  fileNames = multipartRequest.getFileNames();
+		
+		//LinkedKeyIterator 배열에  CommonsMultipartFile객체들이 저장되어 있는 동안 반복
+		while(fileNames.hasNext()) {
 			
-			List<String> fileList = new ArrayList<String>();
+			//LinkedKeyIterator 배열에 저장된 첨부한 <input>태그의 name속성값을 반복해서 얻는다. 
+			String fileName = fileNames.next(); // file1, file2
 			
-			//첨부된 파일들의 input 태그의 name속성값=CommonsMultipartFile객체 한쌍씩 저장된  LinkedKeyIterator 배열 자체를 반환 합니다. 
-			//{file1=[CommonsMultipartFile@42b715da], file2=[CommonsMultipartFile@78a15f55]}
-			//							0							1
-			Iterator<String>  fileNames = multipartRequest.getFileNames();
+			//<input type="file">태그에 첨부한 파일의 정보가 저장된 fileItem객체를 반환 받는다.
+			/*
+			아래는 하나의 fileItem객체의 정보 입니다. 
+			name=duke.png, 
+			StoreLocation=C://Program Files//Apache Software Foundation//Tomcat 9.0//work//Catalina//localhost//pro28//upload_705ab047_18b7f334aa0__8000_00000002.tmp,
+			size=4437bytes, isFormField=false, FieldName=file1
+			*/
+			MultipartFile mFile = multipartRequest.getFile(fileName);
 			
-			//LinkedKeyIterator 배열에  CommonsMultipartFile객체들이 저장되어 있는 동안 반복
-			while(fileNames.hasNext()) {
-				
-				//LinkedKeyIterator 배열에 저장된 첨부한 <input>태그의 name속성값을 반복해서 얻는다. 
-				String fileName = fileNames.next(); // file1, file2
-				
-				//<input type="file">태그에 첨부한 파일의 정보가 저장된 fileItem객체를 반환 받는다.
-				/*
-				아래는 하나의 fileItem객체의 정보 입니다. 
-				name=duke.png, 
-				StoreLocation=C://Program Files//Apache Software Foundation//Tomcat 9.0//work//Catalina//localhost//pro28//upload_705ab047_18b7f334aa0__8000_00000002.tmp,
-				size=4437bytes, isFormField=false, FieldName=file1
-				*/
-				MultipartFile mFile = multipartRequest.getFile(fileName);
-				
-				//fileItem객체에서 실제 업로드(첨부)한 파일이름을 반복해서 가져오기
-				//duke.png, duke2.png
-				String originFileName = mFile.getOriginalFilename();
-				
-				//실제 업로드한 파일이름을 하나씩 반복해서  ArrayList배열에 추가 하여 저장
-				fileList.add(originFileName); //[duke.png, duke2.png]
-				
-				//c:\spring\image_repo\duke.png  업로드할 파일 경로   
-				//c:\spring\image_repo\duke2.jpg    업로드할 파일 경로
-				File file = new File(absPath + "\\temp\\" + originFileName);
-				
-				//첨부되어 업로드할 파일사이즈가 있는지  (업로드할 파일이 있는지) 체크 합니다.
-				if(mFile.getSize() != 0) { 
-				
-					//업로드된 파일을 저장할위치가 존재 하지 않는지 확인합니다.
-					//파일이 존재 하지 않으면  업로드한 파일을 저장할 디렉토리와 파일을 생성해야 합니다. 
-					if(! file.exists()) {
-						
-						//c:\spring\image_repo
-						File file1 =   file.getParentFile();
-						
-						//c:\spring\image_repo 업로드될 폴더 생성 
-						file1.mkdirs();
-					}
+			//fileItem객체에서 실제 업로드(첨부)한 파일이름을 반복해서 가져오기
+			//duke.png, duke2.png
+			String originFileName = mFile.getOriginalFilename();
+			
+			//실제 업로드한 파일이름을 하나씩 반복해서  ArrayList배열에 추가 하여 저장
+			fileList.add(originFileName); //[duke.png, duke2.png]
+			
+			//c:\spring\image_repo\duke.png  업로드할 파일 경로   
+			//c:\spring\image_repo\duke2.jpg    업로드할 파일 경로
+			File file = new File(absPath + "\\temp\\" + originFileName);
+			
+			//첨부되어 업로드할 파일사이즈가 있는지  (업로드할 파일이 있는지) 체크 합니다.
+			if(mFile.getSize() != 0) { 
+			
+				//업로드된 파일을 저장할위치가 존재 하지 않는지 확인합니다.
+				//파일이 존재 하지 않으면  업로드한 파일을 저장할 디렉토리와 파일을 생성해야 합니다. 
+				if(! file.exists()) {
 					
-					//임시로 저장된 fileItem객체를 지정된 대상 파일로 전송하며, 
-					//업로드한 파일을 원하는 위치에 저장하고 동일한 이름을 가진 기존파일을 덮어 씁니다.
-					mFile.transferTo( new File(absPath + "\\temp\\" + originFileName) );
+					//c:\spring\image_repo
+					File file1 =   file.getParentFile();
 					
+					//c:\spring\image_repo 업로드될 폴더 생성 
+					file1.mkdirs();
 				}
+				
+				//임시로 저장된 fileItem객체를 지정된 대상 파일로 전송하며, 
+				//업로드한 파일을 원하는 위치에 저장하고 동일한 이름을 가진 기존파일을 덮어 씁니다.
+				mFile.transferTo( new File(absPath + "\\temp\\" + originFileName) );
+				
 			}
-			
-			return fileList;//업로드한 파일명들이 저장된 ArrayList배열 반환 
 		}
+		
+		return fileList;//업로드한 파일명들이 저장된 ArrayList배열 반환 
+	}
 
-
-
-
-	
 }
