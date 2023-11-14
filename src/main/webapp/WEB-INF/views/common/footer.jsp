@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
 <link rel="stylesheet" href="${path}/resources/assets/css/index.css" />
+<script src="https://kit.fontawesome.com/3c365b85f4.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<footer class="py-5 bg-dark">

@@ -1,5 +1,7 @@
 package com.spring.community.trade.dao;
 
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +21,10 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	SqlSession sqlSession;
 	
 	@Override
-	public List selectAllTrades(int startRow, int endRow) throws DataAccessException {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-		System.out.println("dao startRow: " + startRow);
-		System.out.println("dao endRow: " + endRow);
+	public List selectAllTrades(Map map) throws DataAccessException {
+//		System.out.println(map.get("startRow"));
+//		System.out.println(map.get("endRow"));
+		System.out.println("category: " + map.get("category"));
 		
 		List<TradeVO> list = sqlSession.selectList("mapper.trade.selectAllTrades", map);
 		
@@ -32,15 +32,50 @@ public class TradeBoardDAOImpl implements TradeBoardDAO {
 	}
 	
 	@Override
-	public int getTradeCount() {
-		int count = sqlSession.selectOne("mapper.trade.getTradeCount");
-		System.out.println("DAO: " + count);
+	public int getTradeCount(Map map) {
+		int count = sqlSession.selectOne("mapper.trade.getTradeCount", map);
 		
 		return count;
 	}
 	
 	@Override
-	public void regTradeBoard(TradeVO vo) throws DataAccessException {
-		sqlSession.insert("mapper.trade.insertTrade", vo);
+	public int regTradeBoard(Map map) throws DataAccessException {
+//		System.out.println("DAO까지 옴");
+		System.out.println("fileList: " + map.get("fileList"));
+		
+		sqlSession.insert("mapper.trade.insertTrade", map);
+		
+		int tradeNo = getNewTradeNo();
+//		System.out.println("regTradeBoard에서 호출한 tradeNo" + tradeNo);
+		return tradeNo;
 	}
+	
+	
+	private int getNewTradeNo() throws DataAccessException {
+		int tradeNo = sqlSession.selectOne("mapper.trade.getNewTradeNo");
+//		System.out.println("getNewTradeNo에서 호출한 tradeNo" + tradeNo);
+		return tradeNo;
+	}
+	
+	@Override
+	public TradeVO selectTradeDetail(int no) throws DataAccessException {
+		return sqlSession.selectOne("mapper.trade.selectTradeDetail", no);
+	}
+	
+	@Override
+	public void delTradeBoard(int no) throws DataAccessException {
+		sqlSession.delete("mapper.trade.delTrade", no);
+	}
+	
+	@Override
+	public void modTradeBoard(Map map) throws DataAccessException {
+		sqlSession.update("mapper.trade.updateTrade", map);
+	}
+	
+	@Override
+	public void updateCount(int no) throws DataAccessException {
+//		System.out.println("updateCount에서 받아온 no값: " + no);
+		sqlSession.update("mapper.trade.updateCount", no);
+	}
+	
 }

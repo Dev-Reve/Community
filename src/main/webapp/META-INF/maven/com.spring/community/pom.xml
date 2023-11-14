@@ -215,6 +215,14 @@
 			<version>1.18.26</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- WebSocket 채팅 구현을 위한 API -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		
 		
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
@@ -230,8 +238,7 @@
 		    <version>20160810</version>
 		</dependency>
 		
-		
-		
+	
 	</dependencies>
     <build>
         <plugins>

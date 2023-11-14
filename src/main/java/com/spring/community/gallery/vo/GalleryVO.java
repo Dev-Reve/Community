@@ -5,14 +5,15 @@ import org.springframework.stereotype.Component;
 
 @Component("galleryVO")
 public class GalleryVO {
+	
 	private int no; // 글 번호, 자동으로 증가하지 않음
 	private String title; // 제목
 	private String content; // 게시글 내용
 	private String[] fileName; // 파일 이름 배열
 	private String[] fileRealName; // 실제 파일 이름 배열
 	private String writeDate; // 작성일
-	private String nickName; // FK, 작성자 닉네임, MEMBER 테이블의 nickName을 참조
-	private int readCount = 0; // 조회수, 기본값 0
+	private String nickname; // FK, 작성자 닉네임, MEMBER 테이블의 nickName을 참조
+	private int readCount;
 	
 	public GalleryVO() {}
 
@@ -64,12 +65,12 @@ public class GalleryVO {
 		this.writeDate = writeDate;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getReadCount() {
@@ -79,6 +80,7 @@ public class GalleryVO {
 	public void setReadCount(int readCount) {
 		this.readCount = readCount;
 	}
+
 	
 	
 }

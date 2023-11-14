@@ -32,7 +32,7 @@
         <h3>인기 게시판</h3>
     </div>
     <div class="board-container">
-        <table id="board_community" >
+        <table id="board_community" border="1" >
             <caption><strong>커뮤니티 게시판</strong></caption>
             <tr>
                 <th>글 번호</th>
@@ -55,7 +55,7 @@
         </table>
     </div>
     <div class="board-container">
-        <table id="board_trade">
+        <table id="board_trade" border="1">
             <caption><strong>중고거래 게시판</strong></caption>
             <tr>
                 <th>글 번호</th>

@@ -48,4 +48,3 @@
     <url-pattern>/GelleryControllerImpl</url-pattern>
   </servlet-mapping>
 </web-app>
-
