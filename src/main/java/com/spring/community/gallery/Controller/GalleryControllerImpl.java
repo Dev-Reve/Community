@@ -169,7 +169,7 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 //		 System.out.println(no);
 		 
 		//
-		 galleryservice.delComment(no, boardNo );
+		 galleryservice.delComment(no);
 		 
 		 ModelAndView mav = new ModelAndView();
 		 
