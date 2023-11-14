@@ -17,7 +17,9 @@ public interface GalleryService {
 
 	public GalleryVO getGalleryInfo(int no);
 
-	public List getComment(int no);
+	public List<GalleryCommentVO> getComment(int no);
 
 	public void regComment(GalleryCommentVO comment);
+
+	public void delComment(int no);
 }

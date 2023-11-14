@@ -7,130 +7,76 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
 		<style>
-		.form {
-		  display: flex;
-		  margin: 0 auto;
-		  align-content: center;
-		  justify-content: center;
-		  flex-direction: column;
-		  gap: 10px;
-		  width: 1200px;
-		  background-color: #fff;
-		  border-radius: 20px;
-		  padding: 30px 20px;
-		  box-shadow: 100px 100px 80px rgba(0, 0, 0, 0.03)
+		#mainbox{
+		
+		height: 1200px;
+		width:  1200px;
 		}
 		
-		.title {
-		  color: black;
-		  font-weight: bold;
-		  text-align: center;
-		  font-size: 20px;
-		  margin-bottom: 4px;
-		}
 		
-		.sub {
-		  text-align: center;
-		  color: black;
-		  font-size: 14px;
-		  width: 100%;
-		}
-		
-		.sub.mb {
-		  margin-bottom: 1px;
-		}
-		
-		.sub a {
-		  color: rgb(23, 111, 211);
-		}
-		
-		.avatar {
-		  height: 125px;
-		  width: 125px;
-		  
-		  border-radius: 50%;
-		  align-self: center;
-		  padding: 6px;
-		  cursor: pointer;
-		  box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
-		}
-		
-		.form button {
-		  align-self: flex-end;
-		}
-		
-		.input, button {
-		  border: none;
-		  outline: none;
-		  width: 50%;
-		  padding: 16px 10px;
-		  background-color: rgb(247, 243, 243);
-		  border-radius: 10px;
-		  box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
-		}
-		
-		button {
-		  margin-top: 12px;
-		  background-color: rgb(23, 111, 211);
-		  color: #fff;
-		  text-transform: uppercase;
-		  font-weight: bold;
-		}
-		
-		.input:focus {
-		  border: 1px solid rgb(23, 111, 211);
-		}
-		
-		#file {
-		  display: none;
-		}
-		.avatar {
-		    position: relative;
-		    width: 100px; /* 라벨의 너비에 맞게 조절 */
-		    height: 100px; /* 라벨의 높이에 맞게 조절 */
-		    overflow: hidden;
-		    border-radius: 50%;
-		    display: inline-block;
-		  }
-		
-		  .avatar img {
-		    width: 100%; /* 이미지의 너비를 부모인 라벨의 100%로 설정 */
-		    height: 100%; /* 이미지의 높이를 부모인 라벨의 100%로 설정 */
-		    object-fit: cover;
-		    border-radius: 50%;
-		  }		
-		  
-		  .avatar svg{
-		  	background-color: rgb(23, 111, 211);
-		  	border-radius: 50%;		  
-		  }
 		</style>
 	</head>
 	<body class="is-preload">
 			                                                            
 	<div id="mainbox">	
-			<form action="${path}/member/addMember.do" method="post" enctype="multipart/form-data">
+			<form action="${path}/member/UpdateMember.do" method="post" enctype="multipart/form-data">
 				
-				아이디<input type="text" name="id" id="id"/>
-				<input type="button" value="아이디 중복 검사" onClick="checkid()"/>
-				<br>
-				비밀번호<input type="password" name="password"/>
-				이름<input type="text" name="name"/>
-				주민등록번호<input type="text" name="ssn"/>
-				닉네임<input type="text" name="nickname"/>
-				이메일<input type="text" name="email"/>
-				주소<input type="text" id="sample6_postcode" name="addr1" placeholder="우편번호">
+				아이디<input type="text" name="id" value="${memberVO.id }" readonly/>
+				비밀번호<input type="password" name="password" value="${memberVO.password }"/>
+				이름<input type="text" name="name" value="${memberVO.name }"/>
+				주민등록번호<input type="text" name="ssn" value="${memberVO.ssn }"/>
+				닉네임<input type="text" name="nickname" value="${memberVO.nickname }"/>
+				이메일<input type="text" name="email" value="${memberVO.email }"/>
+				주소<input type="text" id="sample6_postcode" name="addr1" value="${memberVO.addr1 }" placeholder="우편번호">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="sample6_address" name="addr2" placeholder="주소"><br>
-				<input type="text" id="sample6_detailAddress" name="addr3" placeholder="상세주소">
-				<input type="text" id="sample6_extraAddress" name="addr4" placeholder="참고항목"><br><br>
-				프로필사진<input type="file" name="fileName"/><br><br>
-				<input type="submit" value="회원가입하기"/>
+				<input type="text" id="sample6_address" name="addr2" value="${memberVO.addr2 }" placeholder="주소"><br>
+				<input type="text" id="sample6_detailAddress" name="addr3" value="${memberVO.addr3 }"placeholder="상세주소">
+				<input type="text" id="sample6_extraAddress" name="addr4" value="${memberVO.addr4 }" placeholder="참고항목"><br><br>
+				프로필사진<input type="file" name="fileName" value="${memberVO.fileName }"/><br><br>
+				<input type="submit" value="수정하기"/>
 			</form>
 	</div>	
 					
 
+				
+		
+
+		<!-- Contact -->
+			<article id="contact" class="wrapper style4">
+				<div class="container medium">
+					
+						<div class="col-12">
+							<hr />
+							<h3>Find me on ...</h3>
+							<ul class="social">
+								<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+								<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+								<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
+								<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
+								<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
+								<!--
+								<li><a href="#" class="icon solid fa-rss"><span>RSS</span></a></li>
+								<li><a href="#" class="icon brands fa-instagram"><span>Instagram</span></a></li>
+								<li><a href="#" class="icon brands fa-foursquare"><span>Foursquare</span></a></li>
+								<li><a href="#" class="icon brands fa-skype"><span>Skype</span></a></li>
+								<li><a href="#" class="icon brands fa-soundcloud"><span>Soundcloud</span></a></li>
+								<li><a href="#" class="icon brands fa-youtube"><span>YouTube</span></a></li>
+								<li><a href="#" class="icon brands fa-blogger"><span>Blogger</span></a></li>
+								<li><a href="#" class="icon brands fa-flickr"><span>Flickr</span></a></li>
+								<li><a href="#" class="icon brands fa-vimeo"><span>Vimeo</span></a></li>
+								-->
+							</ul>
+							<hr />
+						</div>
+					</div>
+				</div>
+			</article>
+
+		<!-- Scripts -->
 			<script src="${path}/resources/assets/js/jquery.min.js"></script>
 			<script src="${path}/resources/assets/js/jquery.scrolly.min.js"></script>
 			<script src="${path}/resources/assets/js/browser.min.js"></script>
@@ -139,19 +85,6 @@
 			<script src="${path}/resources/assets/js/main.js"></script>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
-	function checkid(){
-		var id = document.getElementById("id").value;
-		 var path = "${path}";
-		if(id)  //id로 받음
-		{
-			url = path+"/member/idCheck.do?id="+id;
-			window.open(url,"아이디중복확인","width=400,height=200");
-		} else {
-			alert("아이디를 입력하세요.");
-		}
-	}
-	//우편번호 API
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -199,24 +132,6 @@
             }
         }).open();
     }
-    
-    function setThumbnail(event) {
-        var input = event.target;
-        var reader = new FileReader();
-		var reset = document.getElementById('reset');
-        reader.onload = function () {
-          var thumbnail = document.getElementById('thumbnail');
-          thumbnail.src = reader.result;
-          reset.remove();
-        };
-
-        reader.readAsDataURL(input.files[0]);
-
-        if (!input.files[0]) {
-          var thumbnail = document.getElementById('thumbnail');
-          thumbnail.src = '';
-        }
-      }
 </script>
 	</body>
 </html>

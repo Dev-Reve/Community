@@ -23,4 +23,6 @@ public interface GalleryDao {
 
 	public void regComment(GalleryCommentVO comment) throws DataAccessException;
 
+	public void delComment(int no);
+
 }

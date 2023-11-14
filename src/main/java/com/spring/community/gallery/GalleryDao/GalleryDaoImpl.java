@@ -53,6 +53,11 @@ public class GalleryDaoImpl implements GalleryDao {
 	
 	@Override
 	public void regComment(GalleryCommentVO comment) throws DataAccessException {
-		sqlSession.insert("mapper.galleryComment", comment);
+		sqlSession.insert("mapper.galleryComment.regComment", comment);
+	}
+	
+	@Override
+	public void delComment(int no) {
+		sqlSession.delete("mapper.galleryComment.delComment", no);
 	}
 }

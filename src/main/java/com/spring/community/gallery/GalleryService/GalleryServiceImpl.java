@@ -16,7 +16,7 @@ import com.spring.community.tradeComment.vo.TradeCommentVO;
 public class GalleryServiceImpl implements GalleryService {
 
 	@Autowired
-	GalleryDao galleryDao ;
+	GalleryDao galleryDao ; 
 	
 	@Override
 	public int InsertGallery(Map map) {
@@ -34,12 +34,17 @@ public class GalleryServiceImpl implements GalleryService {
 	}
 	
 	@Override
-	public List getComment(int no) {
+	public List<GalleryCommentVO> getComment(int no) {
 		return galleryDao.getComment(no);
 	}
 	
 	@Override
 	public void regComment(GalleryCommentVO comment) {
 		 galleryDao.regComment(comment);
+	}
+	
+	@Override
+	public void delComment(int no) {
+		galleryDao.delComment(no);
 	}
 }
