@@ -112,4 +112,6 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne("mapper.member.getMemberId", nickname);
 	}
 	
+	
+	
 }//MemberDAOImpl클래스 닫는 기호 

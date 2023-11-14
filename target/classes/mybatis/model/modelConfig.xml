@@ -21,6 +21,7 @@
  		<typeAlias type="com.spring.community.tradeComment.vo.TradeCommentVO" alias="tradeCommentVO"/>
  		<typeAlias type="com.spring.community.tradeLike.vo.TradeLikeVO" alias="tradeLikeVO"/>
 		<typeAlias type="com.spring.community.boardcomment.VO.BoardCommentVO" alias="boardCommentVO"/>
+		<typeAlias type="com.spring.community.gallery.vo.GalleryCommentVO" alias="galleryCommentVO"/>
 	
  	</typeAliases>
  	

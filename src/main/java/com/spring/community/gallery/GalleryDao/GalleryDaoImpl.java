@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.spring.community.gallery.vo.GalleryCommentVO;
 import com.spring.community.gallery.vo.GalleryVO;
+import com.spring.community.tradeComment.vo.TradeCommentVO;
 
 @Repository("galleryDao")
 public class GalleryDaoImpl implements GalleryDao {
@@ -42,5 +44,15 @@ public class GalleryDaoImpl implements GalleryDao {
 	public GalleryVO getGalleryInfo(int no) throws DataAccessException {
 		GalleryVO vo = sqlSession.selectOne("mapper.gallery.GalleryInfo", no);
 		return vo;
+	}
+	
+	@Override
+	public List<GalleryCommentVO> getComment(int no) throws DataAccessException {
+		return sqlSession.selectList("mapper.galleryComment.getCommentList", no);
+	}
+	
+	@Override
+	public void regComment(GalleryCommentVO comment) throws DataAccessException {
+		sqlSession.insert("mapper.galleryComment", comment);
 	}
 }

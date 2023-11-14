@@ -1,7 +1,10 @@
 package com.spring.community.gallery.Controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -31,7 +34,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.community.gallery.GalleryDao.GalleryDao;
 import com.spring.community.gallery.GalleryService.GalleryService;
 import com.spring.community.gallery.GalleryService.GalleryServiceImpl;
+import com.spring.community.gallery.vo.GalleryCommentVO;
 import com.spring.community.gallery.vo.GalleryVO;
+import com.spring.community.tradeComment.vo.TradeCommentVO;
 
 @Controller("GalleryController")
 public class GalleryControllerImpl extends HttpServlet implements GalleryController, ServletContextAware {
@@ -98,13 +103,80 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 		ModelAndView mav = new ModelAndView();
 		
 		vo = galleryservice.getGalleryInfo(no);
-		
+		List commentList = galleryservice.getComment(no);
 		mav.addObject("vo", vo);
 		mav.addObject("center", "/WEB-INF/views/gallery/galleryDetail.jsp");
 		mav.setViewName("main");
 		return mav;
 	}
+	 @RequestMapping(value = "/gallery/regComment.do")
+	 public ModelAndView regComment(@ModelAttribute("comment") GalleryCommentVO comment, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		 ModelAndView mav = new ModelAndView();
+		 
+		 System.out.println("boardNo: " + comment.getBoardNo());
+		 System.out.println("nickname: " + comment.getNickname());
+		 System.out.println("parentNo: " + comment.getParentNo());
+		 System.out.println("content: " + comment.getContent());
+		 
+		 galleryservice.regComment(comment); 
+		 mav.setViewName("redirect:/gallery/galleryDetail.do?no=" + comment.getBoardNo());
+		 
+		 return mav;
+	 }
+	
+	
+	
+	@Override
+	@RequestMapping(value = "/gallery/image.do")
+	public void downloadContent(@RequestParam("imageFileName") String imageFileName,
+				   	 	 @RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		OutputStream out = response.getOutputStream();
+		
+		System.out.println( "게시판 다운로드 " );
+		
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		
+		//다운로드할 파일위치의 파일경로 생성
+		String filePath = absPath + "/" + no + "/" + imageFileName;
+		// /resources/Board/gallery
+		System.out.println( "게시판 다운로드 " + filePath);
+		//이미지 파일을 접근해서 파일을 조작, 정보보기 등을 할 수 있는 파일 객체 생성
+		File file = new File(filePath);
 
+		response.setHeader("Cache-Control", "no-cache");
+		
+		response.addHeader("Content-disposition", "attachment; fileName=" + URLEncoder.encode(imageFileName, "UTF-8"));
+		
+		
+		FileInputStream in = new FileInputStream(file);
+							
+		byte[] buffer = new byte[1024*8];
+		
+		while(true) {
+			int count = in.read(buffer);
+
+			if(count == -1) break;
+			out.write(buffer, 0, count);
+		}//while	
+		in.close();
+		out.close();
+	}
+	 @Override
+	 @RequestMapping(value = "/gallery/delComment.do", method = RequestMethod.GET)
+	 public ModelAndView delComment(@RequestParam("no") int no, @RequestParam("boardNo") int boardNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		 System.out.println(no);
+		 
+		 galleryservice.delComment(no);
+		 
+		 ModelAndView mav = new ModelAndView();
+		 
+		 mav.setViewName("redirect:/gallery/galleryDetail.do?no=" + boardNo);
+		 
+		 return mav;
+	 }
+	
+	
 	@Override
 	@RequestMapping(value = "/gallery/insertGallery.do")
 	public ModelAndView InsertGallery(@RequestParam("files") List<MultipartFile> files,

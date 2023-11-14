@@ -33,7 +33,7 @@ public class Main {
 		private static String SERVICEKEY = "Dglnu%2FfJuIk6BVkrIGSgocWWgQU%2BqAQ27%2BAAbaJydH%2BuyHdxudOog2ma2sDFWy03MFpdlJNc75zYrB2sZd2NHQ%3D%3D";
 		private static String TODAY = new SimpleDateFormat("yyyMMdd").format(new Date()) ;
 		private static String COORD_X = "98";
-		private static String COORD_Y = "76";
+		private static String COORD_Y =	 "76";
 
     @Autowired
     private mainService mainService;

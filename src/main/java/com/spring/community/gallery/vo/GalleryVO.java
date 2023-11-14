@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component("galleryVO")
 public class GalleryVO {
+	
 	private int no; // 글 번호, 자동으로 증가하지 않음
 	private String title; // 제목
 	private String content; // 게시글 내용
