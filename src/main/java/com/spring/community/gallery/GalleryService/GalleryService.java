@@ -21,5 +21,5 @@ public interface GalleryService {
 
 	public void regComment(GalleryCommentVO comment);
 
-	public void delComment(int no, int boardNo);
+	public void delComment(int no);
 }
