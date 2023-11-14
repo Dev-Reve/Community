@@ -282,8 +282,8 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		boardservice.delBoard(no);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/board/boardlist.jsp");
-		mav.setViewName("main");
+
+		mav.setViewName("redirect:/board/listboard.do");
 		
 		return mav;
 	}

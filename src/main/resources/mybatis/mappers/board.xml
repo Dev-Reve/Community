@@ -103,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="beforeTitle" parameterType="int" resultType="String">
 		<![CDATA[
-			SELECT * FROM board where no = #{no}-1
+			SELECT title FROM board where no = #{no}-1
 		]]>
 	</select>
 	

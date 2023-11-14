@@ -163,7 +163,7 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 	@Override
 	public void delComment(String no) {
 		sqlSession.update("mapper.boardcomment.delComment", no);
-		sqlSession.commit();
+//		sqlSession.commit();
 		 
 	}
 
@@ -171,7 +171,7 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 	public void editComment(BoardCommentVO cVo) {
 		
 		sqlSession.update("mapper.boardcomment.editComment", cVo);
-		sqlSession.commit();
+//		sqlSession.commit();
 		
 	}
 
@@ -184,7 +184,7 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 	@Override
 	public void editboard(BoardVO vo) {
 		sqlSession.update("mapper.board.editboard", vo);
-		sqlSession.commit();
+//		sqlSession.commit();
 	}
 
 	@Override
@@ -194,7 +194,7 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		sqlSession.update("mapper.board.delBoard", no);
 		System.out.println("글삭제완료");
 		
-		sqlSession.commit();
+//		sqlSession.commit();
 	}
 
 

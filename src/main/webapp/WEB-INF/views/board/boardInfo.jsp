@@ -207,11 +207,16 @@ function area2() {
     <hr>
     <a href="${Path}/board/listboard.do">목록으로 가기</a>&nbsp;&nbsp;&nbsp;
 
-    
-    <a href="${Path}/board/editForm.do?no=${boardInfo.no}">글 수정</a>&nbsp;
-    <a href="${Path}/board/delboard.do?no=${boardInfo.no}">글 삭제</a>
+        <c:choose>
+	        <c:when test="${member.name == boardInfo.nickName}">
+	           <a href="${Path}/board/editForm.do?no=${boardInfo.no}">글 수정</a>&nbsp;
+				<a href="${Path}/board/delboard.do?no=${boardInfo.no}">글 삭제</a>
+	        </c:when>
+        <c:otherwise>
+            
+        </c:otherwise>
+    </c:choose>
 
 
 </body>
-
 </html>

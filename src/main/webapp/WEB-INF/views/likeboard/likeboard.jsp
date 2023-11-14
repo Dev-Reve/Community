@@ -6,76 +6,117 @@
 <head>
     <meta charset="utf-8" />
     <title>LikeBoard</title>
-    <style>
-        /* 테이블 중앙 정렬 스타일 */
-        .board-container {
-            text-align: center; /* 텍스트 가운데 정렬 */
-            margin: 0 auto; /* 수평 가운데 정렬 */
-        }
-        table {
-            width: 80%; /* 테이블 너비 지정 (조절 가능) */
-            border-collapse: collapse; /* 테이블 셀 경계 병합 */
-            margin: 0 auto; /* 수평 가운데 정렬 */
-            border: 1px solid black; /* 테이블 셀 경계 스타일 지정 */
-        }
-        th, td {
-            padding: 5px; /* 셀 내용 여백 (조절 가능) */
-            border: 1px solid black; /* 테이블 셀 경계 스타일 지정 */
-        }
-        caption {
-            font-weight: bold; /* 테이블 캡션 텍스트 굵게 표시 (선택적) */
-        }
-    </style>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .centered-div {
+        color: white;
+        padding: 20px;
+    }
+
+    .board-container {
+        margin: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    caption {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        caption-side: top; /* 캡션을 테이블 위쪽으로 올림 */
+    }
+
+    th, td {
+        padding: 15px;
+        border: 1px solid #e9ecef;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        text-align: center;
+        color: black;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f8f9fa;
+        text-align: center;
+    }
+
+    tr:hover {
+        background-color: #cce5ff;
+        text-align: center;
+    }
+</style>
 </head>
 <body>
     <div class="centered-div">
         <h3>인기 게시판</h3>
     </div>
-    <div class="board-container">
-        <table id="board_community" border="1" >
-            <caption><strong>커뮤니티 게시판</strong></caption>
-            <tr>
-                <th>글 번호</th>
-                <th>글 제목</th>
-                <th>글 내용</th>
-                <th>작성일</th>
-                <th>작성자</th>
-                <th>조회수</th>
-            </tr>
-            <c:forEach items="${boardList}" var="blist">
-                <tr>
-                    <td>${blist.no}</td>
-                    <td>${blist.title}</td>
-                    <td>${blist.content}</td>
-                    <td>${blist.nickname}</td>
-                    <td>${blist.writedate}</td>
-                    <td>${blist.readcount}</td>
+    <div class="a" style="display: flex; flex-direction: column;">
+        <!-- 첫 번째 .board-container에 배경색 제거 -->
+        <div class="board-container">
+            <table id="board_community">
+                <caption>커뮤니티 게시판</caption>
+                <tr align="center">
+                    <th>글 번호</th>
+                    <th>글 제목</th>
+                    <th>글 내용</th>
+                    <th>작성일</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
                 </tr>
-            </c:forEach>
-        </table>
-    </div>
-    <div class="board-container">
-        <table id="board_trade" border="1">
-            <caption><strong>중고거래 게시판</strong></caption>
-            <tr>
-                <th>글 번호</th>
-                <th>글 제목</th>
-                <th>글 내용</th>
-                <th>작성일</th>
-                <th>작성자</th>
-                <th>조회수</th>
-            </tr>
-            <c:forEach items="${tradeList}" var="tlist">
-                <tr>
-                    <td>${tlist.no}</td>
-                    <td>${tlist.title}</td>
-                    <td>${tlist.content}</td>
-                    <td>${tlist.nickname}</td>
-                    <td>${tlist.writedate}</td>
-                    <td>${tlist.readcount}</td>
+                <c:forEach items="${boardList}" var="blist">
+                    <tr>
+                        <td>${blist.no}</td>
+                        <td>${blist.title}</td>
+                        <td>${blist.content}</td>
+                        <td>${blist.nickname}</td>
+                        <td>${blist.writedate}</td>
+                        <td>${blist.readcount}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <!-- 두 번째 .board-container는 그대로 둠 -->
+        <div class="board-container">
+            <table id="board_trade">
+                <caption>중고거래 게시판</caption>
+                <tr align="center">
+                    <th>글 번호</th>
+                    <th>글 제목</th>
+                    <th>글 내용</th>
+                    <th>작성일</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach items="${tradeList}" var="tlist">
+                    <tr>
+                        <td>${tlist.no}</td>
+                        <td>${tlist.title}</td>
+                        <td>${tlist.content}</td>
+                        <td>${tlist.nickname}</td>
+                        <td>${tlist.writedate}</td>
+                        <td>${tlist.readcount}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </div>
 </body>
 </html>
