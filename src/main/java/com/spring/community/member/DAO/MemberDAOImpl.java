@@ -102,7 +102,6 @@ public class MemberDAOImpl implements MemberDAO{
 	//게시글 작성자 정보 가져오기
 	@Override
 	public MemberVO getMemberInfo(int no) throws DataAccessException {
-		System.out.println("DAO에서 받아온 no값: " + no);
 		return sqlSession.selectOne("mapper.member.getMemberInfo", no);
 	}
 	
@@ -110,6 +109,21 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberVO getMemberId(String nickname) throws DataAccessException {
 		return sqlSession.selectOne("mapper.member.getMemberId", nickname);
+	}
+	
+	@Override
+	public MemberVO selectMember(String id) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.selectMember", id);
+	}
+	
+	@Override
+	public MemberVO kakaoLogin(MemberVO vo) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.kakaoLogin", vo);
+	}
+	
+	@Override
+	public void insertNewKakaoMember(Map map) throws DataAccessException {
+		sqlSession.insert("mapper.member.insertKakaoMember", map);
 	}
 	
 }//MemberDAOImpl클래스 닫는 기호 

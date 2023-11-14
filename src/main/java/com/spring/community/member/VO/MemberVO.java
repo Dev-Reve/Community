@@ -28,6 +28,7 @@ public class MemberVO {
 	private String addr3;
 	private String addr4;
 	private String fileName;
+	private int isKakao;
 	
 	public MemberVO() {
 		// TODO Auto-generated constructor stub
@@ -136,7 +137,14 @@ public class MemberVO {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
-	
+
+	public int getIsKakao() {
+		return isKakao;
+	}
+
+	public void setIsKakao(int isKakao) {
+		this.isKakao = isKakao;
+	}
 	
 	
 }

@@ -216,7 +216,7 @@
 			</form>
 			<div class="row" style="border-top: 1px solid gray; min-height: 400px; border-bottom: 1px solid gray; margin-top: 1em;">
 				<div class="col-md-12">
-					${vo.content}
+					${vo.content} / ${memInfo.isKakao}
 				</div>
 			</div>
 			

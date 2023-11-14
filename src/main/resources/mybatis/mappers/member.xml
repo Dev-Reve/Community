@@ -34,7 +34,6 @@
 		]]>		
 	</select>
 	
-	
 	<!-- 회원정보를 등록하기 위해 받아온 매개변수 타입이 memberVO이기 때문에 아래의 parameterType속성 값으로
 		  매개변수로 지정했던 memberVO값을 설정 -->
 	<insert id="insertMember" parameterType="java.util.HashMap">
@@ -67,5 +66,23 @@
 		]]>
 	</select>
 	
+	<select id="selectMember" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			SELECT * FROM member WHERE id = #{id}
+		]]>
+	</select>
+	
+	<select id="kakaoLogin" resultType="memberVO" parameterType="memberVO">
+		<![CDATA[
+			SELECT * FROM member WHERE id = #{id}
+		]]>
+	</select><insert id="insertKakaoMember" parameterType="java.util.HashMap">
+		<!-- memberVO에 저장된 변수명들을 작성하기 위해서는 #{VO에 저장된 변수명}으로 작성 -->
+		<!-- update문이나 delete문도 동일하게 작성하면 됨 -->
+		<![CDATA[
+			insert into member(id, password, name, ssn, nickname, email, addr1, addr2, addr3, addr4, fileName, isKakao)
+			values (#{id}, #{password}, #{name}, #{ssn}, #{nickname}, #{email}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{fileName}, 1)
+		]]>
+	</insert>
 	
 </mapper>

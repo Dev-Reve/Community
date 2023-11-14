@@ -17,13 +17,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript">
-			$(function() {
-				var isLogon = '${isLogOn}';
-				console.log(isLogon);
-				if(isLogon != 'true') {
-					$('.writeBtn').hide();
-				}
-			});
 		</script>
     <style>
 		table img {
@@ -102,6 +95,7 @@
 				 - <c:out value="${category}" />
 			</c:if></h1>
 			<hr>
+				<c:if test="${isLogOn == true}">
 					<button class="cssbuttons-io-button writeBtn" onclick="location.href='${path}/trade/regTradeForm.do'">
 					  글작성
 					  <div class="icon">
@@ -116,6 +110,7 @@
 					    	</svg>
 						</div>
 					</button>
+				</c:if>
 
 					<table class="table table-striped">
 						<thead>

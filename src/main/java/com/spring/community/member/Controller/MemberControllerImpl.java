@@ -33,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.community.member.service.MemberService;
 import com.spring.community.member.VO.MemberVO;
+import com.spring.community.member.VO.OAuthToken;
 import com.spring.community.member.DAO.MemberDAO;
 import com.spring.community.member.service.MemberServiceImpl;
 
@@ -206,6 +207,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		
 		session.removeAttribute("member");
 		session.removeAttribute("isLogOn");
+		session.removeAttribute("access_token");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
@@ -222,53 +224,114 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 								  HttpServletResponse response) 
 										  throws Exception {	
 		
+		HttpSession session = multipartRequest.getSession();
 		
-			//업로드할 파일명 또는 입력한 데이터가 한글일 경우 인코딩 방식 UTF-8로 설정
-			multipartRequest.setCharacterEncoding("UTF-8");
+		//업로드할 파일명 또는 입력한 데이터가 한글일 경우 인코딩 방식 UTF-8로 설정
+		multipartRequest.setCharacterEncoding("UTF-8");
+		
+		//파일 경로를 저장할 변수 설정
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		
+		//입력한 값들의 정보를 저장할 map생성
+		Map map = new HashMap();
+		//request에서 값을 꺼내와 배열에 저장후 배열 자체를 리턴하기 위해 Enumeration객체 생성
+		Enumeration enu = multipartRequest.getParameterNames();
+		
+		while (enu.hasMoreElements()) {
+			String key = (String)enu.nextElement();
+			String value = multipartRequest.getParameter(key);
 			
-			//파일 경로를 저장할 변수 설정
-			String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
-			
-			//입력한 값들의 정보를 저장할 map생성
-			Map map = new HashMap();
-			//request에서 값을 꺼내와 배열에 저장후 배열 자체를 리턴하기 위해 Enumeration객체 생성
-			Enumeration enu = multipartRequest.getParameterNames();
-			
-			while (enu.hasMoreElements()) {
-				String key = (String)enu.nextElement();
-				String value = multipartRequest.getParameter(key);
-				
-				map.put(key, value);
-				if(key.equals("fileName")) {
-					map.remove("fileName");
-				}
+			map.put(key, value);
+			if(key.equals("fileName")) {
+				map.remove("fileName");
 			}
-			String id = (String)map.get("id");
-			
-			//파일업로드후 반환된 파일이름 배열로 반환
-			List fileList = fileProcess(multipartRequest);
-	         
-			String fileName = file.getOriginalFilename();
-			map.put("fileName", fileName);
-			
-			//폴더 생성을 위해 경로 설정
-			File memDir = new File(absPath + "/" + id);
-			//폴더 생성
-			memDir.mkdir();
-			
-			String filePath = absPath + "/" + id + "/" + fileName;
-			File dest = new File(filePath);
-			
-			//파일을 해당 폴더로 이동
-			file.transferTo(dest);
-			
-	       //부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 INSERT명령!
-	 		memberService.addMembers(map);
-	 		
-	         
+		}
+		String id = (String)map.get("id");
+		
+		//파일업로드후 반환된 파일이름 배열로 반환
+		List fileList = fileProcess(multipartRequest);
+         
+		String fileName = file.getOriginalFilename();
+		map.put("fileName", fileName);
+		
+		//폴더 생성을 위해 경로 설정
+		File memDir = new File(absPath + "/" + id);
+		//폴더 생성
+		memDir.mkdir();
+		
+		String filePath = absPath + "/" + id + "/" + fileName;
+		File dest = new File(filePath);
+		
+		//파일을 해당 폴더로 이동
+		file.transferTo(dest);
+		
+       //부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 INSERT명령!
+ 		memberService.addMembers(map);
+ 	
 		String viewName = getViewName(multipartRequest);
 		System.out.println(viewName); 	
 		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
+		mav.setViewName("main");
+			
+		//회원가입 후 모든회원을 조회 하는 재요청 주소 작성 
+		return mav;
+ 
+	}
+	
+	@Override
+	@RequestMapping(value="/member/addKakaoMember.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public ModelAndView addKakaoMember(@RequestParam("fileName") MultipartFile file,
+								  MultipartHttpServletRequest multipartRequest,
+								  HttpServletResponse response) 
+										  throws Exception {	
+		
+		System.out.println("카카오 회원가입 컨트롤러 탑승");
+		HttpSession session = multipartRequest.getSession();
+		
+		//업로드할 파일명 또는 입력한 데이터가 한글일 경우 인코딩 방식 UTF-8로 설정
+		multipartRequest.setCharacterEncoding("UTF-8");
+		
+		//파일 경로를 저장할 변수 설정
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		
+		//입력한 값들의 정보를 저장할 map생성
+		Map map = new HashMap();
+		//request에서 값을 꺼내와 배열에 저장후 배열 자체를 리턴하기 위해 Enumeration객체 생성
+		Enumeration enu = multipartRequest.getParameterNames();
+		
+		while (enu.hasMoreElements()) {
+			String key = (String)enu.nextElement();
+			String value = multipartRequest.getParameter(key);
+			
+			map.put(key, value);
+		}
+		String id = (String)map.get("id");
+		
+		String fileName = map.get("imgURL").toString();
+		
+		map.put("fileName", fileName);
+		
+       //부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 INSERT명령!
+ 		memberService.addKakaoMember(map);
+ 		
+ 		MemberVO vo = new MemberVO();
+ 		vo.setId(map.get("id").toString());
+ 		vo.setPassword(map.get("password").toString());
+ 		vo.setSsn(map.get("ssn").toString());
+ 		vo.setName(map.get("name").toString());
+ 		vo.setNickname(map.get("nickname").toString());
+ 		vo.setAddr1(map.get("addr1").toString());
+ 		vo.setAddr2(map.get("addr2").toString());
+ 		vo.setAddr3(map.get("addr3").toString());
+ 		vo.setAddr4(map.get("addr4").toString());
+ 		vo.setFileName(fileName);
+		memberService.kakaoLogin(vo);
+		
+		session.setAttribute("isLogOn", true);
+		session.setAttribute("member", vo);
+		System.out.println("isKakao: " + vo.getIsKakao());
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
 		mav.setViewName("main");
@@ -354,38 +417,45 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
 		String resourcePath = servletContext.getRealPath(RESOURCE_PATH);
 		//다운로드할 파일 위치의 파일 경로 생성
-		String filePath = absPath + "\\" + id + "\\" + fileName;
-		
-		
-		//이미지 파일을 조작, 정보보기 등을 할 수 있는 파일객체 생성
-		File image = new File(filePath);
-		System.out.println("파일 경로: " + filePath);
-		System.out.println("파일: " + image);
-		
-		response.setHeader("Cache-Control", "no-cache");
-		response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
-		
-		FileInputStream in = new FileInputStream(image);
-		
-		if(!image.exists()) {
-			filePath = resourcePath + "/a.jpg";
-			image = new File(filePath);
-		}
-		//이미지 파일을 담아 출력할 바이트 배열 생성
-		byte[] buffer = new byte[1024 * 8];
-		
-		while (true){
-			int count = in.read(buffer);
+		String filePath = "";
+
+		if(memberVO.getIsKakao() == 0) {
+			filePath =  absPath + "\\" + id + "\\" + fileName;
 			
-			if(count == -1) {
-				break;
+			//이미지 파일을 조작, 정보보기 등을 할 수 있는 파일객체 생성
+			File image = new File(filePath);
+			
+			System.out.println("파일 경로: " + filePath);
+			System.out.println("파일: " + image);
+			
+			response.setHeader("Cache-Control", "no-cache");
+			response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
+			
+			FileInputStream in = new FileInputStream(image);
+			
+			if(!image.exists()) {
+				filePath = resourcePath + "/a.jpg";
+				image = new File(filePath);
 			}
-			out.write(buffer, 0, count);
+			
+			//이미지 파일을 담아 출력할 바이트 배열 생성
+			byte[] buffer = new byte[1024 * 8];
+			
+			while (true){
+				int count = in.read(buffer);
+				
+				if(count == -1) {
+					break;
+				}
+				out.write(buffer, 0, count);
+			}
+			in.close();
+			
+		} else {
+			filePath = memberVO.getFileName();
 		}
 		
-		in.close();
 		out.close();
-		
 	}
 	
 	

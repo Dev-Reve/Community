@@ -3,11 +3,15 @@ package com.spring.community.member.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.spring.community.member.VO.MemberVO;
+import com.spring.community.member.VO.OAuthToken;
 import com.spring.community.member.DAO.MemberDAO;
 
 //부장 
@@ -24,7 +28,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;// = new MemberDAOImpl();
 	
-
 	//모든 회원 정보 조회 기능 
 	@Override
 	public List listMembers() throws DataAccessException {
@@ -83,7 +86,24 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO getMemberId(String nickname) throws Exception {
 		return memberDAO.getMemberId(nickname);
 	}
+	
+	@Override
+	public MemberVO selectMember(String id) throws Exception {
+		return memberDAO.selectMember(id);
+	}
 
+	@Override
+	public MemberVO kakaoLogin(MemberVO vo) throws Exception {
+		
+		return memberDAO.kakaoLogin(vo);
+	}
+
+	@Override
+	public void addKakaoMember(Map map) throws Exception {
+		System.out.println("카카오 서비스");
+		memberDAO.insertNewKakaoMember(map);
+	}
+	
 }
 
 

@@ -1,10 +1,12 @@
 package com.spring.community.member.VO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OAuthToken {
 	private String id_token;
 	private String access_token;
@@ -13,8 +15,6 @@ public class OAuthToken {
 	private int expires_in;
 	private String scope;
 	private int refresh_token_expires_in;
-	
-	
 	
 }
 

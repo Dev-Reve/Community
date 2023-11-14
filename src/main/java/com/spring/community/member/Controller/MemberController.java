@@ -73,12 +73,9 @@ public interface MemberController {
 	ModelAndView addMember(MultipartFile fileName, MultipartHttpServletRequest multipartRequest,
 			HttpServletResponse response) throws Exception;
 
-	
+	ModelAndView addKakaoMember(MultipartFile file, MultipartHttpServletRequest multipartRequest,
+			HttpServletResponse response) throws Exception;
 
-
-
-	
-	
 	
 	//회원로그아웃 처리 기능
 	

@@ -31,6 +31,12 @@ public interface MemberDAO {
 	public MemberVO getMemberInfo(int no) throws DataAccessException;
 
 	public MemberVO getMemberId(String nickname) throws DataAccessException;
+
+	public MemberVO selectMember(String id) throws DataAccessException;
+
+	public MemberVO kakaoLogin(MemberVO vo) throws DataAccessException;
+
+	public void insertNewKakaoMember(Map map) throws DataAccessException;
 	
 	//
 	

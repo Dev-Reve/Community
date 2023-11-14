@@ -3,6 +3,8 @@ package com.spring.community.member.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.dao.DataAccessException;
 
 import com.spring.community.member.VO.MemberVO;
@@ -31,6 +33,11 @@ public interface MemberService {
 	public MemberVO getMemberInfo(int no) throws Exception;
 
 	public MemberVO getMemberId(String nickname) throws Exception;
-	
-	
+
+	public MemberVO selectMember(String id) throws Exception;
+
+	public MemberVO kakaoLogin(MemberVO vo) throws Exception;
+
+	public void addKakaoMember(Map map) throws Exception;
+
 }
