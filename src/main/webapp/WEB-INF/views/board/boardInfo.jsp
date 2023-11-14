@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="Path" value="${pageContext.request.contextPath}" />
-<c:set var="id" value="${member.id} " />
-<c:set var="name" value="${member.nickname} " />
+<c:set var="id" value="${member.id}" />
+<c:set var="name" value="${member.nickname}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,7 +130,7 @@ function area2() {
             <hr>
         </c:when>
         <c:otherwise>
-            <p>등록된 파일이 없습니다.</p>
+            <p></p>
             <hr>
         </c:otherwise>
     </c:choose>
@@ -141,7 +141,7 @@ function area2() {
                 <c:choose>
                     <c:when test="${member.name == comment.nickName}">
                         <h6>${comment.nickName}&nbsp;&nbsp;&nbsp;${comment.writeDate}&nbsp;&nbsp;&nbsp;
-                            <a href="#" onclick="area2()">수정</a>&nbsp;
+                            <a href="javascript:void(0);" onclick="area2()">수정</a>&nbsp;
                             <a href="${Path}/board/delComment.do?no=${comment.no}">삭제</a></h6>
                         
                         <div class="comment-input2">
@@ -164,15 +164,25 @@ function area2() {
         </c:forEach>
     </div>
     
-    <b>댓글 <a href="javascript:void(0);" onclick="area()"> + </a></b><br>
-    <div class="comment-input">
-        <form action="${Path}/board/addComment.do" method="GET">
-            <input type="hidden" name="no" value="${boardInfo.no}">
-            <input type="hidden" name="name" value="${member.name}">
-            <input type="text" name="comment" style="width: 90%;">
-            <button type="submit">댓글 작성</button>
-        </form>
-    </div>
+    <b>댓글</b>
+	<c:choose>
+	    <c:when test="${empty member.nickname}">
+	        <!-- name이 null이거나 empty일 때의 처리 -->
+	    </c:when>
+	    <c:otherwise>
+	        <!-- name이 null이 아니고 값이 있을 때의 처리 -->
+	        <a href="javascript:void(0);" onclick="area()"> + </a><br>
+	        <div class="comment-input">
+	            <!-- 댓글 입력 폼이 여기에 표시되어야 함 -->
+	            <form action="${Path}/board/addComment.do" method="GET">
+		            <input type="hidden" name="no" value="${boardInfo.no}">
+		            <input type="hidden" name="name" value="${member.name}">
+		            <input type="text" name="comment" style="width: 90%;">
+		            <button type="submit">댓글 작성</button>
+		        </form>
+	        </div>
+	    </c:otherwise>
+	</c:choose>
     
     <hr>
     
@@ -195,7 +205,13 @@ function area2() {
     </c:choose>
     
     <hr>
-    <a href="${Path}/board/listboard.do">목록으로 가기</a>
+    <a href="${Path}/board/listboard.do">목록으로 가기</a>&nbsp;&nbsp;&nbsp;
+
+    
+    <a href="${Path}/board/editForm.do?no=${boardInfo.no}">글 수정</a>&nbsp;
+    <a href="${Path}/board/delboard.do?no=${boardInfo.no}">글 삭제</a>
+
+
 </body>
 
 </html>

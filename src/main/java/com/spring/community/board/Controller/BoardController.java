@@ -38,5 +38,13 @@ public interface BoardController {
 										throws Exception;
 	public ModelAndView editComment(HttpServletRequest request, HttpServletResponse response)
 										throws Exception;
+	public ModelAndView editForm(HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+	public ModelAndView delboard(HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+	
 
+
+	public ModelAndView editboard(HttpServletResponse response, HttpServletRequest request) throws Exception;
+	
 }

@@ -241,8 +241,88 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
 		
 		boardservice.editComment(cVo);
 		
+		List<BoardCommentVO> commentList = boardservice.commentList(cVo);
 		
-		return null;
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("commentList", commentList);
+		mav.addObject("boardInfo", vo);
+		mav.addObject("center", "/WEB-INF/views/board/boardInfo.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/board/editForm.do", method = RequestMethod.GET)
+	public ModelAndView editForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String no = request.getParameter("no");
+		System.out.println("editForm : " + no);
+		
+		vo = boardservice.editForm(no);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("editboard", vo);
+		mav.addObject("center", "/WEB-INF/views/board/editForm.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/board/delboard.do", method = RequestMethod.GET)
+	public ModelAndView delboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String no = request.getParameter("no");
+		
+		System.out.println("삭제할 글 번호 : " + no);
+		
+		boardservice.delBoard(no);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("center", "/WEB-INF/views/board/boardlist.jsp");
+		mav.setViewName("main");
+		
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/board/editBoard.do", method = RequestMethod.POST)
+	public ModelAndView editboard(HttpServletResponse response, HttpServletRequest request) throws Exception {
+		
+		vo.setNo(Integer.parseInt(request.getParameter("no")));
+		vo.setTitle(request.getParameter("title"));
+		vo.setContent(request.getParameter("content"));
+		
+		System.out.println("내부" + vo.getContent());
+		System.out.println("내부" + vo.getTitle());
+		System.out.println("내부" + vo.getNo());
+		String Path = request.getContextPath();
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
+		
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(vo.getTitle().equals("") || vo.getContent().equals("")) {
+			mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+			mav.setViewName("redirect:/board/insertForm.do");
+			
+			writer.println("<script>alert('제목 또는 내용을 입력하세요'); location.href='"+Path+"/board/insertForm.do';</script>"); 
+			writer.close();
+			
+			System.out.println("입력한 값 없음");
+		}else {
+			boardservice.editboard(vo);
+			mav.addObject("center", "/WEB-INF/views/board/board.jsp");
+			mav.setViewName("redirect:/board/listboard.do");
+			System.out.println("입력한 값 있음");
+		}
+		
+		return mav;
 	}
 	
 	

@@ -42,5 +42,11 @@ public interface BoardService {
 
 	public void editComment(BoardCommentVO cVo);
 
+	public BoardVO editForm(String no);
+
+	public void editboard(BoardVO vo);
+
+	public void delBoard(String no);
+
 
 }

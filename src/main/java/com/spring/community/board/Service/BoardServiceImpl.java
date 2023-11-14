@@ -99,6 +99,23 @@ public class BoardServiceImpl extends HttpServlet implements BoardService {
 		dao.editComment(cVo);
 	}
 
+	@Override
+	public BoardVO editForm(String no) {
+		
+		return dao.editForm(no);
+	}
+
+	@Override
+	public void editboard(BoardVO vo) {
+		dao.editboard(vo); 
+	}
+
+	@Override
+	public void delBoard(String no) {
+		dao.delBoard(no);
+		
+	}
+
 	
 
 

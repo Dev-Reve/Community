@@ -107,4 +107,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<update id="editboard" parameterType="boardVO">
+		<![CDATA[
+			UPDATE board 
+			SET title = #{title}, content = #{content}, writedate = CURRENT_DATE
+			WHERE no = #{no}
+		]]>
+	</update>
+	
+	<delete id="delComment" parameterType="String">
+		<![CDATA[
+			DELETE FROM board_comment
+			WHERE boardno = #{no}
+		]]>
+	</delete>
+	
+	<delete id="delBoard" parameterType="String">
+		<![CDATA[
+
+			DELETE FROM board
+			WHERE no = #{no}
+		]]>
+	</delete>
+	
+	
 </mapper>
