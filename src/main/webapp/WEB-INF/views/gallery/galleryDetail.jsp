@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="Path" value="${pageContext.request.contextPath}" />
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <c:set var="id" value="${member.id} " />
 <c:set var="name" value="${member.nickname} " />
 <!DOCTYPE html>
@@ -76,7 +76,7 @@
      	<div class="row" style="border-top: 1px solid gray; min-height: 400px; margin-top: 1em;">
 				<c:forEach var="fileName" items="${vo.fileName}">
 					<div>
-						  <img src="${Path}/gallery/image.do?no=${vo.no}&imageFileName=${fileName}" style="width: 100%; height: 100%; object-fit:scale-down;"><br>
+						  <img src="${path}/gallery/image.do?no=${vo.no}&imageFileName=${fileName}" style="width: 100%; height: 100%; object-fit:scale-down;"><br>
 					</div>
 			   </c:forEach>
 		</div>  	   
@@ -90,7 +90,7 @@
     
    	<div class="row">
 				<div class="col-md-12">
-					<form action="${path}/trade/regComment.do" method="post">
+					<form action="${path}/gallery/regComment.do" method="post">
 						<input type="hidden" name="boardNo" value="${vo.no}">
 						<input type="hidden" name="nickname" value="${member.nickname}">
 						<input type="text" name="content" style="width: calc(100% - 150px); float: left; height: 2.3em; border: 1px solid lightgray; padding-left: 15px;" placeholder="댓글을 입력해주세요">

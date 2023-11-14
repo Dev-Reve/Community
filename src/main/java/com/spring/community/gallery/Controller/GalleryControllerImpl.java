@@ -103,7 +103,8 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 		ModelAndView mav = new ModelAndView();
 		
 		vo = galleryservice.getGalleryInfo(no);
-		List commentList = galleryservice.getComment(no);
+		List<GalleryCommentVO> commentList = galleryservice.getComment(no);
+		mav.addObject("commentList", commentList);
 		mav.addObject("vo", vo);
 		mav.addObject("center", "/WEB-INF/views/gallery/galleryDetail.jsp");
 		mav.setViewName("main");
@@ -167,7 +168,8 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 	 public ModelAndView delComment(@RequestParam("no") int no, @RequestParam("boardNo") int boardNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		 System.out.println(no);
 		 
-		 galleryservice.delComment(no);
+		//
+		 galleryservice.delComment(no, boardNo );
 		 
 		 ModelAndView mav = new ModelAndView();
 		 

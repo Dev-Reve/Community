@@ -1,5 +1,8 @@
 package com.spring.community.gallery.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("galleryCommentVO")
 public class GalleryCommentVO {
 	
 		private int level;

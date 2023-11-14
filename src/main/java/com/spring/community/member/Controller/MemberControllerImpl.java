@@ -191,8 +191,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			session.setAttribute("member", memberVO); //조회된 회원정보 저장
 			session.setAttribute("isLogOn", true); //로그인 상태값을 true로 저장
 
-			mav.addObject("center", "/WEB-INF/views/common/First.jsp");
-			mav.setViewName("main");
+			mav.setViewName("redirect:/main/index.do");
 			
 		}else {
 			
