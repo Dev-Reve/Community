@@ -2,6 +2,7 @@ package com.spring.community.member.DAO;
 
 import java.sql.ResultSet;
 
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -72,10 +73,11 @@ public class MemberDAOImpl implements MemberDAO{
 
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
-	public MemberVO oneMember(String id) throws DataAccessException {
+	public MemberVO oneMember(MemberVO memberVO) throws DataAccessException {
 
-		  MemberVO vo = (MemberVO)sqlSession.selectOne("mapper.member.selectMemberById", id);
+		  MemberVO vo = (MemberVO)sqlSession.selectOne("mapper.member.selectMemberById", memberVO);
 		
+		  
 		  return vo;
 	}
 
@@ -89,15 +91,24 @@ public class MemberDAOImpl implements MemberDAO{
 
 	//회원로그인 처리 기능
 	@Override
-	public MemberVO loginById(MemberVO memberVO) throws DataAccessException{
+	public MemberVO loginById(Map<String, String> map) throws DataAccessException{
 		
-		System.out.println("loginById: "+memberVO.getId());
-		System.out.println("loginById: "+memberVO.getPassword());
+		System.out.println("loginById: "+map.get("id"));
+		System.out.println("loginById: "+map.get("password"));
 		
-		MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
+		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", map);
 		
 		return vo;
 	}
+
+
+	public List likelistByNick(MemberVO memberVO) throws DataAccessException{
+		
+	List<MemberVO>likeList = sqlSession.selectList("mapper.member.likelistByNick",memberVO);
+			
+			return likeList;
+	}
+
 
 	//게시글 작성자 정보 가져오기
 	@Override
@@ -112,6 +123,8 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne("mapper.member.getMemberId", nickname);
 	}
 	
-	
-	
+
+	public int idCheck(String id) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.CheckById",id);
+	}
 }//MemberDAOImpl클래스 닫는 기호 

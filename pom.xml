@@ -215,14 +215,7 @@
 			<version>1.18.26</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- WebSocket 채팅 구현을 위한 API -->
-		<dependency>
-		    <groupId>javax.websocket</groupId>
-		    <artifactId>javax.websocket-api</artifactId>
-		    <version>1.1</version>
-		    <scope>provided</scope>
-		</dependency>
-		
+
 		
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
@@ -236,6 +229,17 @@
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
 		    <version>20160810</version>
+		</dependency>
+		
+
+		
+		
+		<!-- WebSocket 채팅 구현을 위한 API -->
+		<dependency>
+		    <groupId>javax.websocket</groupId>
+		    <artifactId>javax.websocket-api</artifactId>
+		    <version>1.1</version>
+		    <scope>provided</scope>
 		</dependency>
 		
 	
@@ -276,6 +280,7 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+
             <!-- 추가된 플러그인 -->
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -285,6 +290,9 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+
         </plugins>
+        
+      
     </build>
 </project>

@@ -18,11 +18,14 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -35,6 +38,8 @@ import com.spring.community.member.service.MemberService;
 import com.spring.community.member.VO.MemberVO;
 import com.spring.community.member.DAO.MemberDAO;
 import com.spring.community.member.service.MemberServiceImpl;
+
+import net.coobird.thumbnailator.Thumbnails;
 
 //MVC중에 C  
 //사장 
@@ -71,6 +76,25 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	@Autowired
 	private MemberVO memberVO;
 	
+	//아이디중복을 눌렀을때 중복인지 아닌지 알려주는 메소드
+		@RequestMapping(value="/member/idCheck2.do", method=RequestMethod.GET)
+		public void idCheck2(@RequestParam ("id") String id,
+										HttpServletRequest request, 
+										HttpServletResponse response) 
+												throws Exception {
+		//	memberVO = memberService.idCheck(id);
+			
+			
+		}
+	//아이디중복 주소를 받았을때 팝업창 띄우는 메소드
+	@RequestMapping(value="/member/idCheck.do", method=RequestMethod.GET)
+	public String idCheck(HttpServletRequest request, 
+									HttpServletResponse response) 
+											throws Exception {
+		
+		return "/member/idCheck";
+		
+	}
 	
 	@Override
 	@RequestMapping(value="/member/myPage.do", method=RequestMethod.GET)
@@ -81,7 +105,22 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		String viewName = getViewName(request);//   /member/myPage
 		System.out.println(viewName); // /member/myPage
 		
+		
+		HttpSession session = request.getSession();
+		//세션값의 id,passowrd를 받아서
+		memberVO = (MemberVO) session.getAttribute("member");
+		System.out.println(memberVO.getId());
+		//id로 한 회원의 정보를 불러옴
+		MemberVO vo = memberService.detailMembers(memberVO);
+		System.out.println("mayPage에vo nickname:"+vo.getId());
+		System.out.println("mayPage에vo nickname:"+vo.getNickname());
+		//nickname으로 like한 게시물들을 불러옴
+		List likeList = memberService.likelist(vo);
+		System.out.println("사이즈:"+likeList.size());
+		
 		ModelAndView mav = new ModelAndView();
+					 mav.addObject("nickname",vo);
+					 mav.addObject("liksList", likeList);	
 					 mav.addObject("center", "/WEB-INF/views"+viewName +".jsp");
 					 mav.setViewName("main");
 		
@@ -164,29 +203,28 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	@Override
 	@RequestMapping(value="/member/login.do", method=RequestMethod.POST)
 							
-	public ModelAndView login(
-												//로그인실패시 리다이렉트하여 실패메시지를 전달할 객체를 매개변수로 받는다
+	public ModelAndView login(@RequestParam("id") String id,
+						        @RequestParam("password") String password,
+						        //로그인실패시 리다이렉트하여 실패메시지를 전달할 객체를 매개변수로 받는다
 												  RedirectAttributes rAttr,
 												  HttpServletRequest request,
 												  HttpServletResponse response
 												  )throws Exception {
-		
-		
-		ModelAndView mav = new ModelAndView();
-		
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		memberVO.setId(id);
 		System.out.println(id);
-		memberVO.setPassword(password);
 		System.out.println(password);
 		
+		ModelAndView mav = new ModelAndView();
+
+		Map<String, String> loginInfo = new HashMap<>();
 		
+		loginInfo.put("id",id);
+		loginInfo.put("password", password);
 		
-		memberVO = memberService.login(memberVO);
-		
+
+			memberVO = memberService.login(loginInfo);
+			
 		//입력한 아디비번에 해당하는 회원정보가 조회가 되면?
-		if(memberVO != null) {
+		if(memberVO != null) {	
 			HttpSession session = request.getSession();
 			session.setAttribute("member", memberVO); //조회된 회원정보 저장
 			session.setAttribute("isLogOn", true); //로그인 상태값을 true로 저장
@@ -195,7 +233,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			
 		}else {
 			
-			rAttr.addAttribute("result","loginFailed");//로그인 실패시 시랲메세지를 로그인창으로 전달하기 위해 저장
+			rAttr.addFlashAttribute("result","loginFailed");//로그인 실패시 시랲메세지를 로그인창으로 전달하기 위해 저장
 			mav.setViewName("redirect:/member/loginForm.do");
 		}
 		return mav;
@@ -267,6 +305,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			//파일을 해당 폴더로 이동
 			file.transferTo(dest);
 			
+
 	       //부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 INSERT명령!
 	 		memberService.addMembers(map);
 	 		
@@ -275,7 +314,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		System.out.println(viewName); 	
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
+		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
 		mav.setViewName("main");
 			
 		//회원가입 후 모든회원을 조회 하는 재요청 주소 작성 
@@ -312,15 +351,21 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		
 		request.setCharacterEncoding("UTF-8");
 			
-		//요청한 값(수정할 회원을 조회 하기 위한 아이디값) 얻기
-		String id = request.getParameter("id");
+		String viewName = getViewName(request);
 		
-		//부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 SELECT명령!
-		MemberVO vo = memberService.detailMembers(id);		 
 		
+		HttpSession session = request.getSession();
+		memberVO = (MemberVO) session.getAttribute("member"); //조회된 회원정보 불러오기
+		
+		System.out.println("세션에서받아온 한명의 회원정보 vo:"+memberVO);
+		
+		MemberVO vo = memberService.detailMembers(memberVO);		 
+		System.out.println("detail에vo nickname:"+vo.getNickname());
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("membervo",vo);
-		mav.setViewName( getViewName(request) ); // /memberDetail
+		mav.addObject("memberVO",vo);
+		
+		mav.addObject("center", "/WEB-INF/views"+viewName +".jsp");
+		 mav.setViewName("main");
 	 
 		return mav;
 		
@@ -330,20 +375,67 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	//수정 요청 /member/UpdateMember.do 주소를 받았을때
 	@Override
 	@RequestMapping(value="/member/UpdateMember.do", method=RequestMethod.POST)
-	public ModelAndView UpdateMember(@ModelAttribute("member") MemberVO member,
-									 HttpServletRequest request, 
+	public ModelAndView UpdateMember(MultipartHttpServletRequest multipartRequest,
 									 HttpServletResponse response) throws Exception {
 
 		
-		request.setCharacterEncoding("UTF-8");
+		//업로드할 파일명 또는 입력한 데이터가 한글일 경우 인코딩 방식 UTF-8로 설정
+		multipartRequest.setCharacterEncoding("UTF-8");
 		
+		//파일업로드후 반환된 파일이름 배열로 반환
+		List fileList = fileProcess(multipartRequest);
+		
+		String id = multipartRequest.getParameter("id");
+         String password = multipartRequest.getParameter("password");
+         String name = multipartRequest.getParameter("name");
+         String ssn = multipartRequest.getParameter("ssn");
+         String nickname = multipartRequest.getParameter("nickname");
+         String email = multipartRequest.getParameter("email");
+         String addr1 = multipartRequest.getParameter("addr1");
+         String addr2 = multipartRequest.getParameter("addr2");
+         String addr3 = multipartRequest.getParameter("addr3");
+         String addr4 = multipartRequest.getParameter("addr4");
+         String fileName = (String) fileList.get(0);
+         String fileRealName = (String) fileList.get(0);
+    
+         System.out.println(id);
+         System.out.println(password);
+         System.out.println(name);
+         System.out.println(ssn);
+         System.out.println(nickname);
+         System.out.println(email);
+         System.out.println(addr1);
+         System.out.println(addr2);
+         System.out.println(addr3);
+         System.out.println(addr4);
+         System.out.println(fileName);
+         System.out.println(fileRealName);
+         
+         
+         
+         memberVO.setId(id);
+         memberVO.setPassword(password);
+         memberVO.setName(name);
+         memberVO.setSsn(ssn);
+         memberVO.setNickname(nickname);
+         memberVO.setEmail(email);
+         memberVO.setAddr1(addr1);
+         memberVO.setAddr2(addr2);
+         memberVO.setAddr3(addr3);
+         memberVO.setAddr4(addr4);
+         memberVO.setFileName(fileName);
+         memberVO.setFileName(fileRealName);
 		//부장 MemberServiceImpl객체의 메소드 호출시 수정할 id를 전달하여 UPDATE명령!
-		memberService.UpdateMember(member);		 
+		memberService.UpdateMember(memberVO);		
+		System.out.println("수정할 vo:"+memberVO);
+		String viewName = getViewName(multipartRequest);
+		ModelAndView mav = new ModelAndView();
 			
 		//회원 수정후 모든회원을 조회 하는 재요청 주소 작성 
-		return  new ModelAndView("redirect:/member/listMembers.do");
+		mav.addObject("center", "/WEB-INF/views/member/myPage.jsp");
+		mav.setViewName("main");
 		
-	
+		return mav;
 	}
 	
 	//이미지 다운로드 요청
@@ -514,6 +606,8 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			
 			return fileList;//업로드한 파일명들이 저장된 ArrayList배열 반환 
 		}
+
+	
 
 
 
