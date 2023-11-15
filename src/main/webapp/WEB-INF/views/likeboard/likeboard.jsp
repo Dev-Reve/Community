@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<c:set var="Path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +76,6 @@
                 <tr align="center">
                     <th>글 번호</th>
                     <th>글 제목</th>
-                    <th>글 내용</th>
                     <th>작성일</th>
                     <th>작성자</th>
                     <th>조회수</th>
@@ -84,8 +83,7 @@
                 <c:forEach items="${boardList}" var="blist">
                     <tr>
                         <td>${blist.no}</td>
-                        <td>${blist.title}</td>
-                        <td>${blist.content}</td>
+                        <td><a href="${Path}/board/boardInfo.do?no=${blist.no}&name=${member.name}">${blist.title}</a></td>
                         <td>${blist.nickname}</td>
                         <td>${blist.writedate}</td>
                         <td>${blist.readcount}</td>
@@ -100,7 +98,6 @@
                 <tr align="center">
                     <th>글 번호</th>
                     <th>글 제목</th>
-                    <th>글 내용</th>
                     <th>작성일</th>
                     <th>작성자</th>
                     <th>조회수</th>
@@ -108,8 +105,7 @@
                 <c:forEach items="${tradeList}" var="tlist">
                     <tr>
                         <td>${tlist.no}</td>
-                        <td>${tlist.title}</td>
-                        <td>${tlist.content}</td>
+                        <td><a href="${Path}/trade/tradeDetail.do?no=${tlist.no}">${tlist.title}</a></td>
                         <td>${tlist.nickname}</td>
                         <td>${tlist.writedate}</td>
                         <td>${tlist.readcount}</td>
