@@ -18,7 +18,8 @@ public interface MemberDAO {
 	//회원 삭제 기능 
 	public void DeleteMember(String id) throws DataAccessException;
 
-
+	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
+	public MemberVO oneMember(MemberVO vo) throws DataAccessException;
 
 	//회원정보 수정 기능
 	public void UpdateMember(MemberVO vo) throws DataAccessException;
@@ -26,24 +27,18 @@ public interface MemberDAO {
 	//회원로그인 처리 기능
 	public MemberVO loginById(Map<String, String> loginInfo) throws DataAccessException;
 
-
-	MemberVO oneMember(MemberVO memberVO) throws DataAccessException;
-
-	//like한 리스트 불러오는 메소드
-	public List likelistByNick(MemberVO memberVO);
-
-	
-
 	//거래 게시글 작성자의 정보를 가져오는 기능
 	public MemberVO getMemberInfo(int no) throws DataAccessException;
 
 	public MemberVO getMemberId(String nickname) throws DataAccessException;
 
+	public MemberVO selectMember(String id) throws DataAccessException;
+
+	public MemberVO kakaoLogin(MemberVO vo) throws DataAccessException;
+
+	public void insertNewKakaoMember(Map map) throws DataAccessException;
+
+	public List likelistByNick(MemberVO memberVO) throws DataAccessException;
 	
-	//
-	
-	//
-	
-	//
 	
 }

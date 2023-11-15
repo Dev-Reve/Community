@@ -28,14 +28,13 @@ public class MemberVO {
 	private String addr3;
 	private String addr4;
 	private String fileName;
-	private String fileRealName;
 	
 	public MemberVO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public MemberVO(String id, String password, String name, String ssn, String nickname, String email, String addr1,
-			String addr2, String addr3, String addr4, String fileName, String fileRealName) {
+			String addr2, String addr3, String addr4, String fileName) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -48,7 +47,6 @@ public class MemberVO {
 		this.addr3 = addr3;
 		this.addr4 = addr4;
 		this.fileName = fileName;
-		this.fileRealName = fileRealName;
 	}
 
 	public String getId() {
@@ -139,21 +137,4 @@ public class MemberVO {
 		this.fileName = fileName;
 	}
 	
-	public String getFileRealName() {
-		return fileName;
-	}
-
-	public void setFileRealName(String fileName) {
-		this.fileName = fileName;
-	}
-
 }
-
-
-
-
-
-
-
-
-

@@ -108,26 +108,44 @@
 		</style>
 	</head>
 	<body class="is-preload">
-			                                                            
-	<div id="mainbox">	
-			<form action="${path}/member/addMember.do" method="post" enctype="multipart/form-data">
-				
-				아이디<input type="text" name="id" id="id"/>
-				<input type="button" value="아이디 중복 검사" onClick="checkid()"/>
-				<br>
-				비밀번호<input type="password" name="password"/>
-				이름<input type="text" name="name"/>
-				주민등록번호<input type="text" name="ssn"/>
-				닉네임<input type="text" name="nickname"/>
-				이메일<input type="text" name="email"/>
-				주소<input type="text" id="sample6_postcode" name="addr1" placeholder="우편번호">
-				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="sample6_address" name="addr2" placeholder="주소"><br>
-				<input type="text" id="sample6_detailAddress" name="addr3" placeholder="상세주소">
-				<input type="text" id="sample6_extraAddress" name="addr4" placeholder="참고항목"><br><br>
-				프로필사진<input type="file" name="fileName"/><br><br>
-				<input type="submit" value="회원가입하기"/>
-			</form>
+	<c:set var="map" value="${map}" />          
+	<div id="mainbox">
+	<c:choose>
+	  <c:when test="${map eq null}">
+	 	<form class="form" action="${path}/member/addMember.do" method="post" enctype="multipart/form-data">
+	  </c:when>
+	  <c:when test="${map ne null}">
+		<form class="form" action="${path}/member/addKakaoMember.do" method="post" enctype="multipart/form-data">
+	  </c:when>
+	</c:choose>
+		  <span class="title">회원가입</span>
+		  <span class="sub mb">만나서 반갑습니다:)</span>
+		 <input id="file" type="file" name="fileName" onchange="setThumbnail(event);">
+		  <label class="avatar" for="file">
+		  		<span> 
+		  			<c:if test="${map ne null}">
+			  			<img id="thumbnail" src="${map.fileName}" alt="" style="border-radius: 50%; object-fit: cover;">
+			  			<input type="hidden" name="imgURL" value="${map.fileName}">
+		  			</c:if>
+		  			<c:if test="${map eq null}">
+			  			<svg id="reset" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path fill="#ffffff" d="M17.1813 16.3254L15.3771 14.5213C16.5036 13.5082 17.379 12.9869 18.2001 12.8846C19.0101 12.7837 19.8249 13.0848 20.8482 13.8687C20.8935 13.9034 20.947 13.9202 21 13.9202V15.024C21 19.9452 19.9452 21 15.024 21H8.976C4.05476 21 3 19.9452 3 15.024V13.7522C3.06398 13.7522 3.12796 13.7278 3.17678 13.679L4.45336 12.4024C5.31928 11.5365 6.04969 10.8993 6.71002 10.4791C7.3679 10.0605 7.94297 9.86572 8.50225 9.86572C9.06154 9.86572 9.6366 10.0605 10.2945 10.4791C10.9548 10.8993 11.6852 11.5365 12.5511 12.4024L16.8277 16.679C16.9254 16.7766 17.0836 16.7766 17.1813 16.679C17.2789 16.5813 17.2789 16.423 17.1813 16.3254Z" opacity="0.1"></path> <path stroke-width="2" stroke="#ffffff" d="M3 8.976C3 4.05476 4.05476 3 8.976 3H15.024C19.9452 3 21 4.05476 21 8.976V15.024C21 19.9452 19.9452 21 15.024 21H8.976C4.05476 21 3 19.9452 3 15.024V8.976Z"></path> <path stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M17.0045 16.5022L12.7279 12.2256C9.24808 8.74578 7.75642 8.74578 4.27658 12.2256L3 13.5022"></path> <path stroke-linecap="round" stroke-width="2" stroke="#ffffff" d="M21.0002 13.6702C18.907 12.0667 17.478 12.2919 15.1982 14.3459"></path> <path stroke-width="2" stroke="#ffffff" d="M17 8C17 8.55228 16.5523 9 16 9C15.4477 9 15 8.55228 15 8C15 7.44772 15.4477 7 16 7C16.5523 7 17 7.44772 17 8Z"></path> </g></svg>		  
+			  			<img id="thumbnail" src="" alt="">
+		  			</c:if>
+		  		</span>	  		
+		  	</label>
+		    <input type="text" name="id" placeholder="아이디를 입력해주세요" <c:if test="${map.id ne ''}"> value="${map.id}" readonly</c:if> >
+		    <input type="password" name="password" placeholder="비밀번호를 입력해주세요"> 
+		    <input type="text" name="name" placeholder="이름을 입력해주세요" <c:if test="${map.name ne ''}">value="${map.name}" readonly</c:if> >
+		    <input type="text" name="ssn" placeholder="주민등록번호를 하이픈(-)을 포함하여 입력해주세요">
+		    <input type="text" name="nickname" placeholder="닉네임을 입력해주세요">
+		    <input type="email" name="email" placeholder="이메일을 입력해주세요" <c:if test="${map.email ne ''}">value="${map.email}"</c:if> >
+		    <input type="text" id="sample6_postcode" name="addr1" placeholder="우편번호">
+			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input type="text" id="sample6_address" name="addr2" placeholder="주소"><br>
+			<input type="text" id="sample6_detailAddress" name="addr3" placeholder="상세주소">
+			<input type="text" id="sample6_extraAddress" name="addr4" placeholder="참고항목"><br><br>
+		    <input type="submit" value="회원가입하기"/>
+		</form>
 	</div>	
 					
 

@@ -3,12 +3,15 @@ package com.spring.community.member.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.spring.community.member.VO.MemberVO;
+import com.spring.community.member.VO.OAuthToken;
 import com.spring.community.member.DAO.MemberDAO;
 
 //부장 
@@ -25,7 +28,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;// = new MemberDAOImpl();
 	
-
 	//모든 회원 정보 조회 기능 
 	@Override
 	public List listMembers() throws DataAccessException {
@@ -41,31 +43,31 @@ public class MemberServiceImpl implements MemberService {
 	//회원 가입 기능
 	@Override
 	public void addMembers(Map map) throws DataAccessException{
-		
 		memberDAO.InsertMember(map);
-		
 	}
 
 	//회원 삭제 기능 
 	@Override
 	public void delMembers(String id) throws DataAccessException {
-		
 		memberDAO.DeleteMember(id);
 	}
 
+	@Override
+	//like한 리스트불러오는메소드
+	public List likelist(MemberVO memberVO) throws Exception {
+		return memberDAO.likelistByNick(memberVO);
+	
+	}
+	
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
-	public MemberVO detailMembers(MemberVO memberVO) throws DataAccessException {
-	
-		
-		return memberDAO.oneMember(memberVO);
+	public MemberVO detailMembers(MemberVO vo) throws DataAccessException {
+		return memberDAO.oneMember(vo);
 	}
 
 	//회원정보 수정 기능 
 	@Override
 	public void UpdateMember(MemberVO vo) throws DataAccessException {
-		
-		
 		memberDAO.UpdateMember(vo);
 	}
 	
@@ -75,14 +77,6 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.loginById(loginInfo);
 	}
 	
-
-	@Override
-	//like한 리스트불러오는메소드
-	public List likelist(MemberVO memberVO) throws Exception {
-		return memberDAO.likelistByNick(memberVO);
-	
-	}
-
 	//거래게시글에서 글쓴이의 정보를 가져오는 기능
 	@Override
 	public MemberVO getMemberInfo(int no) throws Exception {
@@ -94,16 +88,21 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.getMemberId(nickname);
 	}
 	
-	//public int idCheck(String id)throws Exception {
-	//	return memberDAO.idCheck(id);
-	//}
+	@Override
+	public MemberVO selectMember(String id) throws Exception {
+		return memberDAO.selectMember(id);
+	}
 
+	@Override
+	public MemberVO kakaoLogin(MemberVO vo) throws Exception {
+		
+		return memberDAO.kakaoLogin(vo);
+	}
+
+	@Override
+	public void addKakaoMember(Map map) throws Exception {
+		System.out.println("카카오 서비스");
+		memberDAO.insertNewKakaoMember(map);
+	}
 	
-
-
 }
-
-
-
-
-

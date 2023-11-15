@@ -1,4 +1,4 @@
-package com.spring.community.controller.main;
+package com.spring.community.main.mainController;
 
 import java.io.IOException;
 import java.util.Collections;

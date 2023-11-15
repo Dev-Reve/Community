@@ -254,6 +254,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	@RequestMapping(value = "/trade/imageList.do")
 	public void download(@RequestParam("imageFileName") String imageFileName,
 				   	 	 @RequestParam("no") int no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		//사진을 내려받기 위한 출력 스트림 통로 객체 생성
 		OutputStream out = response.getOutputStream();
 		//사진이 저장된 경로를 찾아가기 위해 절대 경로 저장 
@@ -402,7 +403,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 		map.put("fileList", fileNames);
 		
 		String noStr = (String)map.get("no");
-		System.out.println("no: " + noStr);
+//		System.out.println("no: " + noStr);
 		int no = Integer.parseInt(noStr);
 		
 		tradeService.modTradeBoard(map);

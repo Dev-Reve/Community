@@ -6,6 +6,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="<%=request.getContextPath()%>" />
 <c:set var="vo" value="${vo}" />
+<c:set var="isKakao" value="${isKakao}" />
+<c:set var="fileName" value="${fileName}" />
 
 <!DOCTYPE html>
 <html>
@@ -192,8 +194,7 @@
 		  			</div>
 					<div class="col-md-8">
 						<a id="kakaotalk-sharing-btn" href="javascript:kakaoShare();" style="float: right; ">
-						  	<img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-						    alt="카카오톡 공유 보내기 버튼"  style="width: 48px; height: 48px;"/>
+						  	<img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" alt="카카오톡 공유 보내기 버튼"  style="width: 48px; height: 48px;"/>
 						</a>
 						<h4>${vo.title}</h4>
 						<small>가격: ${vo.price}원</small>
@@ -216,7 +217,7 @@
 			</form>
 			<div class="row" style="border-top: 1px solid gray; min-height: 400px; border-bottom: 1px solid gray; margin-top: 1em;">
 				<div class="col-md-12">
-					${vo.content}
+					<c:out value="${vo.content}" /> 
 				</div>
 			</div>
 			
@@ -254,7 +255,7 @@
 						<div class="col-md-12">
 							<div style="float: left; line-height: 2em; margin-left: 1em; width: calc(100% - 125px); ">
 							<img src="${path }/member/download.do?nickname=${list.nickname}" style="width: 30px; height: 30px; border-radius: 60%; float: left; object-fit: scale-down; border: 1px solid lightgray; margin-right: 1em; background: white;">
-								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp;
+								<b>${list.nickname}</b> | <small>${list.writeDate}</small> &nbsp;&nbsp; 
 								<c:if test="${not empty member.id}">
 									<small><a href="javascript:recommentForm(${loop.index}, ${list.no})"><i class="fa-regular fa-comment"></i></a></small> &nbsp;
 								</c:if>
@@ -327,7 +328,7 @@
 			
 			function like() {
 				var nickname = '${member.nickname}';
-				alert('좋아여~\r\n' + nickname);
+// 				alert('좋아여~\r\n' + nickname);
 				
 				if(nickname.length == 0 && nickname== '') {
 					alert('로그인이 필요한 기능입니다.');

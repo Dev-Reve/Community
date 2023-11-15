@@ -23,7 +23,6 @@
 		<result property="addr3" column="addr3"/>
 		<result property="addr4" column="addr4"/>
 		<result property="fileName" column="fileName"/>
-		<result property="fileRealName" column="fileRealName"/>
 		
 	</resultMap>
 	
@@ -34,7 +33,6 @@
 			select * from member
 		]]>		
 	</select>
-	
 	
 	<!-- 회원정보를 등록하기 위해 받아온 매개변수 타입이 memberVO이기 때문에 아래의 parameterType속성 값으로
 		  매개변수로 지정했던 memberVO값을 설정 -->
@@ -54,8 +52,6 @@
 		]]>
 	</select>
 	
-
-
    <!--  parameterType속성에는 값으로 MemberDAO파일에서 selectOne메소드 호출시 전달되는 값의 타입을 적어준다 -->
    <!--  resultType속성에는 값으로 조회된 한행(레코드)를 MembeVO객체의 각변수에 저장하기 위해  memberVO별칭을 적어준다 -->	
   	<select id="selectMemberById" parameterType="memberVO" resultType="memberVO">
@@ -63,7 +59,6 @@
   			select * from member where id = #{id}
   		]]>
   	</select>
-	
 	
 	<!-- 업데이트멤버바이아이디 -->
 	<select id="updateMember" parameterType="memberVO" resultType="memberVO">
@@ -100,10 +95,31 @@
 	</select>
 
 	
+	<select id="selectMember" resultType="memberVO" parameterType="String">
+		<![CDATA[
+			SELECT * FROM member WHERE id = #{id}
+		]]>
+	</select>
+	
+	<select id="kakaoLogin" resultType="memberVO" parameterType="memberVO">
+		<![CDATA[
+			SELECT * FROM member WHERE id = #{id}
+		]]>
+	</select>
+	
+	<insert id="insertKakaoMember" parameterType="java.util.HashMap">
+		<!-- memberVO에 저장된 변수명들을 작성하기 위해서는 #{VO에 저장된 변수명}으로 작성 -->
+		<!-- update문이나 delete문도 동일하게 작성하면 됨 -->
+		<![CDATA[
+			insert into member(id, password, name, ssn, nickname, email, addr1, addr2, addr3, addr4, fileName)
+			values (#{id}, #{password}, #{name}, #{ssn}, #{nickname}, #{email}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{fileName})
+		]]>
+	</insert>
+	
 	<select id="likelistByNick" parameterType="memberVO" resultType="likeboardVO">
   		<![CDATA[
-  				select t.no,l.nickname, t.title   from likes l, trade t
-        	where l.tradeono = t.no and l.nickname= #{nickname}
+  			select t.no,l.nickname, t.title   from likes l, trade t
+        	where l.tradeno = t.no and l.nickname= #{nickname}
   		]]>
   	</select>
 

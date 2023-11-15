@@ -2,7 +2,6 @@ package com.spring.community.member.DAO;
 
 import java.sql.ResultSet;
 
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -74,11 +73,12 @@ public class MemberDAOImpl implements MemberDAO{
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
 	public MemberVO oneMember(MemberVO memberVO) throws DataAccessException {
-
-		  MemberVO vo = (MemberVO)sqlSession.selectOne("mapper.member.selectMemberById", memberVO);
-		
-		  
-		  return vo;
+		  return sqlSession.selectOne("mapper.member.selectMemberById", memberVO);
+	}
+	
+	public List likelistByNick(MemberVO memberVO) throws DataAccessException{
+		List<MemberVO>likeList = sqlSession.selectList("mapper.member.likelistByNick",memberVO);
+		return likeList;
 	}
 
 	//회원정보 수정기능 
@@ -92,28 +92,14 @@ public class MemberDAOImpl implements MemberDAO{
 	//회원로그인 처리 기능
 	@Override
 	public MemberVO loginById(Map<String, String> map) throws DataAccessException{
-		
 		System.out.println("loginById: "+map.get("id"));
 		System.out.println("loginById: "+map.get("password"));
-		
-		MemberVO vo = sqlSession.selectOne("mapper.member.loginById", map);
-		
-		return vo;
+		return sqlSession.selectOne("mapper.member.loginById", map);
 	}
-
-
-	public List likelistByNick(MemberVO memberVO) throws DataAccessException{
-		
-	List<MemberVO>likeList = sqlSession.selectList("mapper.member.likelistByNick",memberVO);
-			
-			return likeList;
-	}
-
 
 	//게시글 작성자 정보 가져오기
 	@Override
 	public MemberVO getMemberInfo(int no) throws DataAccessException {
-		System.out.println("DAO에서 받아온 no값: " + no);
 		return sqlSession.selectOne("mapper.member.getMemberInfo", no);
 	}
 	
@@ -123,8 +109,19 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne("mapper.member.getMemberId", nickname);
 	}
 	
-
-	public int idCheck(String id) throws DataAccessException {
-		return sqlSession.selectOne("mapper.member.CheckById",id);
+	@Override
+	public MemberVO selectMember(String id) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.selectMember", id);
 	}
+	
+	@Override
+	public MemberVO kakaoLogin(MemberVO vo) throws DataAccessException {
+		return sqlSession.selectOne("mapper.member.kakaoLogin", vo);
+	}
+	
+	@Override
+	public void insertNewKakaoMember(Map map) throws DataAccessException {
+		sqlSession.insert("mapper.member.insertKakaoMember", map);
+	}
+	
 }//MemberDAOImpl클래스 닫는 기호 
