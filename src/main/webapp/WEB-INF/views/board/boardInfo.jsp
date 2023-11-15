@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="Path" value="${pageContext.request.contextPath}" />
-<c:set var="id" value="${member.id} " />
-<c:set var="name" value="${member.nickname} " />
+<c:set var="id" value="${member.id}" />
+<c:set var="name" value="${member.nickname}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>글 상세보기</title>
 <style>
     .styled-table {
         border-collapse: collapse;
@@ -48,6 +48,37 @@
       width: 90%;
       display: none; /* 초기에는 숨겨진 상태로 설정 */
     }
+    
+    .comment-input2 {
+      width: 90%;
+      display: none; /* 초기에는 숨겨진 상태로 설정 */
+    }
+
+  .comment-container {
+    width: 70%;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+
+  .comment h6 {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .comment p {
+    margin: 0;
+    font-size: 14px;
+  }
 </style>
 <script type="text/javascript">
 function area() {
@@ -57,7 +88,16 @@ function area() {
     } else {
       commentInput.style.display = 'none'; // 숨깁니다.
     }
-  }
+}
+
+function area2() {
+    var commentInput2 = document.querySelector('.comment-input2');
+    if (commentInput2.style.display === 'none') {
+      commentInput2.style.display = 'block'; // 보이게 만듭니다.
+    } else {
+      commentInput2.style.display = 'none'; // 숨깁니다.
+    }
+}
 </script>
 </head>
 <body>
@@ -90,28 +130,92 @@ function area() {
             <hr>
         </c:when>
         <c:otherwise>
-            <p>등록된 파일이 없습니다.</p>
+            <p></p>
             <hr>
         </c:otherwise>
     </c:choose>
     
-   	<b>댓글(0) <a href="javascript:void(0);" onclick="area()"> + </a></b><br>
-    <div class="comment-input">
-      <input type="text" name="comment" style="width: 90%;"> 
-      <a href="${Path}/board/addCommnet.do?no=${boardInfo.no}">댓글 작성</a> </div>
+    <div class="comment-container">
+        <c:forEach var="comment" items="${commentList}">
+            <div class="comment">
+                <c:choose>
+                    <c:when test="${member.name == comment.nickName}">
+                        <h6>${comment.nickName}&nbsp;&nbsp;&nbsp;${comment.writeDate}&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0);" onclick="area2()">수정</a>&nbsp;
+                            <a href="${Path}/board/delComment.do?no=${comment.no}">삭제</a></h6>
+                        
+                        <div class="comment-input2">
+                            <form action="${Path}/board/editComment.do" method="GET">
+                                <input type="hidden" name="cno" value="${comment.no}">
+                                <input type="hidden" name="bno" value="${boardInfo.no}">
+                                <input type="text" name="comment" style="width: 90%;" value="${comment.content}">
+                                <button type="submit">댓글 수정</button>
+                            </form>
+                        </div>
+                        
+                        <p>${comment.content}</p><hr>
+                    </c:when>
+                    <c:otherwise>
+                        <h6>${comment.nickName}&nbsp;&nbsp;&nbsp;${comment.writeDate}</h6>
+                        <p>${comment.content}</p><hr>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </c:forEach>
+    </div>
+    
+    <b>댓글</b>
+	<c:choose>
+	    <c:when test="${empty member.nickname}">
+	        <!-- name이 null이거나 empty일 때의 처리 -->
+	    </c:when>
+	    <c:otherwise>
+	        <!-- name이 null이 아니고 값이 있을 때의 처리 -->
+	        <a href="javascript:void(0);" onclick="area()"> + </a><br>
+	        <div class="comment-input">
+	            <!-- 댓글 입력 폼이 여기에 표시되어야 함 -->
+	            <form action="${Path}/board/addComment.do" method="GET">
+		            <input type="hidden" name="no" value="${boardInfo.no}">
+		            <input type="hidden" name="name" value="${member.name}">
+		            <input type="text" name="comment" style="width: 90%;">
+		            <button type="submit">댓글 작성</button>
+		        </form>
+	        </div>
+	    </c:otherwise>
+	</c:choose>
+    
     <hr>
+    
     <c:choose>
-    	<c:when test="${nextTitle.next != '없음'}">
-    		다음글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no+1}">${nextTitle.next}</a><br>
-    	</c:when>
-    	<c:otherwise>
-    		다음글 : 다음 글이 없습니다. <br>
-    	</c:otherwise>
+        <c:when test="${nextTitle.next != '없음'}">
+            다음 글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no+1}&name=${member.name}">${nextTitle.next}</a><br>
+        </c:when>
+        <c:otherwise>
+            다음 글 : 다음 글이 없습니다. <br>
+        </c:otherwise>
     </c:choose>
     
-    	이전글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no-1}">${nextTitle.before}</a>
+    <c:choose>
+        <c:when test="${nextTitle.before != '없음'}">
+            이전 글 : <a href="${Path}/board/boardInfo.do?no=${boardInfo.no-1}&name=${member.name}">${nextTitle.before}</a><br>
+        </c:when>
+        <c:otherwise>
+            이전 글 : 이전 글이 없습니다.
+        </c:otherwise>
+    </c:choose>
+    
     <hr>
-    <a href="${Path}/board/listboard.do">목록으로 가기</a>
-</body>
+    <a href="${Path}/board/listboard.do">목록으로 가기</a>&nbsp;&nbsp;&nbsp;
 
+        <c:choose>
+	        <c:when test="${member.name == boardInfo.nickName}">
+	           <a href="${Path}/board/editForm.do?no=${boardInfo.no}">글 수정</a>&nbsp;
+				<a href="${Path}/board/delboard.do?no=${boardInfo.no}">글 삭제</a>
+	        </c:when>
+        <c:otherwise>
+            
+        </c:otherwise>
+    </c:choose>
+
+</body>
 </html>

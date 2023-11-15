@@ -43,24 +43,24 @@
 	</div> <!-- 옵션선택 끝 -->
 	
 	
-	<table border="1">
-		<tr>
-			<th>글 번호</th>
-            <th>글 제목</th>
-            <th>작성일</th>
-            <th>작성자</th>
-            <th>조회수</th>	
-		</tr>
-		<c:forEach items="${boardlist}" var="list">
-			<tr>
-				<td>${list.no }</td>
-				<td><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${member.name}">${list.title}</a></td>
-				<td>${list.writeDate } </td>
-				<td>${list.nickName }</td>
-				<td>${list.readCount }</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<table id="board" style="border-collapse: collapse; width: 100%; margin-top: 20px; text-align: center;">
+    <tr style="background-color: #f2f2f2;">
+        <th style="padding: 10px; border: 1px solid #ddd;">글 번호</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">글 제목</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">작성일</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">작성자</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">조회수</th>
+    </tr>
+    <c:forEach items="${boardlist}" var="list">
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.no }</td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${member.name}">${list.title}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.writeDate }</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.nickName }</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.readCount }</td>
+        </tr>
+    </c:forEach>
+</table>
 	<c:choose>
 		<c:when test="${member.id == null}">
 		</c:when>

@@ -1,5 +1,6 @@
 package com.spring.community.board.BoardDAO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.community.board.BoardVO.BoardCommentVO;
 import com.spring.community.board.BoardVO.BoardVO;
 import com.spring.community.board.Utils.PagerVO;
 import com.spring.community.board.Utils.PagingVO;
@@ -98,6 +100,7 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		
 		sqlSession.insert("mapper.board.addBoard", boardVO);
 
+
 	}
 
 	@Override
@@ -119,7 +122,12 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		}
 		
 		before = sqlSession.selectOne("mapper.board.beforeTitle", no);
-		nextTitle.put("before", before);
+		
+		if(before == null) {
+			nextTitle.put("before", "없음");
+		} else {
+			nextTitle.put("before", before);
+		}
 		
 		System.out.println("다음 글 " + nextTitle.get("next"));
 		System.out.println("이전 글 " + nextTitle.get("before"));
@@ -127,8 +135,71 @@ public class BoardDAOImpl extends HttpServlet implements BoardDAO {
 		return nextTitle;
 	}
 
+	@Override
+	public List<BoardCommentVO> commentList(BoardCommentVO cVo) {
+		
+		List<BoardCommentVO> commentList = new ArrayList<BoardCommentVO>();
+		
+		commentList = sqlSession.selectList("mapper.boardcomment.commentList", cVo);
+		
+		System.out.println("댓글 다오 안쪽 : " + commentList);
+		
+		return commentList;
+	}
 
-	
-	
-	
+	@Override
+	public void addComment(BoardCommentVO cVo) {
+		
+		System.out.println("다오 내용" + cVo.getContent());
+		System.out.println("다오 주 글 번호" + cVo.getBoardNo());
+		System.out.println("다오 댓글작성 유저" + cVo.getNickName());
+		
+		
+		sqlSession.insert("mapper.boardcomment.addComment", cVo);
+		
+		
+	}
+
+	@Override
+	public void delComment(String no) {
+		sqlSession.update("mapper.boardcomment.delComment", no);
+//		sqlSession.commit();
+		 
+	}
+
+	@Override
+	public void editComment(BoardCommentVO cVo) {
+		
+		sqlSession.update("mapper.boardcomment.editComment", cVo);
+//		sqlSession.commit();
+		
+	}
+
+	@Override
+	public BoardVO editForm(String no) {
+		
+		return sqlSession.selectOne("mapper.board.getBoardInfo", no);
+	}
+
+	@Override
+	public void editboard(BoardVO vo) {
+		sqlSession.update("mapper.board.editboard", vo);
+//		sqlSession.commit();
+	}
+
+	@Override
+	public void delBoard(String no) {
+		sqlSession.update("mapper.board.delComment", no);
+		System.out.println("댓글삭제완료");
+		sqlSession.update("mapper.board.delBoard", no);
+		System.out.println("글삭제완료");
+		
+//		sqlSession.commit();
+	}
+
+
+
+
+
+
 }
