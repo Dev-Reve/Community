@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -96,6 +97,19 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 
 		return mav;
 	}
+	@Override
+	@RequestMapping(value="/gallery/delGall.do")
+	public ModelAndView GalleryDell(@RequestParam int no) throws Exception{
+		  
+		ModelAndView mav = new ModelAndView();
+		
+		galleryservice.delgallery(no);
+		
+		
+		mav.setViewName("redirect:/gallery/main.do");
+		return mav;
+	}
+	
 	
 	@Override
 	@RequestMapping(value="/gallery/galleryDetail.do")

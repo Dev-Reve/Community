@@ -47,4 +47,9 @@ public class GalleryServiceImpl implements GalleryService {
 	public void delComment(int no) {
 		galleryDao.delComment(no);
 	}
+	
+	@Override
+	public void delgallery(int no) {
+		galleryDao.delGallery(no);	
+	}
 }
