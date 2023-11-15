@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-<<<<<<< HEAD
-                                                        	
-    
-    
-    
-    
-=======
-                                                    	
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+                                                            	
     
     
     
@@ -17,57 +9,39 @@
     
     
     
-<<<<<<< HEAD
+    
+    
+    
+    
+    
     <wb-module deploy-name="sample">
-                                                        
-=======
-    
-    
-    
-    <wb-module deploy-name="community-1.0.0-BUILD-SNAPSHOT">
-                                                
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+                                                                
         
         
-        
-        
-<<<<<<< HEAD
-        
-        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                        
-        
-=======
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                                                
         
         
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+                                                                
+        
+        
         
         
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-<<<<<<< HEAD
-                                                        
+                                                                
         
-=======
-                                                
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+        
         
         
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-<<<<<<< HEAD
-                                                                                                                		
+                                                                                                                        		
         
-=======
-                                                                                                        		
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+        
         
         
         
@@ -81,15 +55,11 @@
         
         
         <property name="java-output-path" value="target/classes"/>
-<<<<<<< HEAD
-        <property name="context-root" value="community"/>
-                                                                                                                	
-    
-=======
                 
         <property name="context-root" value="community"/>
-                                                                                                        	
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+                                                                                                                        	
+    
+    
     
     
     
@@ -103,12 +73,9 @@
     
     
     </wb-module>
-<<<<<<< HEAD
-                                                        
+                                                            
 
-=======
-                                                    
->>>>>>> 206cd9fda8ec68bd95f80435bc6ddc793c810c39
+
 
 
 

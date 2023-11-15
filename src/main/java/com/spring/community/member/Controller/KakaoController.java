@@ -37,7 +37,7 @@ import com.spring.community.member.VO.OAuthToken;
 import com.spring.community.member.service.MemberService;
 import com.spring.community.member.service.MemberServiceImpl;
 
-@Controller
+@Controller("KakaoController")
 public class KakaoController {
 	
 	@Autowired

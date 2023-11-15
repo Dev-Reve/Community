@@ -43,37 +43,38 @@ public class MemberServiceImpl implements MemberService {
 	//회원 가입 기능
 	@Override
 	public void addMembers(Map map) throws DataAccessException{
-		
 		memberDAO.InsertMember(map);
-		
 	}
 
 	//회원 삭제 기능 
 	@Override
 	public void delMembers(String id) throws DataAccessException {
-		
 		memberDAO.DeleteMember(id);
 	}
 
+	@Override
+	//like한 리스트불러오는메소드
+	public List likelist(MemberVO memberVO) throws Exception {
+		return memberDAO.likelistByNick(memberVO);
+	
+	}
+	
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
-	public MemberVO detailMembers(String id) throws DataAccessException {
-		
-		return memberDAO.oneMember(id);
+	public MemberVO detailMembers(MemberVO vo) throws DataAccessException {
+		return memberDAO.oneMember(vo);
 	}
 
 	//회원정보 수정 기능 
 	@Override
 	public void UpdateMember(MemberVO vo) throws DataAccessException {
-		
-		
 		memberDAO.UpdateMember(vo);
 	}
 	
 	//회원로그인 처리 기능
 	@Override
-	public MemberVO login(MemberVO memberVO) throws Exception {
-		return memberDAO.loginById(memberVO);
+	public MemberVO login(Map<String, String> loginInfo) throws Exception {
+		return memberDAO.loginById(loginInfo);
 	}
 	
 	//거래게시글에서 글쓴이의 정보를 가져오는 기능

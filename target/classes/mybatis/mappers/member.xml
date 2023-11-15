@@ -23,7 +23,6 @@
 		<result property="addr3" column="addr3"/>
 		<result property="addr4" column="addr4"/>
 		<result property="fileName" column="fileName"/>
-		<result property="fileRealName" column="fileRealName"/>
 		
 	</resultMap>
 	
@@ -53,8 +52,6 @@
 		]]>
 	</select>
 	
-
-
    <!--  parameterType속성에는 값으로 MemberDAO파일에서 selectOne메소드 호출시 전달되는 값의 타입을 적어준다 -->
    <!--  resultType속성에는 값으로 조회된 한행(레코드)를 MembeVO객체의 각변수에 저장하기 위해  memberVO별칭을 적어준다 -->	
   	<select id="selectMemberById" parameterType="memberVO" resultType="memberVO">
@@ -62,7 +59,6 @@
   			select * from member where id = #{id}
   		]]>
   	</select>
-	
 	
 	<!-- 업데이트멤버바이아이디 -->
 	<select id="updateMember" parameterType="memberVO" resultType="memberVO">
@@ -123,7 +119,7 @@
 	<select id="likelistByNick" parameterType="memberVO" resultType="likeboardVO">
   		<![CDATA[
   			select t.no,l.nickname, t.title   from likes l, trade t
-        	where l.tradeono = t.no and l.nickname= #{nickname}
+        	where l.tradeno = t.no and l.nickname= #{nickname}
   		]]>
   	</select>
 

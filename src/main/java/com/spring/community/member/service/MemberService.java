@@ -19,7 +19,7 @@ public interface MemberService {
 
 
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
-	public MemberVO detailMembers(String id) throws DataAccessException;
+	public MemberVO detailMembers(MemberVO memberVO) throws DataAccessException;
 
 	//회원정보 수정 기능 
 	public void UpdateMember(MemberVO vo) throws DataAccessException;
@@ -28,8 +28,10 @@ public interface MemberService {
 	public void delMembers(String id) throws DataAccessException;
 	
 	//회원로그인 처리 기능
-	public MemberVO login(MemberVO memberVO) throws Exception;
+	public MemberVO login(Map<String, String> loginInfo) throws Exception;
 
+	List likelist(MemberVO memberVO) throws Exception;
+	
 	public MemberVO getMemberInfo(int no) throws Exception;
 
 	public MemberVO getMemberId(String nickname) throws Exception;
