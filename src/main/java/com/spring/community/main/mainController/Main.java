@@ -38,6 +38,7 @@ public class Main {
     @Autowired
     private mainService mainService;
     
+    
     @RequestMapping(value = "/main/index.do", method = RequestMethod.GET)
     public ModelAndView main() throws Exception{
         System.out.println("firstmain 호출");

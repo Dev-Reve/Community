@@ -103,7 +103,7 @@
 	<select id="likelistByNick" parameterType="memberVO" resultType="likeboardVO">
   		<![CDATA[
   				select t.no,l.nickname, t.title   from likes l, trade t
-        	where l.trade_no = t.no and l.nickname= #{nickname}
+        	where l.tradeono = t.no and l.nickname= #{nickname}
   		]]>
   	</select>
 
