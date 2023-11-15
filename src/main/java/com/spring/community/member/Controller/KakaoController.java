@@ -42,7 +42,7 @@ public class KakaoController {
 	
 	@Autowired
 	MemberVO vo;
-	
+	 
 	@Autowired
 	MemberService service;
 	
