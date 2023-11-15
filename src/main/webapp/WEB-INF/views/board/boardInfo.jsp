@@ -217,6 +217,5 @@ function area2() {
         </c:otherwise>
     </c:choose>
 
-
 </body>
 </html>
