@@ -112,7 +112,7 @@
 			                                                            
 	<div id="mainbox">	
 			<form class="form" action="${path}/member/UpdateMember.do" method="post" enctype="multipart/form-data">
-				<input id="file" type="file" name="fileName" onchange="setThumbnail(event);">
+				<input id="file" type="file" name="file" onchange="setThumbnail(event);">
 		  		<label class="avatar" for="file">
 		  			<img id="thumbnail" src="${path}/member/download.do?nickname=${memberVO.nickname}" alt="" style="border-radius: 50%; object-fit: cover;">
 			  		<input type="hidden" name="fileName" value="${memberVO.fileName}">

@@ -412,7 +412,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	//수정 요청 /member/UpdateMember.do 주소를 받았을때
 	@Override
 	@RequestMapping(value="/member/UpdateMember.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView UpdateMember(@RequestParam("fileName") MultipartFile file,
+	public ModelAndView UpdateMember(@RequestParam("file") MultipartFile file,
 									 MultipartHttpServletRequest request, 
 									 HttpServletResponse response) throws Exception {
 
@@ -429,19 +429,20 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			String value = request.getParameter(key);
 			
 			map.put(key, value);
-			if(key.equals("fileName")) {
-				map.remove("fileName");
-			}
 		}
 		
+		String fileName = (String)map.get("fileName");
 		String password = (String)map.get("password");
 		System.out.println("password: " + map.get("password"));
+		
 		if(password == "" || password.length() == 0) {
 			password = null;
 			map.put("password", password);
 		}
 		
-		String fileName = file.getOriginalFilename();
+		if(!file.isEmpty()) {
+			fileName = file.getOriginalFilename();
+		}
 		
 		String id = (String)map.get("id");
 		//파일 경로를 저장할 변수 설정
@@ -454,31 +455,35 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		//기존 이미지 폴더 경로 얻기
 		String imgPath = absPath + "/" + id;
 		
-		//기존 이미지 삭제
-		File existingFile = new File(imgPath);
-		//기존 이미지 폴더 및 파일 삭제
-		if(existingFile.isDirectory()) {
-			File[] files = existingFile.listFiles();
-			if(files != null) {
-				for(File image : files) {
-					image.delete();
+		if(!file.isEmpty()) {
+			System.out.println("if문 탑승! 수정한 이미지 파일 존재!");
+			//기존 이미지 삭제
+			File existingFile = new File(imgPath);
+			//기존 이미지 폴더 및 파일 삭제
+			if(existingFile.isDirectory()) {
+				File[] files = existingFile.listFiles();
+				if(files != null) {
+					for(File image : files) {
+						image.delete();
+					}
 				}
+				existingFile.delete();
 			}
-			existingFile.delete();
+			
+			//새 이미지 업로드
+			//폴더 생성을 위해 경로 설정
+			File memDir = new File(absPath + "/" + id);
+			//폴더 생성
+			memDir.mkdir();
+			
+			String filePath = absPath + File.separator + id + File.separator + fileName;
+			File dest = new File(filePath);
+			System.out.println("filePath: " + filePath);
+			// 파일을 해당 폴더로 복사
+			Files.copy(file.getInputStream(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		}
+		
 		map.put("fileName", fileName);
-		
-		//새 이미지 업로드
-		//폴더 생성을 위해 경로 설정
-		File memDir = new File(absPath + "/" + id);
-		//폴더 생성
-		memDir.mkdir();
-		
-		String filePath = absPath + File.separator + id + File.separator + fileName;
-		File dest = new File(filePath);
-		System.out.println("filePath: " + filePath);
-		// 파일을 해당 폴더로 복사
-		Files.copy(file.getInputStream(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//부장 MemberServiceImpl객체의 메소드 호출시 수정할 id를 전달하여 UPDATE명령!
 		memberService.UpdateMember(map);		 
