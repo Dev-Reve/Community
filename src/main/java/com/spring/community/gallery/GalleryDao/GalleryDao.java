@@ -25,4 +25,6 @@ public interface GalleryDao {
 
 	public void delComment(int no);
 
+	public void delGallery(int no);
+
 }

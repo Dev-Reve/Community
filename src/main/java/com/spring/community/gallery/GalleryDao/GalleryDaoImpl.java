@@ -42,7 +42,9 @@ public class GalleryDaoImpl implements GalleryDao {
 	//갤러리 글 하나 조회해오기
 	@Override
 	public GalleryVO getGalleryInfo(int no) throws DataAccessException {
+						sqlSession.update("mapper.gallery.gallCount", no);
 		GalleryVO vo = sqlSession.selectOne("mapper.gallery.GalleryInfo", no);
+					  
 		return vo;
 	}
 	
@@ -59,5 +61,11 @@ public class GalleryDaoImpl implements GalleryDao {
 	@Override
 	public void delComment(int no) {
 		sqlSession.delete("mapper.galleryComment.delComment", no);
+	}
+	
+	@Override
+	public void delGallery(int no) {
+		sqlSession.delete("mapper.gallery.deleteGallery");
+		
 	}
 }

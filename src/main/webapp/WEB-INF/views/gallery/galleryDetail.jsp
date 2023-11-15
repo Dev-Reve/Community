@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	.submit button{
+		with: 60px !importent;
+		height : 40px !importent; 
+		float: right;
+	
+	}
     .styled-table {
         border-collapse: collapse;
         width: 100%;
@@ -81,13 +87,19 @@
 			   </c:forEach>
 		</div>  	   
     </div>
-    <div class="row" style="border-top: 1px solid gray; min-height: 400px; border-bottom: 1px solid gray; margin-top: 1em;">
+    <div class="row" style="border-top: 1px solid gray; min-height: 400px; margin-top: 1em;">
 				<div class="col-md-12">
 					${vo.content}
 				</div>
 	</div>    
-    
-    
+	<c:if test="${vo.nickname == member.nickname}">
+	<div class="row" style="border-top: 1px solid gray; border-botton: 1px solid gray; min-height: 100px; margin-top: 1em;">
+    <div class="submit" style="height : 50px; ">
+    			<button class="signupBtn" type="button" onclick="href='${path}/gallery'">수정</button> 
+    			<button class="signupBtn" type="button" onclick="href='${path}/gallery/delGall.do?no=${vo.no}'">삭제</button>
+    </div>
+    </div> 
+    </c:if>
    	<div class="row">
 				<div class="col-md-12">
 					<form action="${path}/gallery/regComment.do" method="post">

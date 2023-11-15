@@ -29,6 +29,8 @@ public interface GalleryController {
 	void downloadContent(String imageFileName, int no, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
 
-	ModelAndView delComment(int no, int boardNo, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView delComment(int no, int boardNo, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
+
+	public ModelAndView GalleryDell(int no) throws Exception;
 } 
