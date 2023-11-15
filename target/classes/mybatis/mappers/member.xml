@@ -23,6 +23,7 @@
 		<result property="addr3" column="addr3"/>
 		<result property="addr4" column="addr4"/>
 		<result property="fileName" column="fileName"/>
+		<result property="fileRealName" column="fileRealName"/>
 		
 	</resultMap>
 	
@@ -40,18 +41,49 @@
 		<!-- memberVO에 저장된 변수명들을 작성하기 위해서는 #{VO에 저장된 변수명}으로 작성 -->
 		<!-- update문이나 delete문도 동일하게 작성하면 됨 -->
 		<![CDATA[
-			insert into member(id, password, name, ssn, nickname, email, addr1, addr2, addr3, addr4, fileName)
-			values (#{id}, #{password}, #{name}, #{ssn}, #{nickname}, #{email}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{fileName})
+			insert into member(id, password, name, ssn, nickname, email, addr1, addr2, addr3, addr4, fileName, fileRealName)
+			values (#{id}, #{password}, #{name}, #{ssn}, #{nickname}, #{email}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{fileName}, #{fileRealName})
 		]]>
 	</insert>
 	
 	<!-- 로그인창에서 입력한 ID와 비밀번호로 회원정보를 조회하는 SQL문  -->
-	<select id="loginById" parameterType="memberVO" resultType="memberVO">
+	<select id="loginById" parameterType="java.util.Map" resultType="memberVO">
 		<![CDATA[
 			select * from member where id = #{id} and password = #{password} 
 		]]>
 	</select>
 	
+
+
+   <!--  parameterType속성에는 값으로 MemberDAO파일에서 selectOne메소드 호출시 전달되는 값의 타입을 적어준다 -->
+   <!--  resultType속성에는 값으로 조회된 한행(레코드)를 MembeVO객체의 각변수에 저장하기 위해  memberVO별칭을 적어준다 -->	
+  	<select id="selectMemberById" parameterType="memberVO" resultType="memberVO">
+  		<![CDATA[
+  			select * from member where id = #{id}
+  		]]>
+  	</select>
+	
+	
+	<!-- 업데이트멤버바이아이디 -->
+	<select id="updateMember" parameterType="memberVO" resultType="memberVO">
+  		<![CDATA[
+  			UPDATE member
+			SET 
+			    password = #{password},
+			    name = #{name},
+			    ssn = #{ssn},
+			    nickname = #{nickname},
+			    email = #{email},
+			    addr1 = #{addr1},
+			    addr2 = #{addr2},
+			    addr3 = #{addr3},
+			    addr4 = #{addr4},
+			    fileName = #{fileName},
+			    fileRealName = #{fileRealName}
+			WHERE id = #{id} 
+  		]]>
+  	</select>
+
 	<select id="getMemberInfo" resultType="memberVO" parameterType="int">
 		<![CDATA[
 			SELECT * FROM member WHERE nickname = (
@@ -65,6 +97,7 @@
 			SELECT * FROM member WHERE nickname = #{nickname}
 		]]>
 	</select>
+
 	
 	<select id="selectMember" resultType="memberVO" parameterType="String">
 		<![CDATA[
@@ -76,13 +109,28 @@
 		<![CDATA[
 			SELECT * FROM member WHERE id = #{id}
 		]]>
-	</select><insert id="insertKakaoMember" parameterType="java.util.HashMap">
+	</select>
+	
+	<insert id="insertKakaoMember" parameterType="java.util.HashMap">
 		<!-- memberVO에 저장된 변수명들을 작성하기 위해서는 #{VO에 저장된 변수명}으로 작성 -->
 		<!-- update문이나 delete문도 동일하게 작성하면 됨 -->
 		<![CDATA[
-			insert into member(id, password, name, ssn, nickname, email, addr1, addr2, addr3, addr4, fileName, isKakao)
-			values (#{id}, #{password}, #{name}, #{ssn}, #{nickname}, #{email}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{fileName}, 1)
+			insert into member(id, password, name, ssn, nickname, email, addr1, addr2, addr3, addr4, fileName)
+			values (#{id}, #{password}, #{name}, #{ssn}, #{nickname}, #{email}, #{addr1}, #{addr2}, #{addr3}, #{addr4}, #{fileName})
 		]]>
 	</insert>
 	
+	<select id="likelistByNick" parameterType="memberVO" resultType="likeboardVO">
+  		<![CDATA[
+  			select t.no,l.nickname, t.title   from likes l, trade t
+        	where l.tradeono = t.no and l.nickname= #{nickname}
+  		]]>
+  	</select>
+
+	<select id="CheckById" parameterType="String" resultType="int">
+  		<![CDATA[
+  				select * from member where id = #{id}
+  		]]>
+  	</select>
+
 </mapper>

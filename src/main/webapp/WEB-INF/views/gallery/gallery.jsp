@@ -19,10 +19,11 @@
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="${path}/resources/assets/css/Gallerystyles.css" rel="stylesheet" />
+        <link href="${path}/resources/assets/css/Gallerystyles.css" rel="stylesheet" />  
     </head>
     <body class="is-preload">
     			<h1 style="text-align: center; padding - top:1em;"></h1>
+    			<c:if test="${isLogOn}">
     			<button class="cssbuttons-io-button writeBtn" onclick="location.href='${path}/gallery/regGalleryForm.do'">
 					  글작성
 					  <div class="icon">
@@ -37,7 +38,7 @@
 					    	</svg>
 						</div>
 					</button>
-
+				</c:if>
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -62,21 +63,13 @@
 			                            <div class="card-body p-4">
 			                                <div class="text-center">
 			                                    <!-- Product name-->
-			                                    <h5 class="fw-bolder">${gall.title} </h5>
+			                                    <h5 class="fw-bolder" >${gall.title} </h5>
 			                                    <h3 class="fw-bolder">${gall.nickname} </h3>
-			                                    <div class="d-flex justify-content-center small text-warning mb-2">
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                        <div class="bi-star-fill"></div>
-			                                    </div>
-			         
 			                                </div>
 			                            </div>
 			                            <!-- Product actions-->
 			                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-			                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="text-center">Add to cart</a></div>
+			                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${path}/gallery/galleryDetail.do?no=${gall.no}">더 보기</a></div>
 			                            </div>
 			                        </div>
 			                    </div> 

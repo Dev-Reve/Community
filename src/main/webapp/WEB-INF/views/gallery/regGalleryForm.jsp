@@ -34,7 +34,7 @@
 				<tr style="width: 100%">
 					<th class="title">작성자</th>
 					<td class="content" style="text-align: left;">
-						<input type="hidden" name="nickName" value="user1">user1
+						<input type="hidden" name="nickName" value="${member.nickname}">${member.nickname}
 					</td>
 				</tr>				
 				<tr style="width: 100%">

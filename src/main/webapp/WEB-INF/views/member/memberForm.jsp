@@ -157,6 +157,19 @@
 			<script src="${path}/resources/assets/js/main.js"></script>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+	function checkid(){
+		var id = document.getElementById("id").value;
+		 var path = "${path}";
+		if(id)  //id로 받음
+		{
+			url = path+"/member/idCheck.do?id="+id;
+			window.open(url,"아이디중복확인","width=400,height=200");
+		} else {
+			alert("아이디를 입력하세요.");
+		}
+	}
+	//우편번호 API
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

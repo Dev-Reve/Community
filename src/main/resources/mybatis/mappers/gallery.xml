@@ -49,4 +49,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
+	<select id="GalleryInfo" resultMap="galleryResult" parameterType="int">
+		<![CDATA[
+		SELECT * FROM GALLERY
+		WHERE no = #{no} 
+		]]>
+	
+	</select>
+	<update id="gallCount" parameterType="int">
+		<![CDATA[
+		UPDATE gallery
+			SET readCount = readCount + 1
+		WHERE no = #{no} 
+		]]>	
+	</update>
+	
+	<delete id="deleteGallery" parameterType="int">
+		<![CDATA[
+		DELETE gallery
+			where no = #{no}
+		]]>	
+	</delete>
 </mapper>

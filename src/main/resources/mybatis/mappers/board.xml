@@ -30,18 +30,81 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectBoard" resultMap="boardResult" parameterType="pagingVO">
 		<![CDATA[
+			
 			SELECT * 
 			FROM (
 				SELECT ROWNUM RN, A.* 
 				FROM (
 					SELECT * 
 					FROM BOARD 
-					ORDER BY no DESC 
+					ORDER BY ${checksel} DESC 
 			   	) A
 			)
-			WHERE RN BETWEEN ${start} AND ${end};
+			WHERE RN BETWEEN ${start} AND ${end}
 		]]>	
 	</select>
-
+	
+	<select id="getBoardList" resultMap="boardResult" parameterType="pagerVO">
+		<![CDATA[
+			select * from board
+			where
+				<choose>
+					<when test="kind == 'nickName'">nickName</when>
+					<when test="kind == 'content'">content</when>
+					<otherwise>title</otherwise>
+				</choose>
+			like concat('%', #{search}, '%')
+			order by no desc
+			limit #{startRow}, #{perPage}
+		]]>	
+	</select>
+	
+	<select id="getTotalCount" resultType="Long" parameterType="pagerVO">
+		<![CDATA[
+			select count(num) from board
+			where
+				<choose>
+					<when test="kind == 'nickName'">nickName</when>
+					<when test="kind == 'contents'">content</when>
+					<otherwise>title</otherwise>
+				</choose>
+			like concat('%', #{search}, '%')
+		]]>	
+	</select>
+	
+	<select id="getBoardInfo" parameterType="int" resultMap="boardResult">
+		<![CDATA[
+			SELECT
+			    *
+			FROM board where no=#{no}
+		]]>
+	</select>
+	
+	<insert id="addBoard" parameterType="boardVO" >
+	<![CDATA[
+			INSERT INTO board(no, title, content, nickName)
+			values(board_no.nextval, #{title}, #{content}, #{nickName})
+		]]>
+	</insert>
+	
+	<insert id="addCount" parameterType="int" >
+		<![CDATA[
+			UPDATE board
+			SET readcount = readcount + 1
+			WHERE no = #{no}
+		]]>
+	</insert>
+	
+	<select id="nextTitle" parameterType="int" resultType="String">
+		<![CDATA[
+			SELECT title FROM board where no = #{no}+1
+		]]>
+	</select>
+	
+	<select id="beforeTitle" parameterType="int" resultType="String">
+		<![CDATA[
+			SELECT * FROM board where no = #{no}-1
+		]]>
+	</select>
 	
 </mapper>

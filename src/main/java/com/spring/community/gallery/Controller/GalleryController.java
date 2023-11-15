@@ -18,8 +18,19 @@ public interface GalleryController {
 
 	//갤러리 글쓰기 폼으로 이동하는 메소드
 	public ModelAndView regGalleryForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
-
+	
+	//갤러리 글쓰기 메소드
 	public ModelAndView InsertGallery(List<MultipartFile> files, MultipartHttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
+	//갤러리 글 폼 
+	public ModelAndView GalleryDetail(int no) throws Exception;
+
+	void downloadContent(String imageFileName, int no, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+
+	public ModelAndView delComment(int no, int boardNo, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
+
+	public ModelAndView GalleryDell(int no) throws Exception;
 } 

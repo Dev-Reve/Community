@@ -35,7 +35,7 @@
                             </p>
                         </div>
                         <div class="card-footer">
-                        	<span style="color: black;">${gall.title}</span> <span style="color:red">[${gall.readCount}]</span><br>
+                        	<span style="color: black;"><a href="${path}/gallery/galleryDetail.do?no=${gall.no}">${gall.title}</a></span> <span style="color:red">[${gall.readCount}]</span><br>
                         	<span style="color: gray;">${gall.nickname}</span>
                         </div>
                           </div>

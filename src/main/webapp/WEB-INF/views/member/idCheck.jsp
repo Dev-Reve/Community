@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Insert title here</title>
 </head>
 <body>
-	<div>
-		<h3>${vo.title}</h3>
-		
-	
-	
-	</div>
+	<form action="member/">
+		아이디<input type="text" value="${id}"/>
+		<input type="button" value="중복 검사"/>
+	</form>
 </body>
 </html>

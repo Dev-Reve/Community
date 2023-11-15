@@ -14,10 +14,13 @@ public class PagingVO {
 	private int start;			// sql 조건 스타트
 	private int end;			// sql 조건 엔드
 	private int cntPage = 5;
+	private String checksel;
 	
+	
+
 	public PagingVO() {}
 	
-	public PagingVO(int total, int nowPage, int cntPerPage) {
+	public PagingVO(int total, int nowPage, int cntPerPage, String checksle) {
 		
 		setNowPage(nowPage);
 		setCntPerPage(cntPerPage);
@@ -26,8 +29,11 @@ public class PagingVO {
 		calcStartEndPage(getNowPage(), cntPage);
 		calcStartEnd(getNowPage(), getCntPerPage());
 		
+		setChecksel(checksle);
+		
 	}
 	
+
 	// 제일 마지막 페이지 계산
 	public void calcLastPage(int total, int cntPerPage) {
 		setLastPage( (int)Math.ceil( (double)total/(double)cntPerPage ) );
@@ -120,6 +126,23 @@ public class PagingVO {
 
 	public void setEnd(int end) {
 		this.end = end;
+	}
+	public int getCntPage() {
+		return cntPage;
+	}
+
+
+	public void setCntPage(int cntPage) {
+		this.cntPage = cntPage;
+	}
+
+
+	public String getChecksel() {
+		return checksel;
+	}
+
+	public void setChecksel(String checksel) {
+		this.checksel = checksel;
 	}
 	
 }

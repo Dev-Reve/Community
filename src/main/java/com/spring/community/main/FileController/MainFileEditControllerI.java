@@ -35,7 +35,7 @@ import net.coobird.thumbnailator.Thumbnails;
 public class MainFileEditControllerI implements ServletContextAware {
 
 	private static String CURR_IMAGE_REPO_PATH = "/resources/Board";
-	private static String CURR_MAIN_IMAGE = "resources/images";
+	private static String CURR_MAIN_IMAGE = "resources/images/main";
 	private ServletContext servletContext;
 
 	@Override

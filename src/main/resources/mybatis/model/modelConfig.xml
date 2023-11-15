@@ -16,11 +16,14 @@
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
  		<typeAlias type="com.spring.community.board.BoardVO.BoardVO" alias="boardVO"/>
  		<typeAlias type="com.spring.community.board.Utils.PagingVO" alias="pagingVO"/>
+ 		<typeAlias type="com.spring.community.board.Utils.PagerVO" alias="pagerVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
  		<typeAlias type="com.spring.community.gallery.vo.GalleryVO" alias="galleryVO"/>
  		<typeAlias type="com.spring.community.tradeComment.vo.TradeCommentVO" alias="tradeCommentVO"/>
  		<typeAlias type="com.spring.community.tradeLike.vo.TradeLikeVO" alias="tradeLikeVO"/>
-
+		<typeAlias type="com.spring.community.boardcomment.VO.BoardCommentVO" alias="boardCommentVO"/>
+		<typeAlias type="com.spring.community.gallery.vo.GalleryCommentVO" alias="galleryCommentVO"/>
+	
  	</typeAliases>
  	
  	

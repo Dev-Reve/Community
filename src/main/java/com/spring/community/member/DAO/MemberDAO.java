@@ -38,10 +38,5 @@ public interface MemberDAO {
 
 	public void insertNewKakaoMember(Map map) throws DataAccessException;
 	
-	//
-	
-	//
-	
-	//
 	
 }

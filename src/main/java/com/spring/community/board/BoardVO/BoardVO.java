@@ -1,6 +1,5 @@
 package com.spring.community.board.BoardVO;
 
-import javax.xml.crypto.Data;
 
 import org.springframework.stereotype.Component;
 
@@ -16,6 +15,7 @@ public class BoardVO {
 	private String fileName;
 	private String fileRealName;
 	
+
 	public int getNo() {
 		return no;
 	}

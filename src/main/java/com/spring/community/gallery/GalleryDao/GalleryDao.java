@@ -5,15 +5,26 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.spring.community.gallery.vo.GalleryCommentVO;
 import com.spring.community.gallery.vo.GalleryVO;
 
 public interface GalleryDao {
 
 
-	public int InsertGallery(Map map);
+	public int InsertGallery(Map map) throws DataAccessException;
 
 	public int getInsertedNo() throws DataAccessException;
 
-	public List<GalleryDao> getGalleryList();
+	public List<GalleryDao> getGalleryList() throws DataAccessException;
+
+	public GalleryVO getGalleryInfo(int no) throws DataAccessException;
+
+	public List<GalleryCommentVO> getComment(int no) throws DataAccessException;
+
+	public void regComment(GalleryCommentVO comment) throws DataAccessException;
+
+	public void delComment(int no);
+
+	public void delGallery(int no);
 
 }
