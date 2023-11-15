@@ -44,10 +44,6 @@
 		</a>
 	</div>	
 					
-					
-				
-		
-
 		<!-- Contact -->
 			<article id="contact" class="wrapper style4">
 				<div class="container medium">
