@@ -231,8 +231,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
-		mav.setViewName("main");
+		mav.setViewName("redirect:/main/index.do");
 		
 		return mav;
 	}
@@ -293,8 +292,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		System.out.println(viewName); 	
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
-		mav.setViewName("main");
+		mav.setViewName("redirect:/main/index.do");
 			
 		//회원가입 후 모든회원을 조회 하는 재요청 주소 작성 
 		return mav;
@@ -382,8 +380,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		session.setAttribute("isKakao", true);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
-		mav.setViewName("main");
+		mav.setViewName("redirect:/main/index.do");
 			
 		//회원가입 후 모든회원을 조회 하는 재요청 주소 작성 
 		return mav;
