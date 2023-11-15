@@ -372,12 +372,12 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			
 		request.setCharacterEncoding("UTF-8");
 
-	
+		System.out.println("del ID: " + id);
 		//부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 DELETE명령!
 		memberService.delMembers(id);		 
 			
 		//회원 삭제후 모든회원을 조회 하는 재요청 주소 작성 
-		return new ModelAndView("redirect:/member/myPage.do");
+		return new ModelAndView("redirect:/main/index.do");
 	}
 	
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
@@ -433,6 +433,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 				map.remove("fileName");
 			}
 		}
+		
 		String password = (String)map.get("password");
 		System.out.println("password: " + map.get("password"));
 		if(password == "" || password.length() == 0) {
@@ -465,10 +466,6 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			}
 			existingFile.delete();
 		}
-		
-		//파일업로드후 반환된 파일이름 배열로 반환
-		List fileList = fileProcess(request);
-        
 		map.put("fileName", fileName);
 		
 		//새 이미지 업로드
@@ -480,10 +477,8 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		String filePath = absPath + File.separator + id + File.separator + fileName;
 		File dest = new File(filePath);
 		System.out.println("filePath: " + filePath);
-		//파일을 해당 폴더로 이동
-		if(!dest.exists()) {
-			file.transferTo(dest);
-		}
+		// 파일을 해당 폴더로 복사
+		Files.copy(file.getInputStream(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		
 		//부장 MemberServiceImpl객체의 메소드 호출시 수정할 id를 전달하여 UPDATE명령!
 		memberService.UpdateMember(map);		 

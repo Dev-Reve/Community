@@ -133,5 +133,11 @@
   				select * from member where id = #{id}
   		]]>
   	</select>
+  	
+  	<delete id="deleteMember" parameterType="String">
+  		<![CDATA[
+  			DELETE FROM member WHERE id = #{id}
+  		]]>
+  	</delete>
 
 </mapper>
