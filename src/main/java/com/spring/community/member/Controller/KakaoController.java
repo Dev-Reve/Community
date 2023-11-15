@@ -120,6 +120,7 @@ public class KakaoController {
  			HttpSession session = request.getSession();
  			session.setAttribute("isLogOn", true);
  			session.setAttribute("member", vo);
+ 			session.setAttribute("access_token", oAuthToken.getAccess_token());
  			
 			mav.setViewName("redirect:/main/index.do");
 		} else {

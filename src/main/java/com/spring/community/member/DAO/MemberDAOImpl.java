@@ -123,6 +123,20 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public void insertNewKakaoMember(Map map) throws DataAccessException {
+		System.out.println("카카오 DAO");
+		System.out.println(map.get("fileName"));
+		System.out.println(map.get("id"));
+		System.out.println(map.get("password"));
+		System.out.println(map.get("name"));
+		System.out.println(map.get("ssn"));
+		System.out.println(map.get("nickname"));
+		System.out.println(map.get("email"));
+		System.out.println(map.get("addr1"));
+		System.out.println(map.get("addr2"));
+		System.out.println(map.get("addr3"));
+		System.out.println(map.get("addr4"));
+		
+		
 		sqlSession.insert("mapper.member.insertKakaoMember", map);
 	}
 	

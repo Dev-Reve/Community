@@ -2,7 +2,12 @@ package com.spring.community.member.Controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -205,9 +210,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		HttpSession session = request.getSession();
 		//로그아웃 요청시 세션에 저장된 로그인정보와 조회한 회원정보를 삭제합니다
 		
-		session.removeAttribute("member");
-		session.removeAttribute("isLogOn");
-		session.removeAttribute("access_token");
+		session.invalidate();
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("center", "/WEB-INF/views/common/First.jsp");
@@ -286,7 +289,9 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 								  MultipartHttpServletRequest multipartRequest,
 								  HttpServletResponse response) 
 										  throws Exception {	
-		
+
+ 		MemberVO vo = new MemberVO();
+ 		
 		System.out.println("카카오 회원가입 컨트롤러 탑승");
 		HttpSession session = multipartRequest.getSession();
 		
@@ -309,14 +314,38 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		}
 		String id = (String)map.get("id");
 		
-		String fileName = map.get("imgURL").toString();
+		String imgURL = map.get("imgURL").toString();
 		
+		//이미지 URL 생성
+		URL url = new URL(imgURL);
+		String saveFolderPath = absPath + "/" + id;
+		InputStream in = url.openStream();
+		
+		//저장할 폴더 경로 생성
+		Path saveFolder = Path.of(saveFolderPath);
+		
+		//폴더가 없다면 생성
+		if(!Files.exists(saveFolder)) {
+			Files.createDirectories(saveFolder);
+		}
+		
+		//이미지 파일 이름 추출
+		String fileName = imgURL.substring(imgURL.lastIndexOf("/") + 1);
+		System.out.println("추출한 이미지 파일 명: " + fileName);
+		
+		//저장할 이미지 파일 경로 생성
+		Path savePath = saveFolder.resolve(fileName);
+		
+		//이미지를 파일로 저장
+		Files.copy(in, savePath, StandardCopyOption.REPLACE_EXISTING);
+		
+		System.out.println("이미지 다운로드 및 저장 완료: " + savePath);
+			
 		map.put("fileName", fileName);
 		
        //부장 MemberServiceImpl객체의 메소드 호출시 vo를 전달하여 INSERT명령!
  		memberService.addKakaoMember(map);
  		
- 		MemberVO vo = new MemberVO();
  		vo.setId(map.get("id").toString());
  		vo.setPassword(map.get("password").toString());
  		vo.setSsn(map.get("ssn").toString());
@@ -327,11 +356,12 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
  		vo.setAddr3(map.get("addr3").toString());
  		vo.setAddr4(map.get("addr4").toString());
  		vo.setFileName(fileName);
+ 		
 		memberService.kakaoLogin(vo);
 		
 		session.setAttribute("isLogOn", true);
 		session.setAttribute("member", vo);
-		System.out.println("isKakao: " + vo.getIsKakao());
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("center", "/WEB-INF/views/common/index.jsp");
 		mav.setViewName("main");
@@ -405,11 +435,21 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	
 	//이미지 다운로드 요청
 	@RequestMapping(value = "/member/download.do")
-	public void download(@RequestParam("nickname") String nickname, HttpServletResponse response) throws Exception {
+	public void download(@RequestParam("nickname") String nickname, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		//nickname으로 회원 조회
 		memberVO = memberService.getMemberId(nickname);
 		String id = memberVO.getId();
 		String fileName = memberVO.getFileName();
+		int isKakao = memberVO.getIsKakao();
+		
+		System.out.println("id: " + id);
+		System.out.println("nickname: " + memberVO.getNickname());
+		System.out.println("fileName: " + fileName);
+		System.out.println("isKakao: " + isKakao);
+		
+		mav.addObject("isKakao", isKakao);
+		mav.addObject("fileName", fileName);
 		
 		//사진을 내려받기 위한 출력스트림 통로 객체 생성
 		OutputStream out = response.getOutputStream();
@@ -418,42 +458,36 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		String resourcePath = servletContext.getRealPath(RESOURCE_PATH);
 		//다운로드할 파일 위치의 파일 경로 생성
 		String filePath = "";
-
-		if(memberVO.getIsKakao() == 0) {
-			filePath =  absPath + "\\" + id + "\\" + fileName;
-			
-			//이미지 파일을 조작, 정보보기 등을 할 수 있는 파일객체 생성
-			File image = new File(filePath);
-			
-			System.out.println("파일 경로: " + filePath);
-			System.out.println("파일: " + image);
-			
-			response.setHeader("Cache-Control", "no-cache");
-			response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
-			
-			FileInputStream in = new FileInputStream(image);
-			
-			if(!image.exists()) {
-				filePath = resourcePath + "/a.jpg";
-				image = new File(filePath);
-			}
-			
-			//이미지 파일을 담아 출력할 바이트 배열 생성
-			byte[] buffer = new byte[1024 * 8];
-			
-			while (true){
-				int count = in.read(buffer);
-				
-				if(count == -1) {
-					break;
-				}
-				out.write(buffer, 0, count);
-			}
-			in.close();
-			
-		} else {
-			filePath = memberVO.getFileName();
+		filePath =  absPath + "\\" + id + "\\" + fileName;
+		
+		//이미지 파일을 조작, 정보보기 등을 할 수 있는 파일객체 생성
+		File image = new File(filePath);
+		
+		System.out.println("파일 경로: " + filePath);
+		System.out.println("파일: " + image);
+		
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
+		
+		FileInputStream in = new FileInputStream(image);
+		
+		if(!image.exists()) {
+			filePath = fileName;
 		}
+		
+		//이미지 파일을 담아 출력할 바이트 배열 생성
+		byte[] buffer = new byte[1024 * 8];
+		
+		while (true){
+			int count = in.read(buffer);
+			
+			if(count == -1) {
+				break;
+			}
+			out.write(buffer, 0, count);
+		}
+		in.close();
+		
 		
 		out.close();
 	}
