@@ -441,14 +441,11 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		memberVO = memberService.getMemberId(nickname);
 		String id = memberVO.getId();
 		String fileName = memberVO.getFileName();
-		int isKakao = memberVO.getIsKakao();
 		
 		System.out.println("id: " + id);
 		System.out.println("nickname: " + memberVO.getNickname());
 		System.out.println("fileName: " + fileName);
-		System.out.println("isKakao: " + isKakao);
 		
-		mav.addObject("isKakao", isKakao);
 		mav.addObject("fileName", fileName);
 		
 		//사진을 내려받기 위한 출력스트림 통로 객체 생성
