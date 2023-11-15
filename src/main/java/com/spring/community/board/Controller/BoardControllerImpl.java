@@ -58,6 +58,7 @@ public class BoardControllerImpl extends HttpServlet implements BoardController 
     								@RequestParam(value = "checksel", required = false) String checksel)
                                     throws Exception {
         
+    	
     	int total = boardservice.countBoard();
         System.out.println("total 값 : " + total);
         
