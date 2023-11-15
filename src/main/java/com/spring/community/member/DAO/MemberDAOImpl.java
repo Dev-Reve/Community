@@ -48,17 +48,6 @@ public class MemberDAOImpl implements MemberDAO{
 	//회원 추가 기능 
 	@Override
 	public void InsertMember(Map map) throws DataAccessException {
-		System.out.println(map.get("id"));
-		System.out.println(map.get("password"));
-		System.out.println(map.get("name"));
-		System.out.println(map.get("ssn"));
-		System.out.println(map.get("nickname"));
-		System.out.println(map.get("email"));
-		System.out.println(map.get("addr1"));
-		System.out.println(map.get("addr2"));
-		System.out.println(map.get("addr3"));
-		System.out.println(map.get("addr4"));
-		System.out.println(map.get("fileName"));
 		sqlSession.insert("mapper.member.insertMember", map); 
 	}
 
@@ -83,10 +72,19 @@ public class MemberDAOImpl implements MemberDAO{
 
 	//회원정보 수정기능 
 	@Override
-	public void UpdateMember(MemberVO memberVO) throws DataAccessException {
-				
-		sqlSession.update("mapper.member.updateMember", memberVO);
-		
+	public void UpdateMember(Map map) throws DataAccessException {
+		System.out.println(map.get("id"));
+		System.out.println(map.get("password"));
+		System.out.println(map.get("name"));
+		System.out.println(map.get("ssn"));
+		System.out.println(map.get("nickname"));
+		System.out.println(map.get("email"));
+		System.out.println(map.get("addr1"));
+		System.out.println(map.get("addr2"));
+		System.out.println(map.get("addr3"));
+		System.out.println(map.get("addr4"));
+		System.out.println(map.get("fileName"));
+		sqlSession.update("mapper.member.updateMember", map);
 	}
 
 	//회원로그인 처리 기능

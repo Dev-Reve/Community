@@ -67,8 +67,8 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원정보 수정 기능 
 	@Override
-	public void UpdateMember(MemberVO vo) throws DataAccessException {
-		memberDAO.UpdateMember(vo);
+	public void UpdateMember(Map map) throws DataAccessException {
+		memberDAO.UpdateMember(map);
 	}
 	
 	//회원로그인 처리 기능

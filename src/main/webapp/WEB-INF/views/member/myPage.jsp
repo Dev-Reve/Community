@@ -16,7 +16,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-4 col-5-large col-12-medium">
-							<span class="image fit" style="width:100%; height:100%;"><img src="${path}/member/download.do?nickname=${member.nickname}" style="width:100%; height:100%; object-fit: cover;"/></span>
+							<span class="image fit"><img src="${path}/member/download.do?nickname=${member.nickname}" style="width:100%; height:100%; object-fit: scale-down; border: 1px solid lightgray;"/></span>
 						</div>
 						<div class="col-8 col-7-large col-12-medium">
 							<header>

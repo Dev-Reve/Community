@@ -9,32 +9,127 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${path}/resources/assets/css/main.css" />
 		<style>
-		#mainbox{
-		
-		height: 1200px;
-		width:  1200px;
+		.form {
+		  display: flex;
+		  margin: 0 auto;
+		  align-content: center;
+		  justify-content: center;
+		  flex-direction: column;
+		  gap: 10px;
+		  width: 1200px;
+		  background-color: #fff;
+		  border-radius: 20px;
+		  padding: 30px 20px;
+		  box-shadow: 100px 100px 80px rgba(0, 0, 0, 0.03)
 		}
 		
+		.title {
+		  color: black;
+		  font-weight: bold;
+		  text-align: center;
+		  font-size: 20px;
+		  margin-bottom: 4px;
+		}
 		
+		.sub {
+		  text-align: center;
+		  color: black;
+		  font-size: 14px;
+		  width: 100%;
+		}
+		
+		.sub.mb {
+		  margin-bottom: 1px;
+		}
+		
+		.sub a {
+		  color: rgb(23, 111, 211);
+		}
+		
+		.avatar {
+		  height: 125px;
+		  width: 125px;
+		  
+		  border-radius: 50%;
+		  align-self: center;
+		  padding: 6px;
+		  cursor: pointer;
+		  box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
+		}
+		
+		.form button {
+		  align-self: flex-end;
+		}
+		
+		.input, button {
+		  border: none;
+		  outline: none;
+		  width: 50%;
+		  padding: 16px 10px;
+		  background-color: rgb(247, 243, 243);
+		  border-radius: 10px;
+		  box-shadow: 12.5px 12.5px 10px rgba(0, 0, 0, 0.015),100px 100px 80px rgba(0, 0, 0, 0.03);
+		}
+		
+		button {
+		  margin-top: 12px;
+		  background-color: rgb(23, 111, 211);
+		  color: #fff;
+		  text-transform: uppercase;
+		  font-weight: bold;
+		}
+		
+		.input:focus {
+		  border: 1px solid rgb(23, 111, 211);
+		}
+		
+		#file {
+		  display: none;
+		}
+		.avatar {
+		    position: relative;
+		    width: 100px; /* 라벨의 너비에 맞게 조절 */
+		    height: 100px; /* 라벨의 높이에 맞게 조절 */
+		    overflow: hidden;
+		    border-radius: 50%;
+		    display: inline-block;
+		  }
+		
+		  .avatar img {
+		    width: 100%; /* 이미지의 너비를 부모인 라벨의 100%로 설정 */
+		    height: 100%; /* 이미지의 높이를 부모인 라벨의 100%로 설정 */
+		    object-fit: cover;
+		    border-radius: 50%;
+		  }		
+		  
+		  .avatar svg{
+		  	background-color: rgb(23, 111, 211);
+		  	border-radius: 50%;		  
+		  }
 		</style>
 	</head>
 	<body class="is-preload">
 			                                                            
 	<div id="mainbox">	
-			<form action="${path}/member/UpdateMember.do" method="post" enctype="multipart/form-data">
-				
-				아이디<input type="text" name="id" value="${memberVO.id }" readonly/>
-				비밀번호<input type="password" name="password" value="${memberVO.password }"/>
-				이름<input type="text" name="name" value="${memberVO.name }"/>
-				주민등록번호<input type="text" name="ssn" value="${memberVO.ssn }"/>
-				닉네임<input type="text" name="nickname" value="${memberVO.nickname }"/>
-				이메일<input type="text" name="email" value="${memberVO.email }"/>
-				주소<input type="text" id="sample6_postcode" name="addr1" value="${memberVO.addr1 }" placeholder="우편번호">
+			<form class="form" action="${path}/member/UpdateMember.do" method="post" enctype="multipart/form-data">
+				<input id="file" type="file" name="fileName" onchange="setThumbnail(event);">
+		  		<label class="avatar" for="file">
+		  			<img id="thumbnail" src="${path}/member/download.do?nickname=${memberVO.nickname}" alt="" style="border-radius: 50%; object-fit: cover;">
+			  		<input type="hidden" name="fileName" value="${memberVO.fileName}">
+		  		</label>
+				<input type="text" name="id" value="${memberVO.id }" readonly/>
+				<input type="password" name="password" placeholder="비밀번호 입력"/>
+				<input type="password" name="passwordConfirm" placeholder="비밀번호 확인"/>
+				<input type="hidden" name="password" value="${memberVO.password}">
+				<input type="text" name="name" value="${memberVO.name }"/>
+				<input type="text" name="ssn" value="${memberVO.ssn }" readonly/>
+				<input type="text" name="nickname" value="${memberVO.nickname }"/>
+				<input type="text" name="email" value="${memberVO.email }"/>
+				<input type="text" id="sample6_postcode" name="addr1" value="${memberVO.addr1 }" placeholder="우편번호">
 				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" id="sample6_address" name="addr2" value="${memberVO.addr2 }" placeholder="주소"><br>
 				<input type="text" id="sample6_detailAddress" name="addr3" value="${memberVO.addr3 }"placeholder="상세주소">
 				<input type="text" id="sample6_extraAddress" name="addr4" value="${memberVO.addr4 }" placeholder="참고항목"><br><br>
-				프로필사진<input type="file" name="fileName" value="${memberVO.fileName }"/><br><br>
 				<input type="submit" value="수정하기"/>
 			</form>
 	</div>	
@@ -132,6 +227,24 @@
             }
         }).open();
     }
+    
+    function setThumbnail(event) {
+        var input = event.target;
+        var reader = new FileReader();
+		var reset = document.getElementById('reset');
+        reader.onload = function () {
+          var thumbnail = document.getElementById('thumbnail');
+          thumbnail.src = reader.result;
+          reset.remove();
+        };
+
+        reader.readAsDataURL(input.files[0]);
+
+        if (!input.files[0]) {
+          var thumbnail = document.getElementById('thumbnail');
+          thumbnail.src = '';
+        }
+      }
 </script>
 	</body>
 </html>

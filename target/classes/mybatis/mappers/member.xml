@@ -61,12 +61,18 @@
   	</select>
 	
 	<!-- 업데이트멤버바이아이디 -->
-	<select id="updateMember" parameterType="memberVO" resultType="memberVO">
+	<select id="updateMember" parameterType="java.util.HashMap" resultType="memberVO">
   		<![CDATA[
   			UPDATE member
 			SET 
-			    password = #{password},
-			    name = #{name},
+  		]]>
+  		<if test="password != null">
+  			<![CDATA[
+  				password = #{password},
+  			]]>
+  		</if>
+  		<![CDATA[
+	  			name = #{name},
 			    ssn = #{ssn},
 			    nickname = #{nickname},
 			    email = #{email},
@@ -74,8 +80,7 @@
 			    addr2 = #{addr2},
 			    addr3 = #{addr3},
 			    addr4 = #{addr4},
-			    fileName = #{fileName},
-			    fileRealName = #{fileRealName}
+			    fileName = #{fileName}
 			WHERE id = #{id} 
   		]]>
   	</select>

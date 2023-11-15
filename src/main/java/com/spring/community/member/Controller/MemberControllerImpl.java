@@ -2,13 +2,17 @@ package com.spring.community.member.Controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -107,36 +111,6 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 						 mav.setViewName("main");
 			
 			return mav;
-		
-	}
-	
-	// /member/listMembers.do DB에 저장된 모든 회원 조회 요청 주소를 받았을때 호출 되는 메소드로
-	
-	@Override
-	@RequestMapping(value="/member/listMembers.do", method=RequestMethod.GET)
-	public ModelAndView listMembers(HttpServletRequest request, 
-									HttpServletResponse response) 
-											throws Exception {	
-		
-		//요청한 주소를 이용해 응답할 값을 마련
-		//부장 MemberServiceImpl객체의 listMembers()메소드를 호출하여
-		//모든 회원 조회 요청을 명령함!
-		//웹브라우저로 응답할 조회한 정보들이 담긴  List배열을 반환 받는다.
-		List membersList = memberService.listMembers();
-		
-		//응답할 뷰 이름 얻기 	
-		//요청 URL주소  /member/listMembers.do 에서  .do를 제외한 /listMembers뷰이름얻기
-		String viewName = getViewName(request); 
-			
-
-		//응답할 값 과 응답할 뷰 이름을  ModelAndView객체 메모리에 바인딩(저장)
-		ModelAndView mav = new ModelAndView();
-					 //응답할 데이터 저장
-					 mav.addObject("membersList", membersList);	
-					//뷰 이름 저장 
-					 mav.setViewName(viewName);
-		
-		return mav;//디스팩처 서블릿으로 ModelAndView객체 반환 
 		
 	}
 	
@@ -403,7 +377,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		memberService.delMembers(id);		 
 			
 		//회원 삭제후 모든회원을 조회 하는 재요청 주소 작성 
-		return new ModelAndView("redirect:/member/listMembers.do");
+		return new ModelAndView("redirect:/member/myPage.do");
 	}
 	
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
@@ -437,20 +411,85 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 	
 	//수정 요청 /member/UpdateMember.do 주소를 받았을때
 	@Override
-	@RequestMapping(value="/member/UpdateMember.do", method=RequestMethod.POST)
-	public ModelAndView UpdateMember(@ModelAttribute("member") MemberVO member,
-									 HttpServletRequest request, 
+	@RequestMapping(value="/member/UpdateMember.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView UpdateMember(@RequestParam("fileName") MultipartFile file,
+									 MultipartHttpServletRequest request, 
 									 HttpServletResponse response) throws Exception {
 
 		
 		request.setCharacterEncoding("UTF-8");
 		
+		//입력한 값들의 정보를 저장할 map생성
+		Map map = new HashMap();
+		//request에서 값을 꺼내와 배열에 저장후 배열 자체를 리턴하기 위해 Enumeration객체 생성
+		Enumeration enu = request.getParameterNames();
+		
+		while (enu.hasMoreElements()) {
+			String key = (String)enu.nextElement();
+			String value = request.getParameter(key);
+			
+			map.put(key, value);
+			if(key.equals("fileName")) {
+				map.remove("fileName");
+			}
+		}
+		String password = (String)map.get("password");
+		System.out.println("password: " + map.get("password"));
+		if(password == "" || password.length() == 0) {
+			password = null;
+			map.put("password", password);
+		}
+		
+		String fileName = file.getOriginalFilename();
+		
+		String id = (String)map.get("id");
+		//파일 경로를 저장할 변수 설정
+		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
+		System.out.println("update abspath: " + absPath);
+		
+		//파일명 받아오기
+		System.out.println("update fileName: " + fileName);
+		
+		//기존 이미지 폴더 경로 얻기
+		String imgPath = absPath + "/" + id;
+		
+		//기존 이미지 삭제
+		File existingFile = new File(imgPath);
+		//기존 이미지 폴더 및 파일 삭제
+		if(existingFile.isDirectory()) {
+			File[] files = existingFile.listFiles();
+			if(files != null) {
+				for(File image : files) {
+					image.delete();
+				}
+			}
+			existingFile.delete();
+		}
+		
+		//파일업로드후 반환된 파일이름 배열로 반환
+		List fileList = fileProcess(request);
+        
+		map.put("fileName", fileName);
+		
+		//새 이미지 업로드
+		//폴더 생성을 위해 경로 설정
+		File memDir = new File(absPath + "/" + id);
+		//폴더 생성
+		memDir.mkdir();
+		
+		String filePath = absPath + File.separator + id + File.separator + fileName;
+		File dest = new File(filePath);
+		System.out.println("filePath: " + filePath);
+		//파일을 해당 폴더로 이동
+		if(!dest.exists()) {
+			file.transferTo(dest);
+		}
+		
 		//부장 MemberServiceImpl객체의 메소드 호출시 수정할 id를 전달하여 UPDATE명령!
-		memberService.UpdateMember(member);		 
+		memberService.UpdateMember(map);		 
 			
 		//회원 수정후 모든회원을 조회 하는 재요청 주소 작성 
-		return  new ModelAndView("redirect:/member/listMembers.do");
-		
+		return  new ModelAndView("redirect:/member/myPage.do");
 	
 	}
 	
@@ -485,7 +524,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		System.out.println("파일: " + image);
 		
 		response.setHeader("Cache-Control", "no-cache");
-		response.addHeader("Content-disposition", "attachment; fileName=" + fileName);
+		response.addHeader("Content-disposition", "attachment; fileName=" + URLEncoder.encode(fileName, "UTF-8"));
 		
 		FileInputStream in = new FileInputStream(image);
 		
