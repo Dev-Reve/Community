@@ -74,7 +74,7 @@
 		<c:if test="${paging.startPage != 1 }">
 			<a href="${Path}/board/listboard.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&checksel=${paging.checksel}">&lt;</a>
 		</c:if>
-		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		<c:forEach begin="${paging.startPage}" end="${paging.endPage }" var="p">
 			<c:choose>
 				<c:when test="${p == paging.nowPage }">
 					<b>${p }</b>
