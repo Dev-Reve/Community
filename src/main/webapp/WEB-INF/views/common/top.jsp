@@ -27,7 +27,12 @@
 			<c:choose>
           <c:when test="${isLogOn == true  && member!= null}">
        	    <li style="float:right;"><a href="${path}/member/myPage.do">마이페이지</a></li>
-            <li style="float:right;"><a href="${path}/member/logout.do">로그아웃</a></li>
+       	    <c:if test="${isKakao == true}">
+	            <li style="float:right;"><a href="https://kauth.kakao.com/oauth/logout?client_id=24341d26e46f6a5b4c17148bfb5e6d48&logout_redirect_uri=http://localhost:8090/community/kakao/logout">카카오 로그아웃</a></li>
+       	    </c:if>
+       	    <c:if test="${isKakao != true}">
+	            <li style="float:right;"><a href="${path}/member/logout.do">로그아웃</a></li>
+       	    </c:if>
           </c:when>
           <c:otherwise>
 	        <li style="float:right;"><a href="${path}/member/memberForm.do">회원가입</a></li>

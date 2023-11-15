@@ -379,6 +379,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		
 		session.setAttribute("isLogOn", true);
 		session.setAttribute("member", vo);
+		session.setAttribute("isKakao", true);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("center", "/WEB-INF/views/common/index.jsp");

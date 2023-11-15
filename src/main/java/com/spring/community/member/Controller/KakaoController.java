@@ -120,7 +120,7 @@ public class KakaoController {
  			HttpSession session = request.getSession();
  			session.setAttribute("isLogOn", true);
  			session.setAttribute("member", vo);
- 			session.setAttribute("access_token", oAuthToken.getAccess_token());
+ 			session.setAttribute("isKakao", true);
  			
 			mav.setViewName("redirect:/main/index.do");
 		} else {
@@ -135,6 +135,20 @@ public class KakaoController {
 			mav.addObject("center", "/WEB-INF/views/member/memberForm.jsp");
 			mav.setViewName("main");
 		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/kakao/logout", method = RequestMethod.GET)
+	public ModelAndView kakaoLogout(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		session.removeAttribute("isKakao");
+		session.removeAttribute("isLogOn");
+		session.removeAttribute("member");
+		
+		mav.setViewName("redirect:/main/index.do");
 		
 		return mav;
 	}
