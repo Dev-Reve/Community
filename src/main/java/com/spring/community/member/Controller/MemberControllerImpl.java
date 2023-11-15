@@ -292,7 +292,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		System.out.println(viewName); 	
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/main/index.do");
+		mav.setViewName("redirect:/member/loginForm.do");
 			
 		//회원가입 후 모든회원을 조회 하는 재요청 주소 작성 
 		return mav;
