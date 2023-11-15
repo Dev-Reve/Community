@@ -1,6 +1,7 @@
 package com.spring.community.member.service;
 
 import java.util.List;
+import java.util.Map;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,9 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원 가입 기능
 	@Override
-	public void addMembers(MemberVO vo) throws DataAccessException{
+	public void addMembers(Map map) throws DataAccessException{
 		
-		memberDAO.InsertMember(vo);
+		memberDAO.InsertMember(map);
 		
 	}
 
@@ -54,9 +55,10 @@ public class MemberServiceImpl implements MemberService {
 
 	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
 	@Override
-	public MemberVO detailMembers(String id) throws DataAccessException {
+	public MemberVO detailMembers(MemberVO memberVO) throws DataAccessException {
+	
 		
-		return memberDAO.oneMember(id);
+		return memberDAO.oneMember(memberVO);
 	}
 
 	//회원정보 수정 기능 
@@ -69,10 +71,36 @@ public class MemberServiceImpl implements MemberService {
 	
 	//회원로그인 처리 기능
 	@Override
-	public MemberVO login(MemberVO memberVO) throws Exception {
-		return memberDAO.loginById(memberVO);
+	public MemberVO login(Map<String, String> loginInfo) throws Exception {
+		return memberDAO.loginById(loginInfo);
 	}
 	
+
+	@Override
+	//like한 리스트불러오는메소드
+	public List likelist(MemberVO memberVO) throws Exception {
+		return memberDAO.likelistByNick(memberVO);
+	
+	}
+
+	//거래게시글에서 글쓴이의 정보를 가져오는 기능
+	@Override
+	public MemberVO getMemberInfo(int no) throws Exception {
+		return memberDAO.getMemberInfo(no);
+	}
+	
+	@Override
+	public MemberVO getMemberId(String nickname) throws Exception {
+		return memberDAO.getMemberId(nickname);
+	}
+	
+	//public int idCheck(String id)throws Exception {
+	//	return memberDAO.idCheck(id);
+	//}
+
+	
+
+
 }
 
 

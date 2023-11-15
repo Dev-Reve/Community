@@ -1,105 +1,118 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="Path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
-    
     <meta charset="utf-8" />
     <title>LikeBoard</title>
-    <style>
-        /* Add CSS styles for center-aligning the div */
-        .centered-div {
-            text-align: center;
-            margin-top: 20px; /* 필요에 따라 margin-top 값을 조정할 수 있습니다 */
-        }
-        /* Add CSS styles to display board containers side by side with spacing */
-        .board-container {
-            display: inline-block;
-            width: 45%; /* 각 테이블을 더 가깝게 배치하려면 width 값을 조정할 수 있습니다 */
-            margin: 10px; /* 테이블 사이의 간격을 조정할 수 있습니다 */
-            vertical-align: top; /* 테이블을 상단 정렬로 배치합니다 */
-        }
-        /* 테이블 내의 모든 텍스트 가운데 정렬 스타일 */
-        table tr th {
-            text-align: center;
-            font-weight: bold; /* 텍스트를 진하게 표시합니다 */
-        }
-        /* 테이블 내의 모든 텍스트 가운데 정렬 스타일 */
-        table td {
-            text-align: center;
-            font-size: 14px;
-        }
-    </style>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .centered-div {
+        color: white;
+        padding: 20px;
+    }
+
+    .board-container {
+        margin: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    caption {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        caption-side: top; /* 캡션을 테이블 위쪽으로 올림 */
+    }
+
+    th, td {
+        padding: 15px;
+        border: 1px solid #e9ecef;
+        text-align: center;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        text-align: center;
+        color: black;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f8f9fa;
+        text-align: center;
+    }
+
+    tr:hover {
+        background-color: #cce5ff;
+        text-align: center;
+    }
+</style>
 </head>
 <body>
     <div class="centered-div">
         <h3>인기 게시판</h3>
     </div>
-    <div class="board-container">
-        <table id="board_community" border="1" align="center">
-            <caption><p><strong>커뮤니티 게시판</strong></p></caption>
-            <tr>
-                <th>글 번호</th>
-                <th>글 제목</th>
-                <th>글 내용</th>
-                <th>작성일</th>
-                <th>작성자</th>
-                <th>조회수</th>
-                <th>추천수</th>
-            </tr>
-            <!-- 더미 데이터 예제 -->
-            <tr>
-                <td>1</td>
-                <td>게시물 제목 1</td>
-                <td>게시물 내용 1</td>
-                <td>2023-10-30</td>
-                <td>작성자1</td>
-                <td>100</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>게시물 제목 2</td>
-                <td>게시물 내용 2</td>
-                <td>2023-10-31</td>
-                <td>작성자2</td>
-                <td>150</td>
-                <td>20</td>
-            </tr>
-        </table>
-    </div>
-    <div class="board-container">
-        <table id="board_trade" border="1" align="center">
-            <caption><p><strong>중고거래 게시판</strong></p></caption>
-            <tr>
-                <th>글 번호</th>
-                <th>글 제목</th>
-                <th>글 내용</th>
-                <th>작성일</th>
-                <th>작성자</th>
-                <th>조회수</th>
-                <th>추천수</th>
-            </tr>
-            <!-- 더미 데이터 예제 -->
-            <tr>
-                <td>1</td>
-                <td>게시물 제목 1</td>
-                <td>게시물 내용 1</td>
-                <td>2023-10-30</td>
-                <td>작성자1</td>
-                <td>100</td>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>게시물 제목 2</td>
-                <td>게시물 내용 2</td>
-                <td>2023-10-31</td>
-                <td>작성자2</td>
-                <td>150</td>
-                <td>20</td>
-            </tr>
-        </table>
+    <div class="a" style="display: flex; flex-direction: column;">
+        <!-- 첫 번째 .board-container에 배경색 제거 -->
+        <div class="board-container">
+            <table id="board_community">
+                <caption>커뮤니티 게시판</caption>
+                <tr align="center">
+                    <th>글 번호</th>
+                    <th>글 제목</th>
+                    <th>작성일</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                </tr>
+                <c:forEach items="${boardList}" var="blist">
+                    <tr>
+                        <td>${blist.no}</td>
+                        <td><a href="${Path}/board/boardInfo.do?no=${blist.no}&name=${member.name}">${blist.title}</a></td>
+                        <td>${blist.nickname}</td>
+                        <td>${blist.writedate}</td>
+                        <td>${blist.readcount}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+        <!-- 두 번째 .board-container는 그대로 둠 -->
+        <div class="board-container">
+            <table id="board_trade">
+                <caption>중고거래 게시판</caption>
+                <tr align="center">
+                    <th>글 번호</th>
+                    <th>글 제목</th>
+                    <th>작성일</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                </tr>
+                <c:forEach items="${tradeList}" var="tlist">
+                    <tr>
+                        <td>${tlist.no}</td>
+                        <td><a href="${Path}/trade/tradeDetail.do?no=${tlist.no}">${tlist.title}</a></td>
+                        <td>${tlist.nickname}</td>
+                        <td>${tlist.writedate}</td>
+                        <td>${tlist.readcount}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </div>
 </body>
 </html>

@@ -42,9 +42,10 @@
 																	 그러나 특정 요구 사항에 따라 UTF-8 등 다른 인코딩을 사용하려면 설정할 수 있습니다. -->
 	 
 	</beans:bean>
+
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/first/index.do"/>
+			<mvc:mapping path="/main/first.do"/>
 			<beans:bean class="com.spring.community.Interceptor.LocaleInterceptor" />	
 		</mvc:interceptor>
 	</mvc:interceptors>

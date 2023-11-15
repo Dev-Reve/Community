@@ -1,7 +1,7 @@
 package com.spring.community.member.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -13,11 +13,9 @@ public interface MemberService {
 	public List listMembers() throws DataAccessException;
 
 	//회원 가입 추가 기능 
-	public void addMembers(MemberVO vo) throws DataAccessException;
+	public void addMembers(Map map) throws DataAccessException;
 
 
-	//회원정보  수정을 위해 회원 한명의 정보 조회 기능
-	public MemberVO detailMembers(String id) throws DataAccessException;
 
 	//회원정보 수정 기능 
 	public void UpdateMember(MemberVO vo) throws DataAccessException;
@@ -25,8 +23,20 @@ public interface MemberService {
 	//회원 삭제 기능 
 	public void delMembers(String id) throws DataAccessException;
 	
-	//회원로그인 처리 기능
-	public MemberVO login(MemberVO memberVO) throws Exception;
+	
+
+
+	MemberVO detailMembers(MemberVO memberVO) throws DataAccessException;
+
+	List likelist(MemberVO memberVO) throws Exception;
+	
+
+	public MemberVO getMemberInfo(int no) throws Exception;
+
+	public MemberVO getMemberId(String nickname) throws Exception;
+
+	public MemberVO login(Map<String, String> loginInfo) throws Exception;
+
 	
 	
 }

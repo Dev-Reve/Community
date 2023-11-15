@@ -25,10 +25,10 @@ public class LocaleInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		 ReGallerylist = mainService.getRecentGarallyList();
-		 ReTradelist  = mainService.getRecentTradeList();
+		// ReGallerylist = mainService.getRecentGarallyList();
+		  ReTradelist  = mainService.getRecentTradeList();
 		 
-		 request.setAttribute("RecentGall", ReGallerylist);
+		 // request.setAttribute("RecentGall", ReGallerylist);
 		 request.setAttribute("RecentTrade", ReTradelist);
 		 
 		return true;

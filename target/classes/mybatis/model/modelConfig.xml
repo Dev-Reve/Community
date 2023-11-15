@@ -8,15 +8,26 @@
 	<!-- 태그를 이용하여 매퍼파일 member.xml에서 긴 이름의 클래스를 별칭으로 사용할수 있게 설정 -->
  	<typeAliases>
  		<typeAlias type="com.spring.community.member.VO.MemberVO" alias="memberVO"/>
+ 						 
 
  		
 
  		<typeAlias type="com.spring.community.likeboard.likeBoardVO.LikeBoardVO" alias="likeboardVO"/>
  		<typeAlias type="com.spring.community.board.BoardVO.BoardVO" alias="boardVO"/>
  		<typeAlias type="com.spring.community.board.Utils.PagingVO" alias="pagingVO"/>
+ 		<typeAlias type="com.spring.community.board.Utils.PagerVO" alias="pagerVO"/>
  		<typeAlias type="com.spring.community.trade.vo.TradeVO" alias="tradeVO"/>
  		<typeAlias type="com.spring.community.gallery.vo.GalleryVO" alias="galleryVO"/>
+ 		<typeAlias type="com.spring.community.tradeComment.vo.TradeCommentVO" alias="tradeCommentVO"/>
+ 		<typeAlias type="com.spring.community.tradeLike.vo.TradeLikeVO" alias="tradeLikeVO"/>
+ 		<typeAlias type="com.spring.community.board.BoardVO.BoardCommentVO" alias="boardcommentVO"/>
+		<typeAlias type="com.spring.community.gallery.vo.GalleryCommentVO" alias="galleryCommentVO"/>
 
  	</typeAliases>
+ 	
+ 	
+	<typeHandlers>
+        <typeHandler handler="com.spring.community.trade.utils.OracleTypeHandler"/>
+	</typeHandlers>  
  	
 </configuration>

@@ -6,6 +6,8 @@
 	request.setCharacterEncoding("utf-8");
 %>
 <c:set var="Path" value="${pageContext.request.contextPath}" />
+<c:set var="id" value="${member.id}" />
+<c:set var="id" value="${member.name}" />
 
 <!DOCTYPE html>
 <html>
@@ -13,8 +15,12 @@
 
 <script>
 	function selChange() {
-		var sel = document.getElementById('cntPerPage').value;
-		location.href="listboard.do?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		var sel = document.getElementById('checksel').value;
+		location.href="${Path}/board/listboard.do?nowPage=${paging.nowPage}&cntPerPage=10&checksel="+sel;
+	}
+	function serchsel() {
+		var keyword = document.getElementById('keyword').value;
+		console.log(ketword);	
 	}
 </script>
 
@@ -24,50 +30,49 @@
 </head>
 <body>
 <h2>게시판</h2>
+<h1>${name}</h1>
 <div id="outter">
-	<div style="float: right;">
-		<select id="cntPerPage" name="sel" onchange="selChange()">
-			<option value="5"
-				<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
-			<option value="10"
-				<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
-			<option value="15"
-				<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
-			<option value="20"
-				<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+	<div style="float: right;">	
+		<select id="checksel" name="sel" onchange="selChange()">
+			<option value="no" 
+				<c:if test="${paging.checksel == 'no'}">selected</c:if>>최신순</option>
+    		<option value="readCount" 
+    			<c:if test="${paging.checksel == 'readCount'}">selected</c:if>>조회순</option>
 		</select>
+
 	</div> <!-- 옵션선택 끝 -->
-	<table border="1">
-		<tr>
-			<td>No.</td>
-			<td width="50%">제목</td>
-			<td>작성자</td>
-			<td>등록일</td>
-			<td>조회수</td>	
-			
-			<th>글 번호</th>
-            <th>글 제목</th>
-            <th>글 내용</th>
-            <th>작성일</th>
-            <th>작성자</th>
-            <th>조회수</th>	
-		</tr>
-		<c:forEach items="${boardlist}" var="list">
-			<tr>
-				<td>${list.no }</td>
-				<td><a href='detail?no=${list.no }'>${list.title }</a></td>
-				<td>${list.content }</td>
-				<td><fmt:formatDate value="${list.writdate }" pattern="yyyy.MM.dd"/> </td>
-				<td>${list.nickname }</td>
-				<td>${list.readcount }</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<input type="button" value="글쓰기" style="float: right;" onclick="location.href='/write'"><br>
+	
+	
+	<table id="board" style="border-collapse: collapse; width: 100%; margin-top: 20px; text-align: center;">
+    <tr style="background-color: #f2f2f2;">
+        <th style="padding: 10px; border: 1px solid #ddd;">글 번호</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">글 제목</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">작성일</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">작성자</th>
+        <th style="padding: 10px; border: 1px solid #ddd;">조회수</th>
+    </tr>
+    <c:forEach items="${boardlist}" var="list">
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.no }</td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="${Path }/board/boardInfo.do?no=${list.no}&name=${member.name}">${list.title}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.writeDate }</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.nickName }</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${list.readCount }</td>
+        </tr>
+    </c:forEach>
+</table>
+	<c:choose>
+		<c:when test="${member.id == null}">
+		</c:when>
+		<c:otherwise>
+			<input type="button" value="글쓰기" style="float: right;"
+				onclick="location.href='${Path}/board/insertForm.do'">
+		</c:otherwise>
+	</c:choose>
 	
 	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
-			<a href="/listboard.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			<a href="${Path}/board/listboard.do?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&checksel=${paging.checksel}">&lt;</a>
 		</c:if>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 			<c:choose>
@@ -75,12 +80,12 @@
 					<b>${p }</b>
 				</c:when>
 				<c:when test="${p != paging.nowPage }">
-					<a href="/listboard.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+					<a href="${Path}/board/listboard.do?nowPage=${p }&cntPerPage=${paging.cntPerPage}&checksel=${paging.checksel}">${p }</a>
 				</c:when>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${paging.endPage != paging.lastPage}">
-			<a href="/listboard.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			<a href="${Path}/board/listboard.do?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&checksel=${paging.checksel}">&gt;</a>
 		</c:if>
 	</div>
 </div>

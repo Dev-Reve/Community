@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.community.board.Utils.PagingVO;
 import com.spring.community.likeboard.Service.LikeBoardService;
 import com.spring.community.likeboard.likeBoardVO.LikeBoardVO;
 
@@ -29,11 +30,22 @@ public class LikeBoardControllerImpl extends HttpServlet implements LikeBoardCon
 	public ModelAndView selcetLikeBoard(HttpServletRequest request, 
 											HttpServletResponse response)
 												throws Exception {
+		PagingVO pvo = new PagingVO();
 		ModelAndView mav = new ModelAndView();
 		
-		List likeboardlist = likeboardservice.selcetLikeBoard();
+		String checksel = request.getParameter("");
 		
-		mav.setViewName("likeboard/likeboard");
+		if(checksel == null) {
+			checksel = "readcount";
+		}
+		
+		pvo.setChecksel(checksel);
+		
+		List<LikeBoardVO> boadList = likeboardservice.selboardList(pvo);
+		List<LikeBoardVO> tradeList = likeboardservice.seltradeList(pvo);
+		
+		mav.addObject("boardList", boadList);
+		mav.addObject("tradeList", tradeList);
 		mav.addObject("center", "/WEB-INF/views/likeboard/likeboard.jsp");
 		mav.setViewName("main");
 

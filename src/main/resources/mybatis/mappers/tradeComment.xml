@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- DAO에서 아래 mapper태그 내부에 접근하기 위해 mapper태그에 namespace를 설정 -->
+  <!-- DAO에서 member관련 sql문을 작성 또는 호출을 위해서는 mapper.member를 호출하여야 함 -->
+<mapper namespace="mapper.tradeComment">
+	<!-- member관련 DB에서 조회해온 결과를 담을 Map을 생성하여 id값을 memResult로 저장 -->
+	<!-- 이후 조회해온 resultMap에 VO들을 담기 위해서  resultMap에 memResult를 작성하거나
+		 resultType에 memberVO를 작성하여 VO빈에 저장하면 됨  -->
+	<resultMap id="commentResult" type="tradeCommentVO">
+		<result property="level" column="level"/>
+		<result property="no" column="no"/>
+		<result property="content" column="content"/>
+		<result property="nickname" column="nickname"/>
+		<result property="writeDate" column="writeDate"/>
+		<result property="parentNo" column="parentNo"/>
+		<result property="childNo" column="childNo"/>
+		<result property="boardNo" column="boardNo"/>
+	</resultMap>
+	
+	<select id="getCommentList" resultMap="commentResult" parameterType="int">
+		<![CDATA[
+			SELECT boardNo, nickname, LEVEL, LPAD(' ', 2*(LEVEL-1)) || content AS content,
+		        no, 
+		        parentNo,
+		        writeDate
+		    FROM trade_comment
+		    WHERE boardNo = #{no}
+		    START WITH parentNo = 0
+		    CONNECT BY PRIOR no = parentNo
+		]]>
+<!-- 		<![CDATA[ -->
+<!-- 			SELECT * FROM trade_comment WHERE boardNo = #{no} ORDER BY writeDate desc, no desc -->
+<!-- 		]]>		 -->
+	</select>
+	
+	<insert id="regComment" parameterType="tradeCommentVO">
+		<![CDATA[
+			INSERT INTO trade_comment(no, content, nickname, boardNo, parentNo)
+			VALUES (tc_no.nextval, #{content}, #{nickname}, #{boardNo}, 
+		]]>
+		<if test="parentNo != 0">
+			#{parentNo}
+		</if>
+		<if test="parentNo == 0">
+			0
+		</if>
+		<![CDATA[ ) ]]>
+	</insert>
+	
+	<delete id="delComment" parameterType="int">
+		<![CDATA[
+			DELETE FROM trade_comment WHERE no = #{no}
+		]]>
+	</delete>
+	
+	<update id="modComment" parameterType="tradeCommentVO">
+		<![CDATA[
+			UPDATE trade_comment SET content=#{content} WHERE boardNo=#{boardNo} and no=#{no}
+		]]>
+	</update>
+	
+	<select id="selModedComment" parameterType="tradeCommentVO" resultType="tradeCommentVO">
+		<![CDATA[
+			SELECT * FROM trade_comment WHERE boardNo=#{boardNo} and no=#{no}
+		]]>
+	</select>
+</mapper>

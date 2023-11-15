@@ -3,6 +3,7 @@ package com.spring.community.member.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,10 +33,6 @@ public interface MemberController {
 //	public String   UpdateMember(HttpServletRequest request, 
 //			 	    			 HttpServletResponse response) throws Exception;
 	
-	//회원 한명 정보 수정 기능
-	ModelAndView UpdateMember(MemberVO member, 
-							  HttpServletRequest request, 
-							  HttpServletResponse response) throws Exception;
 	
 	//회원정보 삭제 기능
 //	public String memberDel(HttpServletRequest request, 
@@ -58,16 +55,27 @@ public interface MemberController {
 
 
 	//회원가입요청
-	ModelAndView addMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+//	ModelAndView addMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
 	//로그인 화면 요청
 	ModelAndView Form2(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원로그인 처리 기능
-	ModelAndView login(RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response)
-			throws Exception;
+//	ModelAndView login(RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response)
+//			throws Exception;
 	//마이페이지 화면
 	ModelAndView myPage(HttpServletRequest request, HttpServletResponse response) throws Exception;
+
+
+	ModelAndView UpdateMember(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception;
+
+	ModelAndView addMember(MultipartFile fileName, MultipartHttpServletRequest multipartRequest,
+			HttpServletResponse response) throws Exception;
+
+	ModelAndView login(String id, String password, RedirectAttributes rAttr, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
 
 	
 

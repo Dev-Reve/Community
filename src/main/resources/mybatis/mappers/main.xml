@@ -10,50 +10,53 @@
 		<result property="no" column="no" />
 		<result property="price" column="price" />
 		<result property="title" column="title" />
-		<result property="nickname" column="nickname" />
+		<result property="content" column="content" />
+		<result property="nickname" column="nickName" />
+		<result property="sellStat" column="sellStat" />
+		<result property="writeDate" column="writeDate" />
+		<result property="category" column="category" />
 		<result property="fileName" column="fileName" />
-<!-- 		<result property="fileRealName" column="fileRealName" /> -->
+		<result property="fileRealName" column="fileRealName" />
+		<result property="readCount" column="readCount" />
 	</resultMap>
-
+				   
+				   
 	<resultMap id="galleryRecent" type="galleryVO">
 		<result property="no" column="no" />
 		<result property="title" column="title" />
-		<result property="nickname" column="nickname" />
-		<result property="writeDate" column="writeDate" />
+		<result property="nickname" column="nickName" />
 		<result property="fileName" column="fileName" />
-<!-- 		<result property="fileRealName" column="fileRealName" /> -->
+		<result property="readCount" column="readCount" />
+		<result property="fileRealName" column="fileRealName" />
+		<result property="writeDate" column="writeDate" />
 	</resultMap>
 
+	
+
+	
+	<select id="getRecentGallery" resultMap="galleryRecent">
+	  <![CDATA[
+	     SELECT no, title, nickName, fileName, readCount
+	     FROM (
+	       SELECT * FROM GALLERY 
+	       ORDER BY no DESC 
+	     ) 
+	     WHERE ROWNUM <= 3
+	   ]]>
+	</select>
+	
+	
 	<select id="getRecentTrade" resultMap="tradeRecent">
 		<![CDATA[
- 			SELECT no, price, title, nickname, filename 
+ 			SELECT no, price, title, nickName
 				FROM (
     			SELECT * FROM TRADE
     			ORDER BY no DESC
 			)
-			WHERE ROWNUM <= 3;
+			WHERE ROWNUM <= 3
 		]]>
-<!--	
-		<![CDATA[
- 			SELECT no, price, title, nickname, filename, fileRealName
-				FROM (
-    			SELECT * FROM TRADE
-    			ORDER BY no DESC
-			)
-			WHERE ROWNUM <= 3;
-		]]>
--->
 	</select>
-	<select id="getRecentGallery" resultMap="galleryRecent">
-		<![CDATA[
-			SELECT no, title, nickname, filename
-				FROM (
-				SELECT * FROM GALLERY
-				ORDER BY no DESC				
-			)
-			WHERE ROWNUM <= 3;
-		]]>	
-	</select>
+	
 
 
 
