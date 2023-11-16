@@ -24,7 +24,7 @@
 							</header>
 							<p>And this is <strong>Miniport</strong>, a free, fully responsive HTML5 site template designed by <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net">HTML5 UP</a> &amp; released under the <a href="http://html5up.net/license">CCA license</a>.</p>
 							<a href="${path}/member/memberDetail.do" class="button large scrolly">내 정보 관리</a>
-							<a href="${path}/member/memberDel.do?id=${member.id}" class="button large scrolly">회원 탈퇴</a>
+							<a href="javascript:" onclick="delMember('${id}')" class="button large scrolly">회원 탈퇴</a>
 						</div>
 					</div>
 				</div>
@@ -56,6 +56,12 @@
 			<script src="${path}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${path}/resources/assets/js/util.js"></script>
 			<script src="${path}/resources/assets/js/main.js"></script>
+			<script type="text/javascript">
+				function delMember(id) {
+					confirm('정말로 탈퇴하시겠습니까?');
+					location.href = '${path}/member/memberDel.do?id=' + id;
+				}
+			</script>
 
 	</body>
 </html>
