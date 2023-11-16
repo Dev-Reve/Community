@@ -160,7 +160,7 @@
 		        	<input type="password" name="password" class="input" placeholder="비밀번호">
 		        	<button class="form-btn" type="submit">로그인</button>
 			      	<p class="sign-up-label">
-			        아직 계정이 없으신가요? <span class="sign-up-link">회원가입하러 가기</span>
+			        아직 계정이 없으신가요? <span class="sign-up-link"><a href="${path}/member/memberForm.do" style="text-decoration: none; color:teal;">회원가입하러 가기</a></span>
 		      	</p>
 		      	<div class="buttons-container">
 	        		<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=24341d26e46f6a5b4c17148bfb5e6d48&redirect_uri=http://localhost:8090${path}/member/kakaoCallback&prompt=select_account'">

@@ -56,11 +56,13 @@
                             	<br>
                             </p>
                         </div>
+                        <a href="${path}/trade/tradeDetail.do?no=${trd.no}" style="text-decoration: none;">
                         <div class="card-footer">
                         	<span style="color: black;">${trd.title}</span> <span style="color:red">[${trd.readCount}]</span><br>
-                        	<span>가격 : ${trd.price}원</span><br>
+                        	<span style="color: black;">가격 : ${trd.price}원</span><br>
                         	<span style="color: gray;">${trd.nickname}</span>
                         </div>
+                        </a>
                           </div>
                     </div>
                     </c:forEach>
