@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -246,7 +248,7 @@ public class GalleryControllerImpl extends HttpServlet implements GalleryControl
 			File newFile = new File(filePath);
 
 			// 파일을 복사
-			file.transferTo(newFile);
+			Files.copy(file.getInputStream(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
 		}
 
