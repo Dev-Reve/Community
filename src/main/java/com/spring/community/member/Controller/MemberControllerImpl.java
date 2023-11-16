@@ -43,8 +43,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.community.member.service.MemberService;
 import com.spring.community.member.VO.MemberVO;
 import com.spring.community.member.VO.OAuthToken;
+import com.spring.community.likeboard.likeBoardVO.LikeBoardVO;
 import com.spring.community.member.DAO.MemberDAO;
 import com.spring.community.member.service.MemberServiceImpl;
+import com.spring.community.tradeLike.vo.TradeLikeVO;
 
 //MVC중에 C  
 //사장 
@@ -98,11 +100,10 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			System.out.println(memberVO.getId());
 			//id로 한 회원의 정보를 불러옴
 			MemberVO vo = memberService.detailMembers(memberVO);
-			System.out.println("mayPage에vo nickname:"+vo.getId());
-			System.out.println("mayPage에vo nickname:"+vo.getNickname());
+//			System.out.println("mayPage에vo nickname:"+vo.getId());
+//			System.out.println("mayPage에vo nickname:"+vo.getNickname());
 			//nickname으로 like한 게시물들을 불러옴
 			List likeList = memberService.likelist(vo);
-			System.out.println("사이즈:"+likeList.size());
 			
 			ModelAndView mav = new ModelAndView();
 						 mav.addObject("nickname",vo);
@@ -440,10 +441,6 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 			map.put("password", password);
 		}
 		
-		if(!file.isEmpty()) {
-			fileName = file.getOriginalFilename();
-		}
-		
 		String id = (String)map.get("id");
 		//파일 경로를 저장할 변수 설정
 		String absPath = servletContext.getRealPath(CURR_IMAGE_REPO_PATH);
@@ -457,6 +454,7 @@ public class MemberControllerImpl  implements MemberController, ServletContextAw
 		
 		if(!file.isEmpty()) {
 			System.out.println("if문 탑승! 수정한 이미지 파일 존재!");
+			fileName = file.getOriginalFilename();
 			//기존 이미지 삭제
 			File existingFile = new File(imgPath);
 			//기존 이미지 폴더 및 파일 삭제

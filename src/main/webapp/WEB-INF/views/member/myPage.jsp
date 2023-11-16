@@ -36,10 +36,12 @@
 			<hr>
 				
 				<c:forEach var="like" items="${liksList}">
-				<tr>				
-					<td>
-						<a href="${path}/trade/tradeDetail.do?no=${like.no}">${like.title}</a>
-					<hr>
+				<tr style="border-bottom: 1px solid gray; height: 150px;">				
+					<td width="10%" style="vertical-align: middle;">
+						<img src="${path}/trade/thumbnail.do?no=${like.no}" style="width:100%; height: 125px; object-fit: cover; padding: 5px;">
+					</td>
+					<td style="padding: 10px; vertical-align: middle;">
+						<a href="${path}/trade/tradeDetail.do?no=${like.no}" style="text-align: left; text-decoration: none; color: black;">${like.title}</a>
 					</td>
 				</tr>
 				</c:forEach>
