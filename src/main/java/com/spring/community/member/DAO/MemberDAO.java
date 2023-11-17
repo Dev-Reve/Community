@@ -22,7 +22,7 @@ public interface MemberDAO {
 	public MemberVO oneMember(MemberVO vo) throws DataAccessException;
 
 	//회원정보 수정 기능
-	public void UpdateMember(MemberVO vo) throws DataAccessException;
+	public void UpdateMember(Map map) throws DataAccessException;
 
 	//회원로그인 처리 기능
 	public MemberVO loginById(Map<String, String> loginInfo) throws DataAccessException;

@@ -15,7 +15,7 @@
 		<result property="sellStat" column="sellStat" />
 		<result property="writeDate" column="writeDate" />
 		<result property="category" column="category" />
-		<result property="fileName" column="fileName" />
+		<result property="fileNames" column="fileName" typeHandler="com.spring.community.trade.utils.OracleTypeHandler"/>
 		<result property="fileRealName" column="fileRealName" />
 		<result property="readCount" column="readCount" />
 	</resultMap>
@@ -48,7 +48,7 @@
 	
 	<select id="getRecentTrade" resultMap="tradeRecent">
 		<![CDATA[
- 			SELECT no, price, title, nickName
+ 			SELECT *
 				FROM (
     			SELECT * FROM TRADE
     			ORDER BY no DESC

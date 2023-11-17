@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -203,7 +205,7 @@ public class TradeBoardControllerImpl implements TradeBoardController, ServletCo
 	        File dest = new File(filePath);
 	        
 	        // 파일을 해당 폴더로 이동
-	        file.transferTo(dest);
+	        Files.copy(file.getInputStream(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	        
 	        fileNames.add(originalFileName);
 	    }

@@ -16,7 +16,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-4 col-5-large col-12-medium">
-							<span class="image fit"><img src="${path}/member/download.do?nickname=${member.nickname}" alt="" /></span>
+							<span class="image fit"><img src="${path}/member/download.do?nickname=${member.nickname}" style="width:100%; height:100%; object-fit: cover; border: 1px solid lightgray;"/></span>
 						</div>
 						<div class="col-8 col-7-large col-12-medium">
 							<header>
@@ -24,6 +24,7 @@
 							</header>
 							<p>And this is <strong>Miniport</strong>, a free, fully responsive HTML5 site template designed by <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net">HTML5 UP</a> &amp; released under the <a href="http://html5up.net/license">CCA license</a>.</p>
 							<a href="${path}/member/memberDetail.do" class="button large scrolly">내 정보 관리</a>
+							<a href="javascript:" onclick="delMember('${id}')" class="button large scrolly">회원 탈퇴</a>
 						</div>
 					</div>
 				</div>
@@ -35,10 +36,12 @@
 			<hr>
 				
 				<c:forEach var="like" items="${liksList}">
-				<tr>				
-					<td>
-						<a href="${path}/trade/tradeDetail.do?no=${like.no}">${like.title}</a>
-					<hr>
+				<tr style="border-bottom: 1px solid gray; height: 150px;">				
+					<td width="10%" style="vertical-align: middle;">
+						<img src="${path}/trade/thumbnail.do?no=${like.no}" style="width:100%; height: 125px; object-fit: cover; padding: 5px;">
+					</td>
+					<td style="padding: 10px; vertical-align: middle;">
+						<a href="${path}/trade/tradeDetail.do?no=${like.no}" style="text-align: left; text-decoration: none; color: black;">${like.title}</a>
 					</td>
 				</tr>
 				</c:forEach>
@@ -53,6 +56,12 @@
 			<script src="${path}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${path}/resources/assets/js/util.js"></script>
 			<script src="${path}/resources/assets/js/main.js"></script>
+			<script type="text/javascript">
+				function delMember(id) {
+					confirm('정말로 탈퇴하시겠습니까?');
+					location.href = '${path}/member/memberDel.do?id=' + id;
+				}
+			</script>
 
 	</body>
 </html>

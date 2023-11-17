@@ -133,9 +133,10 @@
 		  			</c:if>
 		  		</span>	  		
 		  	</label>
-		    <input type="text" name="id" placeholder="아이디를 입력해주세요" <c:if test="${map.id ne ''}"> value="${map.id}" readonly</c:if> >
+		    <input type="text" name="id" placeholder="아이디를 입력해주세요" <c:if test="${map.id ne ''}"> value="${map.id}"</c:if> >
 		    <input type="password" name="password" placeholder="비밀번호를 입력해주세요"> 
-		    <input type="text" name="name" placeholder="이름을 입력해주세요" <c:if test="${map.name ne ''}">value="${map.name}" readonly</c:if> >
+		    <input type="password" name="passwordConfirm" placeholder="비밀번호를 한 번 더 입력해주세요"> 
+		    <input type="text" name="name" placeholder="이름을 입력해주세요" <c:if test="${map.name ne ''}">value="${map.name}"</c:if> >
 		    <input type="text" name="ssn" placeholder="주민등록번호를 하이픈(-)을 포함하여 입력해주세요">
 		    <input type="text" name="nickname" placeholder="닉네임을 입력해주세요">
 		    <input type="email" name="email" placeholder="이메일을 입력해주세요" <c:if test="${map.email ne ''}">value="${map.email}"</c:if> >

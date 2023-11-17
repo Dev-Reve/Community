@@ -22,7 +22,7 @@ public interface MemberService {
 	public MemberVO detailMembers(MemberVO memberVO) throws DataAccessException;
 
 	//회원정보 수정 기능 
-	public void UpdateMember(MemberVO vo) throws DataAccessException;
+	public void UpdateMember(Map map) throws DataAccessException;
 	
 	//회원 삭제 기능 
 	public void delMembers(String id) throws DataAccessException;

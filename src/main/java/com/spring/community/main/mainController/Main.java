@@ -95,28 +95,29 @@ public class Main {
         JSONObject response =  jsonPasing.getJSONObject("response");
         //System.out.println("response : " + response);
         
-        JSONObject body = response.getJSONObject("body");
-        //System.out.println("body : " + body);
-        
-        JSONObject items = body.getJSONObject("items");
-        //System.out.println("items : " + items);
-        JSONArray item = items.getJSONArray("item");
-        
-        Map pubData = new HashMap();
-        
-        for(int i=0; i<item.length(); i++) {
-        	items = item.getJSONObject(i);
-        	String category = items.getString("category");
-        	String obsrValue = items.getString("obsrValue");
-        	
-        	
-        	System.out.print(category + " ");
-        	System.out.println(obsrValue);
-        	pubData.put(category, obsrValue);
-        	
+        if (response.has("body")) {
+            JSONObject body = response.getJSONObject("body");
+
+            // 나머지 코드
+            JSONObject items = body.getJSONObject("items");
+            JSONArray item = items.getJSONArray("item");
+
+            Map pubData = new HashMap();
+
+            for (int i = 0; i < item.length(); i++) {
+                items = item.getJSONObject(i);
+                String category = items.getString("category");
+                String obsrValue = items.getString("obsrValue");
+
+                System.out.print(category + " ");
+                System.out.println(obsrValue);
+                pubData.put(category, obsrValue);
+            }
+            mav.addObject("pubDate", pubData);
+        } else {
+            System.out.println("The 'body' key is not found in the JSON response.");
         }
         
-        mav.addObject("pubDate", pubData);
         mav.addObject("ReT", ReTradelist);
         mav.addObject("ReG", ReGallerylist);
         mav.addObject("center", "/WEB-INF/views/common/First.jsp");

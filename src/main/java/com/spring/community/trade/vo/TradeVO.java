@@ -16,7 +16,7 @@ public class TradeVO {
 				   writeDate, //작성일
 				   category; //카테고리
 	private String[] fileNames,
-						 fileRealNames;
+					 fileRealNames;
 				   
 	public TradeVO() {}
 

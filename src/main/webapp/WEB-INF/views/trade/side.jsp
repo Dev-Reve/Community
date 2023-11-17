@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${path}/resources/assets/css/side.css">
 </head>
 <body>
 	<h5 style="margin-bottom: -10px;">카테고리</h5>

@@ -294,7 +294,7 @@
 			            }
 			        }
 			        else {  // 일반 대화
-			        	chatWindow.innerHTML += "<div>" + sender + " <br><div class='chatBox'>" + content + "</div></div>";
+			        	chatWindow.innerHTML += "<div><img src='${path}/member/download.do?nickname=" + sender + "' style='border-radius: 50%; width: 30px; height: 30px; object-fit:cover;'>" + sender + " <br><div class='chatBox' style='margin-left:30px;'>" + content + "</div></div>";
 			        }
 			    }
 			    chatWindow.scrollTop = chatWindow.scrollHeight; 

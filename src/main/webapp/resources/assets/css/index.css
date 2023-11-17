@@ -4207,6 +4207,8 @@ textarea.form-control-lg {
 
 .card-body-footer {
   flex: 1 1 auto;
+  justify-content: center;
+  align-content: center;
   padding: 60, 60;
   color: var(--bs-card-color);
 }
@@ -4221,7 +4223,7 @@ textarea.form-control-lg {
   
 }
 .card-body1 img{
- 
+ 	height: 290px; 
   	width: 60%;
     margin: auto;
     display: block;

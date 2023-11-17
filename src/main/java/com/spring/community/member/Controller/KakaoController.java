@@ -42,7 +42,7 @@ public class KakaoController {
 	
 	@Autowired
 	MemberVO vo;
-	
+	 
 	@Autowired
 	MemberService service;
 	
@@ -113,11 +113,13 @@ public class KakaoController {
 		vo = service.selectMember(id); 
 		ModelAndView mav = new ModelAndView(); 
 		
+		HttpSession session = request.getSession();
+		session.setAttribute("access_token", oAuthToken.getAccess_token());
+		
 		if(vo != null) {
 			System.out.println("if문 탑승");
 			Map<String, Object> map = new HashMap<String, Object>();
  			service.kakaoLogin(vo);
- 			HttpSession session = request.getSession();
  			session.setAttribute("isLogOn", true);
  			session.setAttribute("member", vo);
  			session.setAttribute("isKakao", true);
@@ -125,7 +127,6 @@ public class KakaoController {
 			mav.setViewName("redirect:/main/index.do");
 		} else {
 			System.out.println("else문 탑승");
-			HttpSession session = request.getSession();
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("id", id);
 			map.put("name", kakaoInfo.getKakao_account().getName());
@@ -144,9 +145,7 @@ public class KakaoController {
 		ModelAndView mav = new ModelAndView();
 		
 		HttpSession session = request.getSession();
-		session.removeAttribute("isKakao");
-		session.removeAttribute("isLogOn");
-		session.removeAttribute("member");
+		session.invalidate();
 		
 		mav.setViewName("redirect:/main/index.do");
 		
